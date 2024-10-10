@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Connection;
 using FishNet.Object;
+using Unity.Mathematics;
 
-public class FishController : NetworkBehaviour
+public class CubeContrller : NetworkBehaviour
 {
     [Header("Base setup")]
     public float walkingSpeed = 7.5f;
@@ -26,7 +27,7 @@ public class FishController : NetworkBehaviour
     private float cameraYOffset = 0.4f;
     
     [Header("Camera")]
-    private Camera FishplayerCamera;
+    private Camera CubeplayerCamera;
     [SerializeField] private Transform cameraPosition;
     
     [Header("Animator Setup")]
@@ -37,23 +38,20 @@ public class FishController : NetworkBehaviour
         base.OnStartClient();
         if (base.IsOwner)
         {
-            FishplayerCamera = Camera.main;
-            FishplayerCamera.transform.position = cameraPosition.position;
-            FishplayerCamera.transform.SetParent(transform);
+            CubeplayerCamera = Camera.main;
+            CubeplayerCamera.transform.position = new Vector3(cameraPosition.position.x, cameraPosition.position.y, cameraPosition.position.z);
+            CubeplayerCamera.transform.rotation = cameraPosition.rotation; 
+            CubeplayerCamera.transform.SetParent(transform);
         }
         else
         {
-            gameObject.GetComponent<FishController>().enabled = false;
+            gameObject.GetComponent<CubeContrller>().enabled = false;
         }
     }
 
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
-        
-        //커서 보기
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     private void Update()
@@ -85,14 +83,5 @@ public class FishController : NetworkBehaviour
         }
         //움직임 컨트롤러
         characterController.Move(moveDirection * Time.deltaTime);
-
-        //카메라 방향
-        if (canMove && FishplayerCamera != null)
-        {
-            rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
-            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-            FishplayerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0,Input.GetAxis("Mouse X") * lookSpeed,0);
-        }
     }
 }
