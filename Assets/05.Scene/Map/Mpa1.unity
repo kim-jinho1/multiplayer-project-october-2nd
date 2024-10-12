@@ -1607,9 +1607,7 @@ MonoBehaviour:
   _playerPrefab: {fileID: 4858537433737902736, guid: b4ca58e0f9d109a4ea9dddb7a309aec0,
     type: 3}
   _addToDefaultScene: 1
-  Spawns:
-  - {fileID: 1181998292}
-  - {fileID: 343856078}
+  Spawns: []
 --- !u!1 &1269398013
 GameObject:
   m_ObjectHideFlags: 0
