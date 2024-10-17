@@ -53,8 +53,8 @@ public class MainMenuManager : MonoBehaviour
  
     public void JoinLobby()
     {
-        CSteamID steamID = new CSteamID(Convert.ToUInt64(lobbyInput.text));
-        BootstrapManager.JoinByID(steamID);
+            CSteamID steamID = new CSteamID(Convert.ToUInt64(lobbyInput.text));
+            BootstrapManager.JoinByID(steamID);
     }
  
     public void LeaveLobby()
@@ -66,6 +66,6 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()
     {
         string[] scenesToClose = new string[] { "MenuSceneSteam" };
-        BootstrapNetworkManager.ChangeNetworkScene("SteamGameScene", scenesToClose);
+        BootstrapNetworkManager.ChangeNetworkScene("Mpa1", scenesToClose);
     }
 }

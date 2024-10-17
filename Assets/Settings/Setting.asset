@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 242f29df75dec3d4cb1cbb74a477bee6, type: 3}
-  m_Name: New Steam Settings
+  m_Name: Setting
   m_EditorClassIdentifier: 
   applicationId:
-    m_AppId: 500
+    m_AppId: 480
   callbackTick_Milliseconds: 15
-  isDebugging: 1
+  isDebugging: 0
   server:
     autoInitialize: 0
     autoLogon: 0

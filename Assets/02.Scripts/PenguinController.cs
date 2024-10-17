@@ -1,11 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine;
 using FishNet.Connection;
 using FishNet.Object;
 
-public class FishController : NetworkBehaviour
+public class PenguinController : NetworkBehaviour
 {
     [Header("Base setup")]
     public float walkingSpeed = 7.5f;
@@ -26,7 +26,7 @@ public class FishController : NetworkBehaviour
     private float cameraYOffset = 0.4f;
     
     [Header("Camera")]
-    private Camera FishplayerCamera;
+    private Camera _penguinController;
     [SerializeField] private Transform cameraPosition;
     
     [Header("Animator Setup")]
@@ -37,13 +37,13 @@ public class FishController : NetworkBehaviour
         base.OnStartClient();
         if (base.IsOwner)
         {
-            FishplayerCamera = Camera.main;
-            FishplayerCamera.transform.position = cameraPosition.position;
-            FishplayerCamera.transform.SetParent(transform);
+            _penguinController = Camera.main;
+            _penguinController.transform.position = cameraPosition.position;
+            _penguinController.transform.SetParent(transform);
         }
         else
         {
-            gameObject.GetComponent<FishController>().enabled = false;
+            gameObject.GetComponent<PenguinController>().enabled = false;
         }
     }
 
@@ -87,11 +87,11 @@ public class FishController : NetworkBehaviour
         characterController.Move(moveDirection * Time.deltaTime);
 
         //카메라 방향
-        if (canMove && FishplayerCamera is not null)
+        if (canMove && _penguinController is not null)
         {
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-            FishplayerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            _penguinController.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0,Input.GetAxis("Mouse X") * lookSpeed,0);
         }
     }
