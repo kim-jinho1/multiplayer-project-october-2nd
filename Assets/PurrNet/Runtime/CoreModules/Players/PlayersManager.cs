@@ -78,7 +78,7 @@ namespace PurrNet.Modules
 
         private readonly Dictionary<string, PlayerID> _cookieToPlayerId = new Dictionary<string, PlayerID>();
         private readonly Dictionary<PlayerID, string> _playerIdToCookie = new Dictionary<PlayerID, string>();
-        private ushort _playerIdCounter;
+        private ulong _playerIdCounter;
 
         private readonly Dictionary<Connection, PlayerID>
             _connectionToPlayerId = new Dictionary<Connection, PlayerID>();
@@ -91,6 +91,8 @@ namespace PurrNet.Modules
         public IReadOnlyList<PlayerID> players => _players;
 
         public PlayerID? localPlayerId { get; private set; }
+
+        public NetworkID? lastNid { get; private set; }
 
         /// <summary>
         /// First callback for whne a new player has joined
@@ -360,6 +362,7 @@ namespace PurrNet.Modules
         private void OnClientLoginResponse(Connection conn, ServerLoginResponse data, bool asServer)
         {
             localPlayerId = data.playerId;
+            lastNid = data.lastNidId;
             onLocalPlayerReceivedID?.Invoke(data.playerId);
             onNetworkIDReceived?.Invoke(data.lastNidId);
         }

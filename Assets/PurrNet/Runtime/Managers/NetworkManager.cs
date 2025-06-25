@@ -4,6 +4,7 @@ using UnityEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using JetBrains.Annotations;
 using PurrNet.Authentication;
 using PurrNet.Logging;
@@ -18,40 +19,6 @@ using UnityEngine.SceneManagement;
 
 namespace PurrNet
 {
-    [Flags]
-    public enum StartFlags
-    {
-        /// <summary>
-        /// No flags.
-        /// </summary>
-        None = 0,
-
-        /// <summary>
-        /// The server should start in the editor.
-        /// </summary>
-        Editor = 1,
-
-        /// <summary>
-        /// The client should start in the editor.
-        /// A clone is an editor instance that is not the main editor instance.
-        /// For example when you use ParrelSync or other tools that create a clone of the editor.
-        /// </summary>
-        Clone = 2,
-
-        /// <summary>
-        /// A client build.
-        /// It is a build that doesn't contain the UNITY_SERVER define.
-        /// </summary>
-        ClientBuild = 4,
-
-        /// <summary>
-        /// A server build.
-        /// It is a build that contains the UNITY_SERVER define.
-        /// The define is added automatically when doing a server build.
-        /// </summary>
-        ServerBuild = 8
-    }
-
     [DefaultExecutionOrder(-999)]
     public sealed partial class NetworkManager : MonoBehaviour
     {
@@ -88,6 +55,9 @@ namespace PurrNet
 
         [PurrDocs("systems-and-modules/network-manager/network-prefabs")] [SerializeField]
         private NetworkPrefabs _networkPrefabs;
+
+        [PurrDocs("systems-and-modules/network-manager/network-assets")] [SerializeField]
+        private NetworkAssets _networkAssets;
 
         [PurrDocs("systems-and-modules/network-manager/network-rules")] [SerializeField]
         private NetworkRules _networkRules;
@@ -148,6 +118,11 @@ namespace PurrNet
         }
 
         /// <summary>
+        /// The Network Assets of the network manager.
+        /// </summary>
+        public NetworkAssets networkAssets => _networkAssets;
+
+        /// <summary>
         /// The prefab provider of the network manager.
         /// </summary>
         public IPrefabProvider prefabProvider { get; private set; }
@@ -174,6 +149,16 @@ namespace PurrNet
         /// Occurs when the client connection state changes.
         /// </summary>
         public event Action<ConnectionState> onClientConnectionState;
+
+        /// <summary>
+        /// Occurs when the server connection state changes.
+        /// </summary>
+        public static event Action<ConnectionState> onAnyServerConnectionState;
+
+        /// <summary>
+        /// Occurs when the client connection state changes.
+        /// </summary>
+        public static event  Action<ConnectionState> onAnyClientConnectionState;
 
         /// <summary>
         /// The transport of the network manager.
@@ -262,6 +247,9 @@ namespace PurrNet
         /// </summary>
         public bool isServer => _transport && _transport.transport.listenerState == ConnectionState.Connected;
 
+        [UsedByIL]
+        public static bool isServerStatic => main && main.isServer;
+
         /// <summary>
         /// Whether the network manager is a client.
         /// </summary>
@@ -333,7 +321,11 @@ namespace PurrNet
                 return;
             }
 
+            if (prefabProvider == provider)
+                return;
+
             prefabProvider = provider;
+            prefabProvider.Refresh();
         }
 
         /// <summary>
@@ -376,16 +368,28 @@ namespace PurrNet
 
             foreach (var assembly in allAssemblies)
             {
-                var types = assembly.GetTypes();
+                Type[] types;
+
+                try
+                {
+                    types = assembly.GetTypes();
+                }
+                catch (ReflectionTypeLoadException ex)
+                {
+                    types = ex.Types;
+                }
 
                 foreach (var type in types)
                 {
+                    if (type == null)
+                        continue;
+
                     if (!type.IsAbstract || !type.IsSealed)
                         continue;
 
-                    var methods = type.GetMethods(System.Reflection.BindingFlags.Static |
-                                                  System.Reflection.BindingFlags.Public |
-                                                  System.Reflection.BindingFlags.NonPublic);
+                    var methods = type.GetMethods(BindingFlags.Static |
+                                                  BindingFlags.Public |
+                                                  BindingFlags.NonPublic);
 
                     foreach (var method in methods)
                     {
@@ -524,11 +528,11 @@ namespace PurrNet
 
             if (_networkPrefabs)
             {
-                if (prefabProvider == null)
-                    SetPrefabProvider(_networkPrefabs);
-
                 if (_networkPrefabs.autoGenerate)
                     _networkPrefabs.Generate();
+
+                if (prefabProvider == null)
+                    SetPrefabProvider(_networkPrefabs);
             }
 
             if (!_subscribed)
@@ -682,6 +686,8 @@ namespace PurrNet
         /// </summary>
         public ScenePlayersModule scenePlayersModule => _serverScenePlayersModule ?? _clientScenePlayersModule;
 
+        public DeltaModule deltaModule => _serverDeltaModule ?? _clientDeltaModule;
+
         /// <summary>
         /// The local player of the network manager.
         /// If the local player is not set, this will return the default value of the player id.
@@ -704,6 +710,9 @@ namespace PurrNet
 
         private ScenePlayersModule _clientScenePlayersModule;
         private ScenePlayersModule _serverScenePlayersModule;
+
+        private DeltaModule _clientDeltaModule;
+        private DeltaModule _serverDeltaModule;
 
         public delegate void OnTickDelegate(bool asServer);
 
@@ -911,6 +920,10 @@ namespace PurrNet
                 _clientScenePlayersModule.onPlayerLeftScene += OnPlayerLeftScene;
             }
 
+            var newDeltaModule = new DeltaModule(playersManager, playersBroadcast);
+            if (asServer) _serverDeltaModule = newDeltaModule;
+            else _clientDeltaModule = newDeltaModule;
+
             scenesModule.SetScenePlayers(scenePlayers);
             playersManager.SetBroadcaster(playersBroadcast);
 
@@ -920,6 +933,7 @@ namespace PurrNet
             modules.AddModule(connBroadcaster);
             modules.AddModule(authModule);
             modules.AddModule(networkCookies);
+            modules.AddModule(newDeltaModule);
 
             modules.AddModule(scenesModule);
             modules.AddModule(scenePlayers);
@@ -927,22 +941,15 @@ namespace PurrNet
             var hierarchyV2 = new HierarchyFactory(this, scenesModule, scenePlayers, playersManager);
             var ownershipModule = new GlobalOwnershipModule(hierarchyV2, playersManager, scenePlayers, scenesModule);
             var rpcModule = new RPCModule(this, playersManager, hierarchyV2, ownershipModule, scenesModule);
+            var networkTransform = new NetworkTransformFactory(scenesModule, scenePlayers, playersBroadcast, this, hierarchyV2);
+            var colliderRollback = new ColliderRollbackFactory(tickManager, scenesModule);
 
+            modules.AddModule(networkTransform);
             modules.AddModule(hierarchyV2);
             modules.AddModule(ownershipModule);
             modules.AddModule(rpcModule);
             modules.AddModule(new RpcRequestResponseModule(playersManager));
-
-            var networkTransform =
-                new NetworkTransformFactory(scenesModule, scenePlayers, playersManager, playersBroadcast, this, hierarchyV2);
-            var colliderRollback = new ColliderRollbackFactory(tickManager, scenesModule);
-
-            modules.AddModule(networkTransform);
             modules.AddModule(colliderRollback);
-
-            var deltaMessager = new DeltaMessagerFactory(scenesModule, scenePlayers , playersBroadcast);
-
-            modules.AddModule(deltaMessager);
 
             RenewSubscriptions(asServer);
         }
@@ -982,10 +989,25 @@ namespace PurrNet
             bool shouldStartClient = transport && ShouldStart(_startClientFlags);
 
             if (shouldStartServer)
+            {
+#if !UNITY_EDITOR
+                PurrLogger.Log("Auto-Starting server...");
+#endif
+                if (ApplicationContext.isServerBuild)
+                {
+                    QualitySettings.vSyncCount = 0;
+                    Application.targetFrameRate = _tickRate;
+                }
                 StartServer();
+            }
 
             if (shouldStartClient)
+            {
+#if !UNITY_EDITOR
+                PurrLogger.Log("Auto-Starting client...");
+#endif
                 StartClient();
+            }
         }
 
         private void Update()
@@ -1235,7 +1257,7 @@ namespace PurrNet
 
         IEnumerator StartClientCoroutine()
         {
-            while (serverState is ConnectionState.Connecting)
+            while (serverState is ConnectionState.Disconnecting or ConnectionState.Connecting)
                 yield return null;
 
             _transport.StartClient(this);
@@ -1277,8 +1299,17 @@ namespace PurrNet
         private void OnConnectionState(ConnectionState state, bool asServer)
         {
             if (asServer)
+            {
+                _serverModules.OnConnectionState(state, true);
                 onServerConnectionState?.Invoke(state);
-            else onClientConnectionState?.Invoke(state);
+                onAnyServerConnectionState?.Invoke(state);
+            }
+            else
+            {
+                _clientModules.OnConnectionState(state, false);
+                onClientConnectionState?.Invoke(state);
+                onAnyClientConnectionState?.Invoke(state);
+            }
 
             if (state == ConnectionState.Disconnected)
             {

@@ -1,3 +1,4 @@
+#if UNITY_MONO_CECIL
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -571,6 +572,38 @@ namespace PurrNet.Codegen
                 return;
             }
 
+            // if it inherits from a class, write/read the base class
+            if (isClass && type.BaseType != null && type.BaseType.FullName != typeof(object).FullName)
+            {
+                var baseType = type.BaseType;
+
+                if (baseType is { IsValueType: false })
+                {
+                    var genericM = CreateGenericMethod(packerType, baseType, serialize, mainmodule);
+
+                    if (isWriting)
+                    {
+                        il.Emit(OpCodes.Ldarg_0);
+                        il.Emit(OpCodes.Ldarg_1);
+                    }
+                    else
+                    {
+                        var variable = new VariableDefinition(baseType);
+                        method.Body.Variables.Add(variable);
+
+                        // variable = this
+                        il.Emit(OpCodes.Ldarg_1);
+                        il.Emit(OpCodes.Ldind_Ref);
+                        il.Emit(OpCodes.Stloc, variable);
+
+                        il.Emit(OpCodes.Ldarg_0);
+                        il.Emit(OpCodes.Ldloca, variable);
+                    }
+
+                    il.Emit(OpCodes.Call, genericM);
+                }
+            }
+
             foreach (var field in type.Fields)
             {
                 if (field.IsStatic)
@@ -579,6 +612,12 @@ namespace PurrNet.Codegen
                 bool isDelegate = PostProcessor.InheritsFrom(field.FieldType.Resolve(), typeof(Delegate).FullName);
 
                 if (isDelegate)
+                    continue;
+
+                bool ignore = field.CustomAttributes.Any(a =>
+                    a.AttributeType.FullName == typeof(DontPackAttribute).FullName);
+
+                if (ignore)
                     continue;
 
                 var fieldType = ResolveGenericFieldType(field, typeRef);
@@ -901,7 +940,7 @@ namespace PurrNet.Codegen
             return valueField?.FieldType;
         }
 
-        private static void EmitStindForEnum(ILProcessor il, TypeDefinition enumType)
+        public static void EmitStindForEnum(ILProcessor il, TypeDefinition enumType)
         {
             if (!enumType.IsEnum)
             {
@@ -946,3 +985,5 @@ namespace PurrNet.Codegen
         }
     }
 }
+
+#endif

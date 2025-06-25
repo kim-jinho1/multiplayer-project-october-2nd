@@ -94,6 +94,14 @@ namespace PurrNet
 
         public bool isSetup => _isSetup;
 
+        /// <summary>
+        /// Used for internal cleanup, avoid using this.
+        /// </summary>
+        public void ResetIsSetup()
+        {
+            _isSetup = false;
+        }
+
         public void PreparePrefabInfo(int prefabId, int componentIndex, bool shouldBePooled, bool isSceneObject)
         {
             _isSetup = true;
@@ -257,9 +265,23 @@ namespace PurrNet
             return asServer;
         }
 
-        public bool hasConnectedOwner => networkManager && owner.HasValue &&
-                                         networkManager.TryGetModule<PlayersManager>(isServer, out var module) &&
-                                         module.IsPlayerConnected(owner.Value);
+        public bool hasConnectedOwner
+        {
+            get
+            {
+                if (!owner.HasValue || !isSpawned)
+                    return false;
+
+                if (isServer)
+                {
+                    return networkManager.TryGetModule<ScenePlayersModule>(true, out var scenesModule) &&
+                           scenesModule.IsPlayerLoadedInScene(owner.Value, sceneId);
+                }
+
+                return networkManager.TryGetModule<PlayersManager>(false, out var module) &&
+                       module.IsPlayerConnected(owner.Value);
+            }
+        }
 
         internal PlayerID? internalOwnerServer;
         internal PlayerID? internalOwnerClient;
@@ -278,10 +300,9 @@ namespace PurrNet
         /// It will return the owner of the closest parent object.
         /// If you can, cache this value for performance.
         /// </summary>
-        public PlayerID? owner => internalOwnerServer ?? internalOwnerClient;
+        public PlayerID? owner => isServer ? internalOwnerServer : internalOwnerClient;
 
         public NetworkManager networkManager { get; private set; }
-        public DeltaMessagerModule deltaMessager { get; private set; }
 
         private HierarchyV2 _clientHierarchy;
         private HierarchyV2 _serverHierarchy;
@@ -477,6 +498,7 @@ namespace PurrNet
 
         private void ClientTick()
         {
+            InternalTick();
             _ticker?.OnTick(_clientTickManager.tickDelta);
 
             for (var i = 0; i < _tickables.Count; i++)
@@ -490,12 +512,22 @@ namespace PurrNet
         {
             if (!isClient)
             {
+                InternalTick();
                 _ticker?.OnTick(_serverTickManager.tickDelta);
                 for (var i = 0; i < _tickables.Count; i++)
                 {
                     var ticker = _tickables[i];
                     ticker.OnTick(_serverTickManager.tickDelta);
                 }
+            }
+        }
+
+        private void InternalTick()
+        {
+            if (_whiteBlackDirty)
+            {
+                _whiteBlackDirty = false;
+                EvaluateVisibility();
             }
         }
 
@@ -577,6 +609,17 @@ namespace PurrNet
         }
 
         /// <summary>
+        /// Called when the owner of this object changes.
+        /// </summary>
+        /// <param name="oldOwner">The old owner of this object</param>
+        /// <param name="newOwner">The new owner of this object</param>
+        /// <param name="isSpawnEvent">If this object was just spawned and the newOwner is the spawner</param>
+        /// <param name="asServer">Is this on the server</param>
+        protected virtual void OnOwnerChanged(PlayerID? oldOwner, PlayerID? newOwner, bool isSpawnEvent, bool asServer)
+        {
+        }
+
+        /// <summary>
         /// Called when the owner of this object disconnects.
         /// Server only.
         /// </summary>
@@ -608,15 +651,27 @@ namespace PurrNet
         /// Server only.
         /// </summary>
         /// <param name="player">The observer player id</param>
+        /// <param name="isSpawner">If this object was just spawned and the observer is the spawner</param>
+        protected virtual void OnPreObserverAdded(PlayerID player, bool isSpawner)
+        {
+        }
+
+        /// <summary>
+        /// Called when an observer is added.
+        /// Server only.
+        /// </summary>
+        /// <param name="player">The observer player id</param>
         protected virtual void OnObserverAdded(PlayerID player)
         {
         }
 
         /// <summary>
-        /// Same as OnObserverAdded but called after all other observers have been added.
+        /// Called when an observer is added.
+        /// Server only.
         /// </summary>
         /// <param name="player">The observer player id</param>
-        protected virtual void OnLateObserverAdded(PlayerID player)
+        /// <param name="isSpawner">If this object was just spawned and the observer is the spawner</param>
+        protected virtual void OnObserverAdded(PlayerID player, bool isSpawner)
         {
         }
 
@@ -725,7 +780,6 @@ namespace PurrNet
             _ticker = null;
             isInPool = true;
             _wasEarlySpawned = false;
-            deltaMessager = null;
         }
 
         private void OnChildDespawned(NetworkIdentity networkIdentity)
@@ -740,12 +794,6 @@ namespace PurrNet
             layer = gameObject.layer;
             networkManager = manager;
             sceneId = scene;
-
-            if (deltaMessager == null && manager.TryGetModule<DeltaMessagerFactory>(asServer, out var factory) &&
-                factory.TryGetModule(scene, out var dm))
-            {
-                deltaMessager = dm;
-            }
 
             bool wasAlreadySpawned = isSpawned;
 
@@ -813,7 +861,7 @@ namespace PurrNet
         {
             if (!networkManager)
                 return;
-            GiveOwnershipInternal(player, silent);
+            GiveOwnershipInternal(player, silent, false);
         }
 
         /// <summary>
@@ -930,7 +978,7 @@ namespace PurrNet
             GiveOwnership(player.Value, silent);
         }
 
-        private void GiveOwnershipInternal(PlayerID player, bool silent = false)
+        internal void GiveOwnershipInternal(PlayerID player, bool silent, bool isSpawner)
         {
             if (!networkManager)
             {
@@ -941,7 +989,7 @@ namespace PurrNet
 
             if (networkManager.TryGetModule(networkManager.isServer, out GlobalOwnershipModule module))
             {
-                module.GiveOwnership(this, player, silent: silent);
+                module.GiveOwnership(this, player, silent: silent, isSpawner: isSpawner);
             }
             else if (!silent) PurrLogger.LogError("Failed to get ownership module.", this);
         }
@@ -977,20 +1025,53 @@ namespace PurrNet
         internal void TriggerSpawnEvent(bool asServer)
         {
             InternalOnSpawn(asServer);
-            OnSpawned(asServer);
+
+            try
+            {
+                OnSpawned(asServer);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
 
             for (int i = 0; i < _externalModulesView.Count; i++)
-                _externalModulesView[i].OnSpawn(asServer);
+            {
+                try
+                {
+                    _externalModulesView[i].OnSpawn(asServer);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
 
             if (_spawnedCount == 0)
             {
                 while (_onSpawnedQueue is { Count: > 0 })
                     _onSpawnedQueue.Dequeue().Invoke();
 
-                OnSpawned();
+                try
+                {
+                    OnSpawned();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
 
                 for (int i = 0; i < _externalModulesView.Count; i++)
-                    _externalModulesView[i].OnSpawn();
+                {
+                    try
+                    {
+                        _externalModulesView[i].OnSpawn();
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogException(e);
+                    }
+                }
             }
 
             _spawnedCount++;
@@ -998,17 +1079,49 @@ namespace PurrNet
 
         internal void TriggerEarlySpawnEvent(bool asServer)
         {
-            OnEarlySpawn(asServer);
+            try
+            {
+                OnEarlySpawn(asServer);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
 
             for (int i = 0; i < _externalModulesView.Count; i++)
-                _externalModulesView[i].OnEarlySpawn(asServer);
+            {
+                try
+                {
+                    _externalModulesView[i].OnEarlySpawn(asServer);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
 
             if (!_wasEarlySpawned)
             {
-                OnEarlySpawn();
+                try
+                {
+                    OnEarlySpawn();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
 
                 for (int i = 0; i < _externalModulesView.Count; i++)
-                    _externalModulesView[i].OnEarlySpawn();
+                {
+                    try
+                    {
+                        _externalModulesView[i].OnEarlySpawn();
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogException(e);
+                    }
+                }
 
                 _wasEarlySpawned = true;
             }
@@ -1023,17 +1136,49 @@ namespace PurrNet
             --_spawnedCount;
             _wasEarlySpawned = false;
 
-            OnDespawned(asServer);
+            try
+            {
+                OnDespawned(asServer);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
 
             for (int i = 0; i < _externalModulesView.Count; i++)
-                _externalModulesView[i].OnDespawned(asServer);
+            {
+                try
+                {
+                    _externalModulesView[i].OnDespawned(asServer);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
 
             if (_spawnedCount == 0)
             {
-                OnDespawned();
+                try
+                {
+                    OnDespawned();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
 
                 for (int i = 0; i < _externalModulesView.Count; i++)
-                    _externalModulesView[i].OnDespawned();
+                {
+                    try
+                    {
+                        _externalModulesView[i].OnDespawned();
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogException(e);
+                    }
+                }
             }
 
             if (asServer)
@@ -1047,50 +1192,155 @@ namespace PurrNet
             }
         }
 
-        internal void TriggerOnOwnerChanged(PlayerID? oldOwner, PlayerID? newOwner, bool asServer)
+        internal void TriggerOnOwnerChanged(PlayerID? oldOwner, PlayerID? newOwner, bool asServer, bool isSpawner)
         {
-            OnOwnerChanged(oldOwner, newOwner, asServer);
+            try
+            {
+                OnOwnerChanged(oldOwner, newOwner, asServer);
+                OnOwnerChanged(oldOwner, newOwner, isSpawner, asServer);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
 
             for (int i = 0; i < _externalModulesView.Count; i++)
-                _externalModulesView[i].OnOwnerChanged(oldOwner, newOwner, asServer);
+            {
+                try
+                {
+                    _externalModulesView[i].OnOwnerChanged(oldOwner, newOwner, asServer);
+                    _externalModulesView[i].OnOwnerChanged(oldOwner, newOwner, isSpawner, asServer);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
         }
 
         internal void TriggerOnOwnerDisconnected(PlayerID ownerId)
         {
-            OnOwnerDisconnected(ownerId);
+            try
+            {
+                OnOwnerDisconnected(ownerId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
 
             for (int i = 0; i < _externalModulesView.Count; i++)
-                _externalModulesView[i].OnOwnerDisconnected(ownerId);
+            {
+                try
+                {
+                    _externalModulesView[i].OnOwnerDisconnected(ownerId);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
         }
 
         internal void TriggerOnOwnerReconnected(PlayerID ownerId, bool asServer)
         {
-            OnOwnerReconnected(ownerId);
+            try
+            {
+                OnOwnerReconnected(ownerId);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
 
             for (int i = 0; i < _externalModulesView.Count; i++)
-                _externalModulesView[i].OnOwnerReconnected(ownerId);
+            {
+                try
+                {
+                    _externalModulesView[i].OnOwnerReconnected(ownerId);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
         }
 
-        public void TriggerOnPreObserverAdded(PlayerID target)
+        public void TriggerOnPreObserverAdded(PlayerID target, bool isSpawner)
         {
-            OnPreObserverAdded(target);
+            try
+            {
+                OnPreObserverAdded(target);
+                OnPreObserverAdded(target, isSpawner);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+
             for (int i = 0; i < _externalModulesView.Count; i++)
-                _externalModulesView[i].OnPreObserverAdded(target);
+            {
+                try
+                {
+                    _externalModulesView[i].OnPreObserverAdded(target);
+                    _externalModulesView[i].OnPreObserverAdded(target, isSpawner);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
         }
 
-        public void TriggerOnObserverAdded(PlayerID target)
+        public void TriggerOnObserverAdded(PlayerID target, bool isSpawner)
         {
-            OnObserverAdded(target);
+            try
+            {
+                OnObserverAdded(target);
+                OnObserverAdded(target, isSpawner);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+
             for (int i = 0; i < _externalModulesView.Count; i++)
-                _externalModulesView[i].OnObserverAdded(target);
+            {
+                try
+                {
+                    _externalModulesView[i].OnObserverAdded(target);
+                    _externalModulesView[i].OnObserverAdded(target, isSpawner);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
             onObserverAdded?.Invoke(target);
         }
 
         public void TriggerOnObserverRemoved(PlayerID target)
         {
-            OnObserverRemoved(target);
+            try
+            {
+                OnObserverRemoved(target);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+
             for (int i = 0; i < _externalModulesView.Count; i++)
-                _externalModulesView[i].OnObserverRemoved(target);
+            {
+                try
+                {
+                    _externalModulesView[i].OnObserverRemoved(target);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                }
+            }
             onObserverRemoved?.Invoke(target);
         }
 

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+#if UNITASK_PURRNET_SUPPORT
 using Cysharp.Threading.Tasks;
+#endif
 using JetBrains.Annotations;
 using PurrNet.Logging;
 using PurrNet.Modules;
@@ -12,6 +14,13 @@ using PurrNet.Transports;
 using PurrNet.Utils;
 using UnityEngine.Scripting;
 using Channel = PurrNet.Transports.Channel;
+
+#if !UNITASK_PURRNET_SUPPORT
+using RawTask = System.Threading.Tasks.Task;
+#else
+using RawTask = Cysharp.Threading.Tasks.UniTask;
+#endif
+
 
 namespace PurrNet
 {
@@ -94,7 +103,22 @@ namespace PurrNet
                 return null;
             }
 
-            return gmethod.Invoke(this, rpcHeader.values);
+            try
+            {
+                return gmethod.Invoke(this, rpcHeader.values);
+            }
+            catch (TargetInvocationException e)
+            {
+                var actualException = e.InnerException;
+
+                if (actualException != null)
+                {
+                    PurrLogger.LogException(actualException);
+                    throw BypassLoggingException.instance;
+                }
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -130,13 +154,13 @@ namespace PurrNet
         }
 
         [UsedByIL]
-        public UniTask GetNextIdUniTask(RPCType rpcType, PlayerID? target, float timeout, out RpcRequest request)
+        public RawTask GetNextIdUniTask(RPCType rpcType, PlayerID? target, float timeout, out RpcRequest request)
         {
             request = default;
 
             if (!networkManager)
             {
-                return UniTask.FromException(new InvalidOperationException(
+                return RawTask.FromException(new InvalidOperationException(
                     "NetworkIdentity is not spawned."));
             }
 
@@ -150,7 +174,7 @@ namespace PurrNet
 
             if (!networkManager.TryGetModule<RpcRequestResponseModule>(asServer, out var module))
             {
-                return UniTask.FromException(new InvalidOperationException(
+                return RawTask.FromException(new InvalidOperationException(
                     "RpcRequestResponseModule module is missing."));
             }
 
@@ -158,13 +182,18 @@ namespace PurrNet
         }
 
         [UsedByIL]
-        public UniTask<T> GetNextIdUniTask<T>(RPCType rpcType, PlayerID? target, float timeout, out RpcRequest request)
+#if !UNITASK_PURRNET_SUPPORT
+        public Task<T>
+#else
+        public UniTask<T>
+#endif
+            GetNextIdUniTask<T>(RPCType rpcType, PlayerID? target, float timeout, out RpcRequest request)
         {
             request = default;
 
             if (!networkManager)
             {
-                return UniTask.FromException<T>(new InvalidOperationException(
+                return RawTask.FromException<T>(new InvalidOperationException(
                     "NetworkIdentity is not spawned."));
             }
 
@@ -178,7 +207,7 @@ namespace PurrNet
 
             if (!networkManager.TryGetModule<RpcRequestResponseModule>(asServer, out var module))
             {
-                return UniTask.FromException<T>(new InvalidOperationException(
+                return RawTask.FromException<T>(new InvalidOperationException(
                     "RpcRequestResponseModule module is missing."));
             }
 
@@ -230,14 +259,14 @@ namespace PurrNet
             if (!isSpawned)
             {
                 if (signature is { runLocally: false, channel: Channel.ReliableOrdered or Channel.ReliableUnordered })
-                    PurrLogger.LogError($"Trying to send RPC from '{GetType().Name}' which is not spawned.", this);
+                    PurrLogger.LogError($"Trying to send RPC `{signature.rpcName}` from '{GetType().Name}' which is not spawned.", this);
                 return;
             }
 
             if (!networkManager.TryGetModule<RPCModule>(networkManager.isServer, out var module))
             {
                 if (signature is { runLocally: false, channel: Channel.ReliableOrdered or Channel.ReliableUnordered })
-                    PurrLogger.LogError("Failed to get RPC module.", this);
+                    PurrLogger.LogError($"Trying to send RPC `{signature.rpcName}` from `{GetType().Name}` but RPCModule is missing for `{(networkManager.isServer ? "server" : "client")}`.", this);
                 return;
             }
 
@@ -297,7 +326,11 @@ namespace PurrNet
 #endif
                     if (isServer)
                         SendToTarget(signature.targetPlayer!.Value, packet, signature.channel);
-                    else SendToServer(packet, signature.channel);
+                    else
+                    {
+                        packet.targetPlayerId = signature.targetPlayer!.Value;
+                        SendToServer(packet, signature.channel);
+                    }
                     break;
                 default: throw new ArgumentOutOfRangeException();
             }
@@ -340,6 +373,9 @@ namespace PurrNet
         {
             var rules = networkManager.networkRules;
             bool shouldIgnoreOwnership = rules && rules.ShouldIgnoreRequireOwner();
+
+            if (!networkManager.TryGetModule<RPCModule>(networkManager.isServer, out var module))
+                return false;
 
             if (!shouldIgnoreOwnership && signature.requireOwnership && info.sender != owner)
                 return false;
@@ -403,12 +439,14 @@ namespace PurrNet
                 {
                     var rawData = BroadcastModule.GetImmediateData(data);
                     SendToObservers(rawData, predicate, signature.channel);
+                    AppendToBufferedRPCs(signature, data, module);
                     return !isClient;
                 }
                 case RPCType.TargetRPC:
                 {
                     var rawData = BroadcastModule.GetImmediateData(data);
-                    SendToTarget(data.senderPlayerId, rawData, signature.channel);
+                    SendToTarget(data.targetPlayerId, rawData, signature.channel);
+                    AppendToBufferedRPCs(signature, data, module);
                     return false;
                 }
                 default: throw new ArgumentOutOfRangeException(nameof(signature.type));
@@ -420,6 +458,19 @@ namespace PurrNet
                     return false;
 
                 return !signature.excludeOwner || IsNotOwnerPredicate(player);
+            }
+        }
+
+        private static void AppendToBufferedRPCs(RPCSignature signature, IRpc data, RPCModule module)
+        {
+            switch (data)
+            {
+                case RPCPacket rpcPacket:
+                    module.AppendToBufferedRPCs(rpcPacket, signature);
+                    break;
+                case ChildRPCPacket childRpcPacket:
+                    module.AppendToBufferedRPCs(childRpcPacket, signature);
+                    break;
             }
         }
 

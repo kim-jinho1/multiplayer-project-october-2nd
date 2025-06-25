@@ -253,47 +253,59 @@ namespace PurrNet.Modules
                 return;
 
             foreach (var go in _toDestroy)
+            {
                 if (go)
-                    UnityProxy.DestroyDirectly(go);
+                    UnityProxy.DestroyImmediateDirectly(go);
+            }
 
             _toDestroy.Clear();
         }
 
         private static bool TryGetFromPool(PoolPair pair, PrefabPieceID pid, out GameObject instance)
         {
-            var pool = pid.prefabId >= 0 ? pair.prefabPool : pair.scenePool;
-
-            if (!pool._pool.TryGetValue(pid, out var queue))
+            while (true)
             {
-                pool.Warmup(pid);
+                var pool = pid.prefabId >= 0 ? pair.prefabPool : pair.scenePool;
 
-                if (!pool._pool.TryGetValue(pid, out queue))
+                if (!pool._pool.TryGetValue(pid, out var queue))
                 {
-                    instance = null;
-                    return false;
-                }
-            }
+                    pool.Warmup(pid);
 
-            if (queue.Count == 0)
-            {
-                pool.Warmup(pid);
+                    if (!pool._pool.TryGetValue(pid, out queue))
+                    {
+                        instance = null;
+                        return false;
+                    }
+                }
 
                 if (queue.Count == 0)
                 {
-                    instance = null;
-                    return false;
+                    pool.Warmup(pid);
+
+                    if (queue.Count == 0)
+                    {
+                        instance = null;
+                        return false;
+                    }
                 }
+
+                while (queue.Count > 0)
+                {
+                    if (queue.TryDequeue(out instance) && instance)
+                    {
+                        pool._toDestroy.Remove(instance);
+                        return true;
+                    }
+                }
+
+                if (queue.Count == 0)
+                {
+                    continue;
+                }
+
+                instance = null;
+                return false;
             }
-
-
-            if (queue.TryDequeue(out instance))
-            {
-                pool._toDestroy.Remove(instance);
-                return true;
-            }
-
-            instance = null;
-            return false;
         }
 
         private void Warmup(PrefabPieceID pid)
@@ -333,7 +345,7 @@ namespace PurrNet.Modules
             {
                 var child = children[i];
                 createdNids?.Add(child);
-                child.SetID(new NetworkID(baseNid, (uint)i));
+                child.SetID(new NetworkID(baseNid, (ulong)i));
             }
 
             ListPool<NetworkIdentity>.Destroy(children);
@@ -474,7 +486,7 @@ namespace PurrNet.Modules
                     return false;
                 }
 
-                return TryBuildPrototypeHelper(pair, prototype, createdNids, null, 0, 1, out result,
+                return TryBuildPrototypeHelper(pair, prototype, createdNids, null, 0, out result,
                     out shouldBeActive);
             }
             catch
@@ -496,8 +508,7 @@ namespace PurrNet.Modules
         }
 
         private static bool TryBuildPrototypeHelper(PoolPair pair, GameObjectPrototype prototype,
-            List<NetworkIdentity> createdNids, Transform parent, int currentIdx,
-            int childrenStartIdx, out GameObject result, out bool shouldBeActive)
+            List<NetworkIdentity> createdNids, Transform parent, int currentIdx, out GameObject result, out bool shouldBeActive)
         {
             var framework = prototype.framework;
             var current = framework[currentIdx];
@@ -511,10 +522,8 @@ namespace PurrNet.Modules
             }
 
             var trs = instance.transform;
-
             var siblings = ListPool<NetworkIdentity>.Instantiate();
             instance.GetComponents(siblings);
-
             var nid = siblings.Count > 0 ? siblings[0] : null;
 
             shouldBeActive = current.isActive;
@@ -542,30 +551,28 @@ namespace PurrNet.Modules
                 }
             }
 
-            var nextChildIdx = childrenStartIdx + childCount;
-
             if (nid)
                 nid.ClearDirectChildren();
 
+            int childScopeStart = 1;
+
+            for (int i = 0; i < currentIdx; ++i)
+                childScopeStart += framework[i].childCount;
+
+            // Process each child in sequence - children start after all siblings
             for (var j = 0; j < childCount; j++)
             {
-                var childIdx = childrenStartIdx + j;
-                var child = framework[childIdx];
-
                 TryBuildPrototypeHelper(
                     pair,
                     prototype,
                     createdNids,
                     trs,
-                    childIdx,
-                    nextChildIdx,
+                    childScopeStart + j,
                     out var childGo,
                     out _);
 
                 if (nid && childGo && childGo.TryGetComponent<NetworkIdentity>(out var childNid))
                     nid.AddDirectChild(childNid);
-
-                nextChildIdx += child.childCount;
             }
 
             result = instance;

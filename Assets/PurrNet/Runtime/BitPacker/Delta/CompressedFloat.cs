@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using UnityEngine;
 
 namespace PurrNet.Packing
 {
+    [System.Serializable]
     public struct CompressedFloat : IEquatable<CompressedFloat>
     {
         public const float PRECISION = 0.001f;
@@ -12,6 +14,11 @@ namespace PurrNet.Packing
         public CompressedFloat(float value)
         {
             this.value = value;
+        }
+
+        public override string ToString()
+        {
+            return value.ToString(CultureInfo.InvariantCulture);
         }
 
         public static implicit operator CompressedFloat(float value) => new CompressedFloat(value);

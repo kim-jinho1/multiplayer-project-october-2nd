@@ -44,10 +44,14 @@ namespace PurrNet
     }
 
     [Serializable]
-    public class SyncList<T> : NetworkModule, IList<T>
+    public class SyncList<T> : NetworkModule, IList<T>, ITick
     {
         [SerializeField] private bool _ownerAuth;
+        [SerializeField, Min(0)] private float _sendIntervalInSeconds;
         [SerializeField] private List<T> _list = new List<T>();
+
+        public List<T> list => _list;
+        public List<T> ToList() => _list;
 
         public delegate void SyncListChanged<TYPE>(SyncListChange<TYPE> change);
 
@@ -61,6 +65,12 @@ namespace PurrNet
         /// </summary>
         public bool ownerAuth => _ownerAuth;
 
+        public float sendIntervalInSeconds
+        {
+            get => _sendIntervalInSeconds;
+            set => _sendIntervalInSeconds = value;
+        }
+
         /// <summary>
         /// The amount of entries in the list
         /// </summary>
@@ -68,8 +78,19 @@ namespace PurrNet
 
         public bool IsReadOnly => false;
 
+        private List<SyncListChange<T>> _pendingChanges = new();
+        private float _lastSendTime;
+        private bool _wasLastDirty;
+        private bool _isDirty;
+
         public SyncList(bool ownerAuth = false)
         {
+            _ownerAuth = ownerAuth;
+        }
+
+        public SyncList(List<T> defaultValues, bool ownerAuth = false)
+        {
+            _list = defaultValues;
             _ownerAuth = ownerAuth;
         }
 
@@ -78,7 +99,8 @@ namespace PurrNet
             get => _list[idx];
             set
             {
-                ValidateAuthority();
+                if (!ValidateAuthority())
+                    return;
 
                 var oldValue = _list[idx];
 
@@ -88,6 +110,7 @@ namespace PurrNet
                 _list[idx] = value;
 
                 var change = new SyncListChange<T>(SyncListOperation.Set, value, idx);
+                QueueChange(change);
                 InvokeChange(change);
 
                 if (isSpawned)
@@ -98,6 +121,12 @@ namespace PurrNet
                         SendSetToServer(idx, value);
                 }
             }
+        }
+
+        private void QueueChange(SyncListChange<T> change)
+        {
+            _pendingChanges.Add(change);
+            _isDirty = true;
         }
 
         public override void OnSpawn()
@@ -135,10 +164,14 @@ namespace PurrNet
                 _list.Clear();
                 _list.AddRange(items);
 
-                InvokeChange(new SyncListChange<T>(SyncListOperation.Cleared));
+                var change = new SyncListChange<T>(SyncListOperation.Cleared);
+                InvokeChange(change);
 
                 for (int i = 0; i < items.Count; i++)
-                    InvokeChange(new SyncListChange<T>(SyncListOperation.Added, items[i], i));
+                {
+                    var changeI = new SyncListChange<T>(SyncListOperation.Added, items[i], i);
+                    InvokeChange(changeI);
+                }
             }
         }
 
@@ -157,10 +190,14 @@ namespace PurrNet
                 _list.Clear();
                 _list.AddRange(items);
 
-                InvokeChange(new SyncListChange<T>(SyncListOperation.Cleared));
+                var change = new SyncListChange<T>(SyncListOperation.Cleared);
+                InvokeChange(change);
 
                 for (int i = 0; i < items.Count; i++)
-                    InvokeChange(new SyncListChange<T>(SyncListOperation.Added, items[i], i));
+                {
+                    var changeI = new SyncListChange<T>(SyncListOperation.Added, items[i], i);
+                    InvokeChange(changeI);
+                }
             }
         }
 
@@ -170,19 +207,13 @@ namespace PurrNet
         /// <param name="item">The item you want to add</param>
         public void Add(T item)
         {
-            ValidateAuthority();
+            if (!ValidateAuthority())
+                return;
 
             _list.Add(item);
             var change = new SyncListChange<T>(SyncListOperation.Added, item, _list.Count - 1);
+            QueueChange(change);
             InvokeChange(change);
-
-            if (isSpawned)
-            {
-                if (isServer)
-                    SendAddToAll(item);
-                else
-                    SendAddToServer(item);
-            }
         }
 
         /// <summary>
@@ -190,19 +221,13 @@ namespace PurrNet
         /// </summary>
         public void Clear()
         {
-            ValidateAuthority();
+            if (!ValidateAuthority())
+                return;
 
             _list.Clear();
             var change = new SyncListChange<T>(SyncListOperation.Cleared);
+            QueueChange(change);
             InvokeChange(change);
-
-            if (isSpawned)
-            {
-                if (isServer)
-                    SendClearToAll();
-                else
-                    SendClearToServer();
-            }
         }
 
         /// <summary>
@@ -212,19 +237,13 @@ namespace PurrNet
         /// <param name="item">Item to be inserted at the given index</param>
         public void Insert(int index, T item)
         {
-            ValidateAuthority();
+            if (!ValidateAuthority())
+                return;
 
             _list.Insert(index, item);
             var change = new SyncListChange<T>(SyncListOperation.Insert, item, index);
+            QueueChange(change);
             InvokeChange(change);
-
-            if (isSpawned)
-            {
-                if (isServer)
-                    SendInsertToAll(index, item);
-                else
-                    SendInsertToServer(index, item);
-            }
         }
 
         /// <summary>
@@ -234,22 +253,16 @@ namespace PurrNet
         /// <returns></returns>
         public bool Remove(T item)
         {
-            ValidateAuthority();
+            if (!ValidateAuthority())
+                return false;
 
             int idx = _list.IndexOf(item);
             if (idx < 0) return false;
 
             _list.RemoveAt(idx);
             var change = new SyncListChange<T>(SyncListOperation.Removed, item, idx);
+            QueueChange(change);
             InvokeChange(change);
-
-            if (isSpawned)
-            {
-                if (isServer)
-                    SendRemoveToAll(item);
-                else
-                    SendRemoveToServer(item);
-            }
 
             return true;
         }
@@ -260,20 +273,14 @@ namespace PurrNet
         /// <param name="index">Index of which to remove the entry</param>
         public void RemoveAt(int index)
         {
-            ValidateAuthority();
+            if (!ValidateAuthority())
+                return;
 
             T item = _list[index];
             _list.RemoveAt(index);
             var change = new SyncListChange<T>(SyncListOperation.Removed, item, index);
+            QueueChange(change);
             InvokeChange(change);
-
-            if (isSpawned)
-            {
-                if (isServer)
-                    SendRemoveAtToAll(index);
-                else
-                    SendRemoveAtToServer(index);
-            }
         }
 
         public bool Contains(T item) => _list.Contains(item);
@@ -282,18 +289,19 @@ namespace PurrNet
         public int IndexOf(T item) => _list.IndexOf(item);
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        private void ValidateAuthority()
+        private bool ValidateAuthority()
         {
-            if (!isSpawned) return;
+            if (!isSpawned) return true;
 
             bool controller = parent.IsController(_ownerAuth);
             if (!controller)
             {
                 PurrLogger.LogError(
-                    $"Invalid permissions when modifying '<b>SyncList<{typeof(T).Name}> {name}</b>' on '{parent.name}'." +
-                    $"\nMaybe try enabling owner authority.", parent);
-                throw new InvalidOperationException("Invalid permissions");
+                    $"Invalid permissions when modifying `<b>SyncList<{typeof(T).Name}> {name}</b>` on `{parent.name}`." +
+                    $"\n{GetPermissionErrorDetails(_ownerAuth, this)}", parent);
+                return false;
             }
+            return true;
         }
 
         private void InvokeChange(SyncListChange<T> change)
@@ -309,7 +317,8 @@ namespace PurrNet
         {
             if (!isSpawned) return;
 
-            ValidateAuthority();
+            if (!ValidateAuthority())
+                return;
 
             if (index < 0 || index >= _list.Count)
             {
@@ -319,12 +328,63 @@ namespace PurrNet
             }
 
             var value = _list[index];
-            InvokeChange(new SyncListChange<T>(SyncListOperation.Set, value, index));
+            var change = new SyncListChange<T>(SyncListOperation.Set, value, index);
+            QueueChange(change);
+            InvokeChange(change);
+        }
 
-            if (isServer)
-                SendSetDirtyToAll(index, value);
-            else
-                SendSetDirtyToServer(index, value);
+        public void OnTick(float delta)
+        {
+            if (!IsController(_ownerAuth))
+                return;
+
+            float timeSinceLastSend = Time.time - _lastSendTime;
+
+            if (timeSinceLastSend < _sendIntervalInSeconds)
+                return;
+
+            if (_isDirty)
+            {
+                foreach (var change in _pendingChanges)
+                {
+                    switch (change.operation)
+                    {
+                        case SyncListOperation.Added:
+                            if (isServer) SendAddToAll(change.value);
+                            else SendAddToServer(change.value);
+                            break;
+                        case SyncListOperation.Removed:
+                            if (isServer) SendRemoveToAll(change.value);
+                            else SendRemoveToServer(change.value);
+                            break;
+                        case SyncListOperation.Insert:
+                            if (isServer) SendInsertToAll(change.index, change.value);
+                            else SendInsertToServer(change.index, change.value);
+                            break;
+                        case SyncListOperation.Set:
+                            if (isServer) SendSetToAll(change.index, change.value);
+                            else SendSetToServer(change.index, change.value);
+                            break;
+                        case SyncListOperation.Cleared:
+                            if (isServer) SendClearToAll();
+                            else SendClearToServer();
+                            break;
+                    }
+                }
+
+                _pendingChanges.Clear();
+                _lastSendTime = Time.time;
+                _wasLastDirty = true;
+                _isDirty = false;
+            }
+            else if (_wasLastDirty)
+            {
+                if(isServer)
+                    SendInitialStateToAll(_list);
+                else
+                    ForceSendReliable();
+                _wasLastDirty = false;
+            }
         }
 
         #region RPCs
@@ -342,7 +402,8 @@ namespace PurrNet
             if (!isServer || isHost)
             {
                 _list.Add(item);
-                InvokeChange(new SyncListChange<T>(SyncListOperation.Added, item, _list.Count - 1));
+                var change = new SyncListChange<T>(SyncListOperation.Added, item, _list.Count - 1);
+                InvokeChange(change);
             }
         }
 
@@ -352,7 +413,8 @@ namespace PurrNet
             if (!isHost)
             {
                 _list.Add(item);
-                InvokeChange(new SyncListChange<T>(SyncListOperation.Added, item, _list.Count - 1));
+                var change = new SyncListChange<T>(SyncListOperation.Added, item, _list.Count - 1);
+                InvokeChange(change);
             }
         }
 
@@ -372,7 +434,8 @@ namespace PurrNet
                 if (idx >= 0)
                 {
                     _list.RemoveAt(idx);
-                    InvokeChange(new SyncListChange<T>(SyncListOperation.Removed, item, idx));
+                    var change = new SyncListChange<T>(SyncListOperation.Removed, item, idx);
+                    InvokeChange(change);
                 }
             }
         }
@@ -386,7 +449,8 @@ namespace PurrNet
                 if (idx >= 0)
                 {
                     _list.RemoveAt(idx);
-                    InvokeChange(new SyncListChange<T>(SyncListOperation.Removed, item, idx));
+                    var change = new SyncListChange<T>(SyncListOperation.Removed, item, idx);
+                    InvokeChange(change);
                 }
             }
         }
@@ -405,7 +469,8 @@ namespace PurrNet
             {
                 T item = _list[index];
                 _list.RemoveAt(index);
-                InvokeChange(new SyncListChange<T>(SyncListOperation.Removed, item, index));
+                var change = new SyncListChange<T>(SyncListOperation.Removed, item, index);
+                InvokeChange(change);
             }
         }
 
@@ -416,7 +481,8 @@ namespace PurrNet
             {
                 T item = _list[index];
                 _list.RemoveAt(index);
-                InvokeChange(new SyncListChange<T>(SyncListOperation.Removed, item, index));
+                var change = new SyncListChange<T>(SyncListOperation.Removed, item, index);
+                InvokeChange(change);
             }
         }
 
@@ -433,7 +499,8 @@ namespace PurrNet
             if (!isServer || isHost)
             {
                 _list.Clear();
-                InvokeChange(new SyncListChange<T>(SyncListOperation.Cleared));
+                var change = new SyncListChange<T>(SyncListOperation.Cleared);
+                InvokeChange(change);
             }
         }
 
@@ -443,7 +510,8 @@ namespace PurrNet
             if (!isHost)
             {
                 _list.Clear();
-                InvokeChange(new SyncListChange<T>(SyncListOperation.Cleared));
+                var change = new SyncListChange<T>(SyncListOperation.Cleared);
+                InvokeChange(change);
             }
         }
 
@@ -460,7 +528,8 @@ namespace PurrNet
             if ((!isServer || isHost) && index < _list.Count)
             {
                 _list[index] = item;
-                InvokeChange(new SyncListChange<T>(SyncListOperation.Set, item, index));
+                var change = new SyncListChange<T>(SyncListOperation.Set, item, index);
+                InvokeChange(change);
             }
         }
 
@@ -470,7 +539,8 @@ namespace PurrNet
             if (!isHost && index < _list.Count)
             {
                 _list[index] = item;
-                InvokeChange(new SyncListChange<T>(SyncListOperation.Set, item, index));
+                var change = new SyncListChange<T>(SyncListOperation.Set, item, index);
+                InvokeChange(change);
             }
         }
 
@@ -487,7 +557,8 @@ namespace PurrNet
             if ((!isServer || isHost) && index <= _list.Count)
             {
                 _list.Insert(index, item);
-                InvokeChange(new SyncListChange<T>(SyncListOperation.Insert, item, index));
+                var change = new SyncListChange<T>(SyncListOperation.Insert, item, index);
+                InvokeChange(change);
             }
         }
 
@@ -497,7 +568,8 @@ namespace PurrNet
             if (!isHost && index <= _list.Count)
             {
                 _list.Insert(index, item);
-                InvokeChange(new SyncListChange<T>(SyncListOperation.Insert, item, index));
+                var change = new SyncListChange<T>(SyncListOperation.Insert, item, index);
+                InvokeChange(change);
             }
         }
 
@@ -516,7 +588,8 @@ namespace PurrNet
                 if (index >= 0 && index < _list.Count)
                 {
                     _list[index] = value;
-                    InvokeChange(new SyncListChange<T>(SyncListOperation.Set, value, index));
+                    var change = new SyncListChange<T>(SyncListOperation.Set, value, index);
+                    InvokeChange(change);
                 }
             }
         }
@@ -529,9 +602,16 @@ namespace PurrNet
                 if (index >= 0 && index < _list.Count)
                 {
                     _list[index] = value;
-                    InvokeChange(new SyncListChange<T>(SyncListOperation.Set, value, index));
+                    var change = new SyncListChange<T>(SyncListOperation.Set, value, index);
+                    InvokeChange(change);
                 }
             }
+        }
+
+        [ServerRpc(Channel.ReliableOrdered)]
+        private void ForceSendReliable()
+        {
+            SendInitialStateToAll(_list);
         }
 
         #endregion

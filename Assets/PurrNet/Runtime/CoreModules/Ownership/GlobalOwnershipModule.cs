@@ -20,18 +20,28 @@ namespace PurrNet.Modules
         public List<OwnershipInfo> state;
     }
 
+    internal struct OwnershipCallback
+    {
+        public PlayerID? oldOwner;
+        public PlayerID? newOwner;
+        public NetworkIdentity identity;
+        public bool isSpawner;
+    }
+
     internal struct OwnershipChange : IPackedSimple
     {
         public SceneID sceneId;
         public List<NetworkID> identities;
         public bool isAdding;
         public PlayerID player;
+        public bool isSpawner;
 
         public void Serialize(BitPacker packer)
         {
             Packer<SceneID>.Serialize(packer, ref sceneId);
             Packer<List<NetworkID>>.Serialize(packer, ref identities);
             Packer<bool>.Serialize(packer, ref isAdding);
+            Packer<bool>.Serialize(packer, ref isSpawner);
 
             if (isAdding)
                 Packer<PlayerID>.Serialize(packer, ref player);
@@ -74,7 +84,7 @@ namespace PurrNet.Modules
             _scenes.onSceneUnloaded += OnSceneUnloaded;
 
             _hierarchy.onIdentityRemoved += OnIdentityDespawned;
-            _hierarchy.onObserverAdded += OnPlayerObserverAdded;
+            _hierarchy.onLateObserverAdded += OnPlayerObserverAdded;
 
             _scenePlayers.onPlayerUnloadedScene += OnPlayerUnloadedScene;
             _scenePlayers.onPlayerLoadedScene += OnPlayerLoadedScene;
@@ -91,7 +101,7 @@ namespace PurrNet.Modules
             _scenes.onSceneUnloaded -= OnSceneUnloaded;
 
             _hierarchy.onIdentityRemoved -= OnIdentityDespawned;
-            _hierarchy.onObserverAdded -= OnPlayerObserverAdded;
+            _hierarchy.onLateObserverAdded -= OnPlayerObserverAdded;
 
             _scenePlayers.onPlayerUnloadedScene -= OnPlayerUnloadedScene;
             _scenePlayers.onPlayerLoadedScene -= OnPlayerLoadedScene;
@@ -313,7 +323,18 @@ namespace PurrNet.Modules
 
         private void OnOwnershipChange(PlayerID player, OwnershipChangeBatch data, bool asServer)
         {
-            HandleOwenshipBatch(data);
+            var stateCount = data.state.Count;
+
+            for (var j = 0; j < stateCount; j++)
+                HandleOwnershipBatch(data.scene, data.state[j]);
+
+            if (asServer && _scenePlayers.TryGetPlayersInScene(data.scene, out var players))
+            {
+                using var copy = new DisposableList<PlayerID>(players.Count);
+                copy.AddRange(players);
+                copy.Remove(player);
+                _playersManager.Send(copy, data);
+            }
         }
 
         private void OnOwnershipChange(PlayerID player, OwnershipChange change, bool asServer)
@@ -321,7 +342,21 @@ namespace PurrNet.Modules
             var idCount = change.identities.Count;
 
             for (var j = 0; j < idCount; j++)
-                HandleOwnershipChange(player, change, change.identities[j]);
+            {
+                if (!HandleOwnershipChange(player, change, change.identities[j]))
+                {
+                    change.identities.RemoveAt(j--);
+                    idCount--;
+                }
+            }
+
+            if (asServer && _scenePlayers.TryGetPlayersInScene(change.sceneId, out var players))
+            {
+                using var copy = new DisposableList<PlayerID>(players.Count);
+                copy.AddRange(players);
+                copy.Remove(player);
+                _playersManager.Send(copy, change);
+            }
         }
 
         private void OnSceneUnloaded(SceneID scene, bool asServer)
@@ -332,7 +367,7 @@ namespace PurrNet.Modules
         private static readonly List<NetworkID> _idsCache = new List<NetworkID>();
 
         public void GiveOwnership(NetworkIdentity nid, PlayerID player, bool? propagateToChildren = null,
-            bool? overrideExistingOwners = null, bool silent = false)
+            bool? overrideExistingOwners = null, bool silent = false, bool isSpawner = false)
         {
             if (!nid.id.HasValue)
             {
@@ -360,8 +395,8 @@ namespace PurrNet.Modules
                 }
             }
 
-            if (hadOwnerPreviously)
-                RemoveOwnership(nid);
+            /*if (hadOwnerPreviously)
+                RemoveOwnership(nid);*/
 
             if (!_sceneOwnerships.TryGetValue(nid.sceneId, out var module))
             {
@@ -376,6 +411,8 @@ namespace PurrNet.Modules
             GetAllChildrenOrSelf(nid, affectedIds, propagateToChildren);
 
             _idsCache.Clear();
+
+            var callbacks = ListPool<OwnershipCallback>.Instantiate();
 
             for (var i = 0; i < affectedIds.Count; i++)
             {
@@ -400,8 +437,15 @@ namespace PurrNet.Modules
                 var oldOwner = identity.GetOwner(_asServer);
 
                 if (module.GiveOwnership(identity, player))
-                    identity.TriggerOnOwnerChanged(oldOwner, player, _asServer);
-
+                {
+                    callbacks.Add(new OwnershipCallback
+                    {
+                        oldOwner = oldOwner,
+                        newOwner = player,
+                        identity = identity,
+                        isSpawner = isSpawner
+                    });
+                }
                 _idsCache.Add(identity.id.Value);
             }
 
@@ -421,7 +465,8 @@ namespace PurrNet.Modules
                 sceneId = nid.sceneId,
                 identities = _idsCache,
                 isAdding = true,
-                player = player
+                player = player,
+                isSpawner = isSpawner
             };
 
             if (_asServer)
@@ -434,6 +479,14 @@ namespace PurrNet.Modules
                 _playersManager.SendToServer(data);
             }
 
+            for (var i = 0; i < callbacks.Count; i++)
+            {
+                var info = callbacks[i];
+                if (info.identity)
+                    info.identity.TriggerOnOwnerChanged(info.oldOwner, info.newOwner, _asServer, info.isSpawner);
+            }
+
+            ListPool<OwnershipCallback>.Destroy(callbacks);
             ListPool<NetworkIdentity>.Destroy(affectedIds);
         }
 
@@ -488,7 +541,7 @@ namespace PurrNet.Modules
                 var oldOwner = identity.GetOwner(_asServer);
 
                 if (module.RemoveOwnership(identity))
-                    identity.TriggerOnOwnerChanged(oldOwner, null, _asServer);
+                    identity.TriggerOnOwnerChanged(oldOwner, null, _asServer, false);
             }
 
             //TODO: compress _idsCache using RLE
@@ -568,7 +621,7 @@ namespace PurrNet.Modules
 
                 if (module.RemoveOwnership(identity))
                 {
-                    identity.TriggerOnOwnerChanged(oldOwner, null, _asServer);
+                    identity.TriggerOnOwnerChanged(oldOwner, null, _asServer, false);
                     _idsCache.Add(identity.id.Value);
                 }
             }
@@ -627,14 +680,6 @@ namespace PurrNet.Modules
             _pendingOwnershipChanges.Clear();
         }
 
-        private void HandleOwenshipBatch(OwnershipChangeBatch data)
-        {
-            var stateCount = data.state.Count;
-
-            for (var j = 0; j < stateCount; j++)
-                HandleOwnershipBatch(data.scene, data.state[j]);
-        }
-
         private void HandleOwnershipBatch(SceneID scene, OwnershipInfo change)
         {
             if (!_hierarchy.TryGetIdentity(scene, change.identity, out var identity))
@@ -663,21 +708,25 @@ namespace PurrNet.Modules
                 return;
 
             if (module.GiveOwnership(identity, change.player))
-                identity.TriggerOnOwnerChanged(oldOwner, change.player, _asServer);
+                identity.TriggerOnOwnerChanged(oldOwner, change.player, _asServer, false);
         }
 
-        private void HandleOwnershipChange(PlayerID actor, OwnershipChange change, NetworkID id)
+        private bool HandleOwnershipChange(PlayerID actor, OwnershipChange change, NetworkID id)
         {
             string verb = change.isAdding ? "give" : "remove";
 
             if (!_hierarchy.TryGetIdentity(change.sceneId, id, out var identity))
-                return;
+            {
+                PurrLogger.LogError(
+                    $"Failed to find identity {id} in scene {change.sceneId} when applying ownership change for player {change.player}");
+                return false;
+            }
 
             if (!_sceneOwnerships.TryGetValue(change.sceneId, out var module))
             {
                 PurrLogger.LogError(
                     $"Failed to find ownership module for scene {change.sceneId} when applying ownership change for identity {id}");
-                return;
+                return false;
             }
 
             if (identity.hasOwner)
@@ -687,7 +736,7 @@ namespace PurrNet.Modules
                     PurrLogger.LogError(
                         $"Failed to {verb} (transfer) ownership of '{identity.gameObject.name}' to {change.player} because of missing authority.",
                         identity);
-                    return;
+                    return false;
                 }
             }
             else if (!identity.HasGiveOwnershipAuthority(!_asServer))
@@ -695,7 +744,7 @@ namespace PurrNet.Modules
                 PurrLogger.LogError(
                     $"Failed to {verb} ownership of '{identity.gameObject.name}' to {change.player} because of missing authority.",
                     identity);
-                return;
+                return false;
             }
 
             var oldOwner = identity.GetOwner(_asServer);
@@ -705,7 +754,7 @@ namespace PurrNet.Modules
                 module.GiveOwnership(identity, change.player);
 
                 if (oldOwner != change.player)
-                    identity.TriggerOnOwnerChanged(oldOwner, change.player, _asServer);
+                    identity.TriggerOnOwnerChanged(oldOwner, change.player, _asServer, change.isSpawner);
             }
             else
             {
@@ -717,9 +766,11 @@ namespace PurrNet.Modules
                 }
                 else if (module.RemoveOwnership(identity))
                 {
-                    identity.TriggerOnOwnerChanged(oldOwner, null, _asServer);
+                    identity.TriggerOnOwnerChanged(oldOwner, null, _asServer, false);
                 }
             }
+
+            return true;
         }
 
         static void GetAllChildrenOrSelf(NetworkIdentity id, List<NetworkIdentity> result, bool? propagateToChildren)

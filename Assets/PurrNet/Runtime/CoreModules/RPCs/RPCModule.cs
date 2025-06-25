@@ -6,7 +6,6 @@ using PurrNet.Logging;
 using PurrNet.Packing;
 using PurrNet.Transports;
 using PurrNet.Utils;
-using UnityEngine;
 
 namespace PurrNet.Modules
 {
@@ -152,6 +151,12 @@ namespace PurrNet.Modules
         }
 
         [UsedByIL]
+        public static bool ArePlayersEqual(PlayerID player1, PlayerID player2)
+        {
+            return player1.Equals(player2);
+        }
+
+        [UsedByIL]
         public static void SendStaticRPC(StaticRPCPacket packet, RPCSignature signature)
         {
             var nm = NetworkManager.main;
@@ -210,7 +215,11 @@ namespace PurrNet.Modules
                     if (nm.isServer)
                         nm.GetModule<PlayersManager>(true)
                             .Send(signature.targetPlayer!.Value, packet, signature.channel);
-                    else nm.GetModule<PlayersManager>(false).SendToServer(packet, signature.channel);
+                    else
+                    {
+                        packet.targetPlayerId = signature.targetPlayer!.Value;
+                        nm.GetModule<PlayersManager>(false).SendToServer(packet, signature.channel);
+                    }
                     break;
                 }
                 default: throw new ArgumentOutOfRangeException();
@@ -235,6 +244,12 @@ namespace PurrNet.Modules
             if (!nm)
             {
                 PurrLogger.LogError($"Aborted RPC '{signature.rpcName}'. NetworkManager not found.");
+                return false;
+            }
+
+            if (!nm.TryGetModule<RPCModule>(nm.isServer, out var module))
+            {
+                PurrLogger.LogError("Failed to get RPC module while sending static RPC.", nm);
                 return false;
             }
 
@@ -270,6 +285,8 @@ namespace PurrNet.Modules
                     var collection = signature.excludeSender
                         ? GetImmediateExcept(players, info.sender)
                         : players.players;
+                    if (data is StaticRPCPacket staticRpc)
+                        module.AppendToBufferedRPCs(staticRpc, signature);
                     players.SendRaw(collection, rawData, signature.channel);
                     return !nm.isClient;
                 }
@@ -277,7 +294,9 @@ namespace PurrNet.Modules
                 {
                     var players = nm.GetModule<PlayersManager>(true);
                     var rawData = BroadcastModule.GetImmediateData(data);
-                    players.SendRaw(data.senderPlayerId, rawData, signature.channel);
+                    if (data is StaticRPCPacket staticRpc)
+                        module.AppendToBufferedRPCs(staticRpc, signature);
+                    players.SendRaw(data.targetPlayerId, rawData, signature.channel);
                     return false;
                 }
                 default:
@@ -677,9 +696,13 @@ namespace PurrNet.Modules
                     ((delegate* managed<BitPacker, StaticRPCPacket, RPCInfo, bool, void>)
                         rpcHandlerPtr)(stream, data, info, asServer);
                 }
+                catch (BypassLoggingException)
+                {
+                    // ignore
+                }
                 catch (Exception e)
                 {
-                    Debug.LogException(e);
+                    PurrLogger.LogException(e);
                 }
             }
             else PurrLogger.LogError($"Can't find RPC handler for id {data.rpcId} on '{type.Name}'.");
@@ -718,9 +741,13 @@ namespace PurrNet.Modules
                             ((delegate* managed<NetworkModule, BitPacker, ChildRPCPacket, RPCInfo, bool, void>)
                                 rpcHandlerPtr)(networkClass, stream, packet, info, asServer);
                         }
+                        catch (BypassLoggingException)
+                        {
+                            // ignore
+                        }
                         catch (Exception e)
                         {
-                            Debug.LogException(e);
+                            PurrLogger.LogException(e);
                         }
                     }
                     else
@@ -757,24 +784,34 @@ namespace PurrNet.Modules
                         ((delegate* managed<NetworkIdentity, BitPacker, RPCPacket, RPCInfo, bool, void>)
                             rpcHandlerPtr)(identity, stream, packet, info, asServer);
                     }
+                    catch (BypassLoggingException)
+                    {
+                        // ignore
+                    }
                     catch (Exception e)
                     {
-                        Debug.LogException(
-                            new Exception(
-                                $"Failed to call RPC handler for id {packet.rpcId} on identity {identity.GetType().Name}.",
-                                e), identity);
+                        PurrLogger.LogException(e);
                     }
                 }
                 else
                     PurrLogger.LogError(
                         $"Can't find RPC handler for id {packet.rpcId} in identity {identity.GetType().Name}.");
             }
-            // else PurrLogger.LogError($"Can't find identity with id {packet.networkId} in scene {packet.sceneId}.");
         }
+
+        public delegate void RPCPreProcessDelegate(ref ByteData rpcData, RPCSignature signature, ref BitPacker packer);
+
+        public delegate void RPCPostProcessDelegate(ByteData rpcData, RPCInfo info, ref BitPacker packer);
+
+        public static event RPCPreProcessDelegate onPreProcessRpc;
+
+        public static event RPCPostProcessDelegate onPostProcessRpc;
 
         [UsedByIL]
         public static void PreProcessRpc(ref ByteData rpcData, RPCSignature signature, ref BitPacker packer)
         {
+            onPreProcessRpc?.Invoke(ref rpcData, signature, ref packer);
+
             if (signature.compressionLevel == CompressionLevel.None)
                 return;
 
@@ -796,6 +833,8 @@ namespace PurrNet.Modules
         [UsedByIL]
         public static void PostProcessRpc(ByteData rpcData, RPCInfo info, ref BitPacker packer)
         {
+            onPostProcessRpc?.Invoke(rpcData, info, ref packer);
+
             if (info.compileTimeSignature.compressionLevel == CompressionLevel.None)
                 return;
 

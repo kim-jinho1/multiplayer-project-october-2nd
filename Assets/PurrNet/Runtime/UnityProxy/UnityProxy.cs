@@ -1,8 +1,12 @@
 using System;
+using System.Threading.Tasks;
+#if UNITASK_PURRNET_SUPPORT
 using Cysharp.Threading.Tasks;
+#endif
 using PurrNet.Logging;
 using PurrNet.Modules;
 using PurrNet.Pooling;
+using PurrNet.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
@@ -66,6 +70,9 @@ namespace PurrNet
 
         static bool OnDestroy(Object instance)
         {
+            if (ApplicationContext.isQuitting)
+                return true;
+
             if (instance is not NetworkIdentity &&
                 instance is not GameObject)
                 return true;
@@ -337,7 +344,11 @@ namespace PurrNet
         {
             try
             {
+#if UNITASK_PURRNET_SUPPORT
                 await UniTask.WaitForSeconds(t);
+#else
+                await Task.Delay(TimeSpan.FromSeconds(t));
+#endif
                 Destroy(obj);
             }
             catch (Exception e)

@@ -12,7 +12,7 @@ MonoImporter:
 AssetOrigin:
   serializedVersion: 1
   productId: 297320
-  packageName: PurrNet
-  packageVersion: v1.9.3
+  packageName: 'PurrNet: Multiplayer Networking'
+  packageVersion: v1.12.0
   assetPath: Assets/PurrNet/Runtime/Transports/PurrTransport.cs
-  uploadId: 748644
+  uploadId: 767540

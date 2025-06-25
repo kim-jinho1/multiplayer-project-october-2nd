@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace PurrNet.Packing
 {
+    [System.Serializable]
     public struct CompressedVector3 : IEquatable<CompressedVector3>
     {
         public CompressedFloat x;
@@ -14,6 +15,11 @@ namespace PurrNet.Packing
             this.x = x.Round();
             this.y = y.Round();
             this.z = z.Round();
+        }
+
+        public override string ToString()
+        {
+            return $"CompressedVector3({x}, {y}, {z})";
         }
 
         public static implicit operator CompressedVector3(Vector3 value) => new CompressedVector3(value.x, value.y, value.z);
