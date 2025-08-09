@@ -19,28 +19,28 @@ namespace PurrNet.Transports
         /// </summary>
         public abstract ITransport transport { get; }
 
-        bool TryGetNetworkManager(NetworkManager manager, out NetworkManager networkManager)
+        bool TryGetNetworkManager(INetworkManager manager, out INetworkManager networkManager)
         {
-            if (manager)
+            if (manager != null)
             {
                 networkManager = manager;
                 return true;
             }
 
-            if (TryGetComponent(out networkManager))
+            if (TryGetComponent<INetworkManager>(out networkManager))
                 return true;
 
-            var parentNm = GetComponentInParent<NetworkManager>();
+            var parentNm = GetComponentInParent<INetworkManager>();
 
-            if (parentNm)
+            if (parentNm != null)
             {
                 networkManager = parentNm;
                 return true;
             }
 
-            var childNm = GetComponentInChildren<NetworkManager>();
+            var childNm = GetComponentInChildren<INetworkManager>();
 
-            if (childNm)
+            if (childNm != null)
             {
                 networkManager = childNm;
                 return true;
@@ -61,14 +61,13 @@ namespace PurrNet.Transports
         /// Optionally, you can pass a NetworkManager to register server modules.
         /// If you do not pass a NetworkManager, it will try to find one in the hierarchy.
         /// </summary>
-        /// <param name="manager">The NetworkManager to register server modules.</param>
         public void StartServer()
         {
             if (TryGetNetworkManager(NetworkManager.main, out var networkManager))
                 networkManager.StartServer();
         }
 
-        internal void StartServer(NetworkManager manager)
+        internal void StartServer(INetworkManager manager)
         {
             if (TryGetNetworkManager(manager, out var networkManager))
             {
@@ -93,7 +92,7 @@ namespace PurrNet.Transports
                 networkManager.StopServer();
         }
 
-        internal void StopServer(NetworkManager manager)
+        internal void StopServer(INetworkManager manager)
         {
             if (TryGetNetworkManager(manager, out var networkManager))
                 networkManager.InternalUnregisterServerModules();
@@ -106,14 +105,13 @@ namespace PurrNet.Transports
         /// Optionally, you can pass a NetworkManager to register client modules.
         /// If you do not pass a NetworkManager, it will try to find one in the hierarchy.
         /// </summary>
-        /// <param name="manager">The NetworkManager to register client modules.</param>
         public void StartClient()
         {
             if (TryGetNetworkManager(NetworkManager.main, out var networkManager))
                 networkManager.StartClient();
         }
 
-        internal void StartClient(NetworkManager manager)
+        internal void StartClient(INetworkManager manager)
         {
             if (TryGetNetworkManager(manager, out var networkManager))
             {
@@ -134,14 +132,13 @@ namespace PurrNet.Transports
         /// Optionally, you can pass a NetworkManager to register client modules.
         /// If you do not pass a NetworkManager, it will try to find one in the hierarchy.
         /// </summary>
-        /// <param name="manager">The NetworkManager to unregister client modules.</param>
         public void StopClient()
         {
             if (TryGetNetworkManager(NetworkManager.main, out var networkManager))
                 networkManager.StopClient();
         }
 
-        internal void StopClient(NetworkManager manager)
+        internal void StopClient(INetworkManager manager)
         {
             if (TryGetNetworkManager(manager, out var networkManager))
                 networkManager.InternalUnregisterClientModules();
@@ -152,6 +149,11 @@ namespace PurrNet.Transports
         internal void StartClientInternalOnly()
         {
             StartClientInternal();
+        }
+
+        internal void StartServerInternalOnly()
+        {
+            StartServerInternal();
         }
 
         protected abstract void StartClientInternal();

@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using JetBrains.Annotations;
+using Newtonsoft.Json.Linq;
 using PurrNet.Authentication;
 using PurrNet.Logging;
 using PurrNet.Modules;
@@ -19,8 +20,10 @@ using UnityEngine.SceneManagement;
 
 namespace PurrNet
 {
+    public delegate void OnTickDelegate(bool asServer);
+
     [DefaultExecutionOrder(-999)]
-    public sealed partial class NetworkManager : MonoBehaviour
+    public sealed partial class NetworkManager : MonoBehaviour, IRegisterModules, INetworkManager
     {
         /// <summary>
         /// The main instance of the network manager.
@@ -78,7 +81,7 @@ namespace PurrNet
         /// The local client connection.
         /// Null if the client is not connected.
         /// </summary>
-        public Connection? localClientConnection { [UsedImplicitly] get; private set; }
+        public Connection? clientToServerConn { [UsedImplicitly] get; private set; }
 
         /// <summary>
         /// The cookie scope of the network manager.
@@ -159,6 +162,8 @@ namespace PurrNet
         /// Occurs when the client connection state changes.
         /// </summary>
         public static event  Action<ConnectionState> onAnyClientConnectionState;
+
+        public ITransport rawTransport => _transport ? _transport.transport : null;
 
         /// <summary>
         /// The transport of the network manager.
@@ -366,8 +371,9 @@ namespace PurrNet
         {
             var allAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-            foreach (var assembly in allAssemblies)
+            for (var index = 0; index < allAssemblies.Length; index++)
             {
+                var assembly = allAssemblies[index];
                 Type[] types;
 
                 try
@@ -379,8 +385,9 @@ namespace PurrNet
                     types = ex.Types;
                 }
 
-                foreach (var type in types)
+                for (var j = 0; j < types.Length; j++)
                 {
+                    var type = types[j];
                     if (type == null)
                         continue;
 
@@ -391,8 +398,9 @@ namespace PurrNet
                                                   BindingFlags.Public |
                                                   BindingFlags.NonPublic);
 
-                    foreach (var method in methods)
+                    for (var m = 0; m < methods.Length; m++)
                     {
+                        var method = methods[m];
                         if (!method.IsStatic)
                             continue;
 
@@ -488,8 +496,43 @@ namespace PurrNet
         }
 #endif
 
+        public static string version { get; private set; }
+
+        public static bool VerifyVersion(string va)
+        {
+            if (va == "v?" || version == "v?")
+                return true;
+            return va == version;
+        }
+
         private void Awake()
         {
+#if UNITY_EDITOR
+            static string TryFindVersion()
+            {
+                var packagePath = AssetDatabase.GUIDToAssetPath("0ec978dbed50a6f4b9a57580867f1fae");
+
+                if (string.IsNullOrEmpty(packagePath))
+                    return "v?";
+
+                var textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(packagePath);
+
+                if (textAsset == null)
+                    return "v?";
+
+                var json = JObject.Parse(textAsset.text);
+                return 'v' + (json["version"]?.ToString() ?? "?");
+            }
+
+            version ??= TryFindVersion();
+#else
+            if (version == null)
+            {
+                var versionJson = Resources.Load<TextAsset>("PurrVersion");
+                version = versionJson ? versionJson.text : "v?";
+            }
+#endif
+
             if (main && main != this)
             {
                 if (main.isOffline)
@@ -545,11 +588,18 @@ namespace PurrNet
                 DontDestroyOnLoad(gameObject);
         }
 
+#if UNITY_EDITOR
         private void Reset()
         {
             if (TryGetComponent(out GenericTransport _) || transport)
                 return;
             transport = gameObject.AddComponent<UDPTransport>();
+        }
+#endif
+
+        public bool HasModule<T>(bool asServer) where T : INetworkModule
+        {
+            return TryGetModule<T>(out _, asServer);
         }
 
         /// <summary>
@@ -714,7 +764,6 @@ namespace PurrNet
         private DeltaModule _clientDeltaModule;
         private DeltaModule _serverDeltaModule;
 
-        public delegate void OnTickDelegate(bool asServer);
 
         /// <summary>
         /// This event is triggered before the tick.
@@ -799,7 +848,25 @@ namespace PurrNet
 
         private bool _isServerTicking;
 
-        internal void RegisterModules(ModulesCollection modules, bool asServer)
+        event ValidateSpawnAction _onClientSpawnValidate;
+
+        public event ValidateSpawnAction onClientSpawnValidate
+        {
+            add
+            {
+                _onClientSpawnValidate += value;
+                if (TryGetModule<HierarchyFactory>(true, out var hierarchyFactory))
+                    hierarchyFactory.onClientSpawnValidate += value;
+            }
+            remove
+            {
+                _onClientSpawnValidate -= value;
+                if (TryGetModule<HierarchyFactory>(true, out var hierarchyFactory))
+                    hierarchyFactory.onClientSpawnValidate -= value;
+            }
+        }
+
+        public void RegisterModules(ModulesCollection modules, bool asServer)
         {
             var tickManager = new TickManager(_tickRate, this);
 
@@ -944,6 +1011,15 @@ namespace PurrNet
             var networkTransform = new NetworkTransformFactory(scenesModule, scenePlayers, playersBroadcast, this, hierarchyV2);
             var colliderRollback = new ColliderRollbackFactory(tickManager, scenesModule);
 
+            if (asServer)
+            {
+                if (_onClientSpawnValidate != null)
+                {
+                    foreach (var del in _onClientSpawnValidate.GetInvocationList())
+                        hierarchyV2.onClientSpawnValidate += (ValidateSpawnAction)del;
+                }
+            }
+
             modules.AddModule(networkTransform);
             modules.AddModule(hierarchyV2);
             modules.AddModule(ownershipModule);
@@ -975,7 +1051,7 @@ namespace PurrNet
 
         private void OnClientPostTick() => onPostTick?.Invoke(false);
 
-        static bool ShouldStart(StartFlags flags)
+        public static bool ShouldStart(StartFlags flags)
         {
             return (flags.HasFlag(StartFlags.Editor) && ApplicationContext.isMainEditor) ||
                    (flags.HasFlag(StartFlags.Clone) && ApplicationContext.isClone) ||
@@ -1242,7 +1318,7 @@ namespace PurrNet
         /// </summary>
         public void StartClient()
         {
-            localClientConnection = null;
+            clientToServerConn = null;
             if (!_transport)
                 PurrLogger.Throw<InvalidOperationException>("Transport is not set (null).");
 
@@ -1269,7 +1345,7 @@ namespace PurrNet
                 _serverModules.OnNewConnection(conn, true);
             else
             {
-                localClientConnection = conn;
+                clientToServerConn = conn;
                 _clientModules.OnNewConnection(conn, false);
             }
         }
@@ -1280,7 +1356,7 @@ namespace PurrNet
                 _serverModules.OnLostConnection(conn, true);
             else
             {
-                localClientConnection = null;
+                clientToServerConn = null;
                 _clientModules.OnLostConnection(conn, false);
             }
 #if UNITY_EDITOR

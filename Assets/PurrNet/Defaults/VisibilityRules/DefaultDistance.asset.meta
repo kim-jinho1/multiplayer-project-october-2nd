@@ -10,6 +10,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 297320
   packageName: 'PurrNet: Multiplayer Networking'
-  packageVersion: v1.12.0
+  packageVersion: v1.13.3
   assetPath: Assets/PurrNet/Defaults/VisibilityRules/DefaultDistance.asset
-  uploadId: 767540
+  uploadId: 777208
