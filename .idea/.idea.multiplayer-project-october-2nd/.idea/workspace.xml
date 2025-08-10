@@ -5,20 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Global/DependencyContainer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Global/DependencyContainer.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Command/ICommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Command/ICommand.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IBattleResolver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IBattleResolver.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ICommandExecutor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ICommandExecutor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ITurnProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ITurnProcessor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IWinConditionChecker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IWinConditionChecker.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/IPieceMoveValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/IPieceMoveValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IGameEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IGameEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/ILoyaltyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/ILoyaltyManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPlayerNationState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPlayerNationState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPolicy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPolicy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPoliticalManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPoliticalManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/ITechnologyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/ITechnologyManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Players/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Players/Player.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +119,7 @@
       <workItem from="1747385764293" duration="650000" />
       <workItem from="1750849884608" duration="430000" />
       <workItem from="1754798146088" duration="1087000" />
-      <workItem from="1754805251527" duration="5770000" />
+      <workItem from="1754805251527" duration="6952000" />
     </task>
     <servers />
   </component>
