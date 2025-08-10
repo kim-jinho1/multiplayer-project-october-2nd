@@ -6,7 +6,7 @@ namespace Code.CoreGameLogic
     public interface ITurnProcessor
     {
         /// <summary>
-        /// 한 턴의 시작부터 끝까지 필요한 모든 처리를 순차적으로 실행
+        /// 현재 턴 단계를 처리
         /// </summary>
         void ProcessTurn();
     }

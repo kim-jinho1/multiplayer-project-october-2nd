@@ -8,8 +8,9 @@ namespace Code.CoreGameLogic
     public interface ICommandExecutor
     {
         /// <summary>
-        /// 주어진 ICommand 객체를 실행
+        /// 주어진 명령(Command)을 실행합니다.
         /// </summary>
+        /// <param name="command">실행할 ICommand 객체</param>
         void ExecuteCommand(ICommand command);
     }
 }

@@ -8,8 +8,10 @@ namespace Code.CoreGameLogic
     public interface IWinConditionChecker
     {
         /// <summary>
-        /// 특정 플레이어가 게임에서 승리했는지 확인하고 결과를 반환
+        /// 특정 플레이어가 승리 조건을 만족했는지 확인
         /// </summary>
+        /// <param name="player">확인할 플레이어 객체</param>
+        /// <returns>승리 조건을 만족했으면 true, 아니면 false</returns>
         bool CheckForWin(Player player);
     }
 }
