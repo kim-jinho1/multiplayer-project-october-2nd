@@ -1,4 +1,4 @@
-namespace Code.CoreGameLogic
+namespace Code.Players
 {
     public class Player
     {
