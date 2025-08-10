@@ -20,6 +20,6 @@ namespace Code.StrategicSystem
         /// <summary>
         /// 반란 발생 가능성을 확인
         /// </summary>
-        bool CheckForRebellion(Piece piece);
+        void CheckForRebellion();
     }
 }

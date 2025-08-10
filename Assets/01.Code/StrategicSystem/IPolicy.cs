@@ -19,5 +19,7 @@ namespace Code.StrategicSystem
         /// 정책의 실제 효과를 적용
         /// </summary>
         void Execute(IPlayerNationState state);
+        
+        void Execute();
     }
 }

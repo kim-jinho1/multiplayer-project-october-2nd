@@ -1,3 +1,4 @@
+using Code.Global;
 using Code.StrategicSystem;
 
 namespace Code.StrategicSystem
@@ -16,5 +17,7 @@ namespace Code.StrategicSystem
         /// 특정 정책 실행이 가능한지 확인
         /// </summary>
         bool CanExecutePolicy(IPolicy policy);
+        
+        void ApplyPolicy(PolicyData policy);
     }
 }

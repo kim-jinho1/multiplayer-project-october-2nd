@@ -1,28 +1,32 @@
 namespace Code.StrategicSystem
 {
-    /// <summary>
-    /// 플레이어(국가)의 현재 상태 데이터에 접근하는 기능을 정의하는 인터페이스
-    /// </summary>
+    public enum TechnologyLevel
+    {
+        None = 0,
+        Bronze = 1,
+        Iron = 2,
+        Industrial = 3,
+        Modern = 4,
+    }
+
     public interface IPlayerNationState
     {
-        /// <summary>
-        /// 현재 보유한 골드 양을 나타내는 속성
-        /// </summary>
+        // 자원 관련
         int Gold { get; }
-
-        /// <summary>
-        /// 현재 보유한 행동력(AP)을 나타내는 속성
-        /// </summary>
+        int ResearchPoints { get; }
+        
+        // 국가 상태 관련
         int ActionPoints { get; }
-
-        /// <summary>
-        /// 현재 기술 수준을 나타내는 속성
-        /// </summary>
-        int TechnologyLevel { get; }
-
-        /// <summary>
-        /// 현재 정치 안정도를 나타내는 속성
-        /// </summary>
         int PoliticalStability { get; }
+        
+        // 기술 레벨 (int가 아닌 enum 타입으로 수정)
+        TechnologyLevel CurrentTechLevel { get; }
+
+        // 상태 변경 메서드
+        void AddGold(int amount);
+        void AddResearchPoints(int amount);
+        void SetTechnologyLevel(TechnologyLevel level);
+        void AddActionPoints(int amount);
+        void ChangePoliticalStability(int amount);
     }
 }

@@ -6,14 +6,14 @@ namespace Code.StrategicSystem
     public interface ITechnologyManager
     {
         /// <summary>
-        /// 기술 연구를 진행
+        /// 특정 기술 연구를 진행
         /// </summary>
-        void ResearchTechnology();
+        void Research(TechnologyLevel tech);
 
         /// <summary>
-        /// 현재 기술 연구가 가능한지 확인
+        /// 특정 기술 연구가 가능한지 확인
         /// </summary>
-        bool CanResearch();
+        bool CanResearch(TechnologyLevel tech);
 
         /// <summary>
         /// 현재 기술 수준에 따른 효과를 적용
