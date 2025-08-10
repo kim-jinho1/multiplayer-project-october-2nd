@@ -5,11 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPieceMoveValidator.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPieceMoveValidator.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPlayerNationState.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPlayerNationState.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ITurnProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ITurnProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/AttackCommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/AttackCommand.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/MoveCommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/MoveCommand.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/PolicyCommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/PolicyCommand.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/ResearchCommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/ResearchCommand.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/ICommand.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/ICommand.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/PlayerInputHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Command/PlayerInputHandler.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/UI/BoardUI.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/UI/BoardUI.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/UI/NationalPanelUI.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/UI/NationalPanelUI.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/UI/UIManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/UI/UIManager.cs.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +128,7 @@
       <workItem from="1747385764293" duration="650000" />
       <workItem from="1750849884608" duration="430000" />
       <workItem from="1754798146088" duration="1087000" />
-      <workItem from="1754805251527" duration="1854000" />
+      <workItem from="1754805251527" duration="2157000" />
     </task>
     <servers />
   </component>
