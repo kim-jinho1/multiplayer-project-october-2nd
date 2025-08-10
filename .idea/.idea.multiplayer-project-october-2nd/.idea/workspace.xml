@@ -5,7 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/CommandProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/CommandProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IBoard.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IBoard.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ICommandExecutor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ICommandExecutor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPiece.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPiece.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ITurnProcessor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ITurnProcessor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IWinConditionChecker.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IWinConditionChecker.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00.Scene/Bootstrap_Scene.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00.Scene/Bootstrap_Scene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrLobby/LobbyScenes/LobbySample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrLobby/LobbyScenes/LobbySample.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +41,9 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2wfktXINNmJV4aav9lqsdkwE0UM" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -107,6 +129,7 @@
       <workItem from="1747385764293" duration="650000" />
       <workItem from="1750849884608" duration="430000" />
       <workItem from="1754798146088" duration="1087000" />
+      <workItem from="1754805251527" duration="1555000" />
     </task>
     <servers />
   </component>
