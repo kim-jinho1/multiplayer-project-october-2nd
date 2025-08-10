@@ -1,9 +1,7 @@
-using _01.Code.Command;
-using Code.Command;
-using Code.CoreGameLogic;
 using UnityEngine;
+using Code.CoreGameLogic;
 
-namespace Code.StrategicSystem
+namespace Code.UI
 {
     /// <summary>
     /// 기물의 시각적 표현을 담당하는 유니티 컴포넌트입니다.
