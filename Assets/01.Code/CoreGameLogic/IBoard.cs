@@ -26,11 +26,16 @@ namespace Code.CoreGameLogic
         /// </summary>
         /// <param name="from">기물의 현재 위치 (Vector2)</param>
         /// <param name="to">기물이 이동할 목표 위치 (Vector2)</param>
-        void MovePiece(Vector2 from, Vector2 to);
+        bool MovePiece(Vector2 from, Vector2 to);
 
         /// <summary>
         /// 보드의 크기(예: 8)를 나타내는 속성
         /// </summary>
         int BoardSize { get; }
+        /// <summary>
+        /// 기물 제거 메서드
+        /// </summary>
+        /// <param name="piece">제거할 기물</param>
+        void RemovePiece(Piece piece);
     }
 }

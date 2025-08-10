@@ -75,6 +75,16 @@ namespace Code.CoreGameLogic
             Debug.Log("게임 시작! 현재 플레이어: " + _currentPlayerId + ", 현재 턴: " + _currentTurnPhase);
             ProcessCurrentTurn();
         }
+        
+        public IBoard Board { get; private set; }
+        /// <summary>
+        /// ICommand를 실행하는 메서드
+        /// </summary>
+        /// <param name="command"> 실행할 커맨드</param>
+        public void ExecuteCommand(ICommand command)
+        {
+            command.Execute();
+        }
 
         public void ProcessCurrentTurn()
         {
