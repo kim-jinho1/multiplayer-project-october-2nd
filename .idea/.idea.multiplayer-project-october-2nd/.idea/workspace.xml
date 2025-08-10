@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IBoard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IBoard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPiece.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPiece.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPieceMoveValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPieceMoveValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece/Bishop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece/Bishop.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece/King.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/King.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece/King.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/King.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece/Knight.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Knight.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece/Knight.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Knight.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece/Pawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece/Pawn.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece/Queen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Queen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece/Queen.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Queen.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece/Rook.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Rook.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece/Rook.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Rook.cs.meta" afterDir="false" />
-    </list>
+    <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -133,7 +113,7 @@
       <workItem from="1747385764293" duration="650000" />
       <workItem from="1750849884608" duration="430000" />
       <workItem from="1754798146088" duration="1087000" />
-      <workItem from="1754805251527" duration="3436000" />
+      <workItem from="1754805251527" duration="3756000" />
     </task>
     <servers />
   </component>
