@@ -12,14 +12,14 @@ namespace Code.CoreGameLogic
         /// </summary>
         /// <param name="position">확인할 보드 좌표 (Vector2).</param>
         /// <returns>해당 위치의 Piece 객체 또는 null</returns>
-        Piece GetPieceAt(Vector2 position);
+        IPiece GetPieceAt(Vector2 position);
 
         /// <summary>
         /// 보드에 새로운 기물을 배치
         /// </summary>
         /// <param name="piece">배치할 Piece 객체</param>
         /// <param name="position">기물을 배치할 보드 좌표 (Vector2)</param>
-        void PlacePiece(Piece piece, Vector2 position);
+        void PlacePiece(IPiece piece, Vector2 position);
 
         /// <summary>
         /// 특정 위치의 기물을 다른 위치로 이동

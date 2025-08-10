@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/IPieceMoveValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/IPieceMoveValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/PawnMoveValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/PawnMoveValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Networking.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +147,7 @@
       <workItem from="1754798146088" duration="1087000" />
       <workItem from="1754805251527" duration="6952000" />
       <workItem from="1754815856459" duration="4356000" />
-      <workItem from="1754830063040" duration="1456000" />
+      <workItem from="1754830063040" duration="1788000" />
     </task>
     <servers />
   </component>
