@@ -5,48 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Global/EventManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/01.Code/UI/PieceView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/01.Code/UI/PieceView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/01.Code/UI/PlayerInputHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00.Scene/NetworkedScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scene/NetworkedScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/AttackCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/AttackCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/MoveCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/MoveCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/PolicyCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/PolicyCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/ResearchCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/ResearchCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Command/PlayerInputHandler.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Command/PlayerInputHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/UI/PlayerInputHandler.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/BasePiece.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/BasePiece.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/BattleResolver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/BattleResolver.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ChessBoard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ChessBoard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/CommandProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/CommandProcessor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IBoard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IBoard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPiece.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPiece.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/IPieceMoveValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/IPieceMoveValidator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/PawnMoveValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/PawnMoveValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Global/EventData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Global/EventData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Global/PieceData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Global/PieceData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Global/PolicyData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Global/PolicyData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Knight.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Knight.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/BoostPolicy/TechBoostPolicy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/BoostPolicy/TechBoostPolicy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/EventManager.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/EventManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Global/EventManager.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/ILoyaltyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/ILoyaltyManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPlayerNationState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPlayerNationState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPolicy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPolicy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPoliticalManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPoliticalManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/ITechnologyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/ITechnologyManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/LoyaltyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/LoyaltyManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/PlayerNationState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/PlayerNationState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/PoliticalManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/PoliticalManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/TechnologyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/TechnologyManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/UI/BoardUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/UI/BoardUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/UI/NationalPanelUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/UI/NationalPanelUI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/UI/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/UI/UIManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +152,7 @@
       <workItem from="1754798146088" duration="1087000" />
       <workItem from="1754805251527" duration="6952000" />
       <workItem from="1754815856459" duration="4356000" />
-      <workItem from="1754830063040" duration="474000" />
+      <workItem from="1754830063040" duration="1156000" />
     </task>
     <servers />
   </component>

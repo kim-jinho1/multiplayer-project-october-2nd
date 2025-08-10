@@ -31,7 +31,7 @@ namespace Code.CoreGameLogic
         /// <summary>
         /// 보드의 크기(예: 8)를 나타내는 속성
         /// </summary>
-        int BoardSize { get; }
+        Vector2 BoardSize { get; }
         /// <summary>
         /// 기물 제거 메서드
         /// </summary>
