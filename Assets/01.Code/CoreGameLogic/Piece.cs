@@ -27,5 +27,10 @@ namespace Code.CoreGameLogic
         }
 
         public abstract List<Vector2> GetPossibleMoves(IBoard board, Vector2 currentPos);
+        
+        public void ModifyAttackPower(int amount)
+        {
+            AttackPower += amount;
+        }
     }
 }

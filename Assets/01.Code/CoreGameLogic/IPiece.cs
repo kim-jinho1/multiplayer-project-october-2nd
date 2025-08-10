@@ -17,5 +17,7 @@ namespace Code.CoreGameLogic
         bool IsAlive { get; }
 
         List<Vector2> GetPossibleMoves(IBoard board, Vector2 currentPos);
+        
+        void ModifyAttackPower(int amount);
     }
 }
