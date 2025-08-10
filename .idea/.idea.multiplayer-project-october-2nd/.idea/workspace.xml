@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="" />
+    <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/ILoyaltyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/ILoyaltyManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPolicy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPolicy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPoliticalManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPoliticalManager.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,7 +118,7 @@
       <workItem from="1747385764293" duration="650000" />
       <workItem from="1750849884608" duration="430000" />
       <workItem from="1754798146088" duration="1087000" />
-      <workItem from="1754805251527" duration="3756000" />
+      <workItem from="1754805251527" duration="4743000" />
     </task>
     <servers />
   </component>
