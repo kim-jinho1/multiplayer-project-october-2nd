@@ -1,6 +1,6 @@
 namespace Code.CoreGameLogic
 {
-    public class IPieceMoveValidator
+    public class KingMoveValidator
     {
         
     }

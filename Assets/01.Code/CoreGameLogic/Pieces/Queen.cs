@@ -1,4 +1,4 @@
-namespace Code.CoreGameLogic.Piece
+namespace Code.CoreGameLogic.Pieces
 {
     public class Queen
     {
