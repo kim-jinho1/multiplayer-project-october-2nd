@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00.Scene/LobbyScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scene/LobbyScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/GameInitialization/Bootstrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/GameInitialization/Bootstrap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Global/ICompletion.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Global/ICompletion.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/UI/Connected.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/UI/Connected.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +170,7 @@
       <workItem from="1754869478873" duration="2136000" />
       <workItem from="1754891773911" duration="7391000" />
       <workItem from="1754906024211" duration="3898000" />
-      <workItem from="1754917807244" duration="4173000" />
+      <workItem from="1754917807244" duration="5395000" />
     </task>
     <servers />
   </component>

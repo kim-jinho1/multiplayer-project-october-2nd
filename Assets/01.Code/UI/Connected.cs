@@ -9,6 +9,7 @@ namespace Code.UI
     {
         [SerializeField] private NetworkManager  networkManager;
         [SerializeField] private TMP_Text connectedText;
+        [SerializeField] private GameObject mainCamera;
 
         private void OnEnable()
         {
@@ -25,6 +26,7 @@ namespace Code.UI
             if (obj == ConnectionState.Connected)
             {
                 connectedText.text = "연결됨!";
+                mainCamera.SetActive(false);
             }
             else if (obj == ConnectionState.Disconnected)
             {
