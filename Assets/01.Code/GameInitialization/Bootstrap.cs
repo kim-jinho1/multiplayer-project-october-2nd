@@ -9,12 +9,14 @@ namespace GameInitialization
     /// </summary>
     public class Bootstrap : MonoBehaviour
     {
+        [SerializeField] private GameManager gameManager;
+        
         private void Awake()
         {
             DependencyContainer.InitializeGameDependencies();
             Debug.Log("DependencyContainer 초기화 완료.");
             
-            if (FindObjectOfType<GameManager>() == null)
+            if (gameManager != null)
             {
                 GameObject gameManagerGO = new GameObject("GameManager");
                 gameManagerGO.AddComponent<GameManager>();

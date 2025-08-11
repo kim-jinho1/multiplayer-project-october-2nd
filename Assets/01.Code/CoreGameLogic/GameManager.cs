@@ -30,37 +30,24 @@ namespace Code.CoreGameLogic
     /// </summary>
     public class GameManager : NetworkBehaviour, ICommandExecutor
     {
-        [SerializeField] private NetworkManager networkManager;
+        [SerializeField] private new NetworkManager networkManager;
         
-        private IBoard _board;
+        private IBoard _iBoard;
         private ITurnProcessor _nationalTurnProcessor;
         private ITurnProcessor _pieceTurnProcessor;
         private IWinConditionChecker _winConditionChecker;
         private IBattleResolver _battleResolver;
         
-        private SyncVar<GameState> _currentGameState;
-        private SyncVar<TurnPhase> _currentTurnPhase;
-        private SyncVar<PlayerID> _currentPlayerId;
+        private SyncVar<GameState> _currentGameState = new();
+        private SyncVar<TurnPhase> _currentTurnPhase = new();
+        private SyncVar<PlayerID> _currentPlayerId = new();
 
         private Dictionary<PlayerID, Player> _players;
 
-        public IBoard Board => _board;
+        public IBoard IBoard => _iBoard;
 
         private void Awake()
         {
-            _board = DependencyContainer.Get<IBoard>();
-            _nationalTurnProcessor = DependencyContainer.Get<ITurnProcessor>(TurnPhase.NationalTurn);
-            _pieceTurnProcessor = DependencyContainer.Get<ITurnProcessor>(TurnPhase.PieceTurn);
-            _winConditionChecker = DependencyContainer.Get<IWinConditionChecker>();
-            _battleResolver = DependencyContainer.Get<IBattleResolver>();
-
-            Player player1 = DependencyContainer.Get<Player>(PlayerID.Player1);
-            Player player2 = DependencyContainer.Get<Player>(PlayerID.Player2);
-            _players = new Dictionary<PlayerID, Player>
-            {
-                { PlayerID.Player1, player1 },
-                { PlayerID.Player2, player2 }
-            };
             _currentGameState.value = GameState.Paused;
             _currentTurnPhase.value = TurnPhase.NationalTurn;
             _currentPlayerId.value = PlayerID.Player1;
@@ -69,6 +56,20 @@ namespace Code.CoreGameLogic
         protected override void OnSpawned()
         {
             base.OnSpawned();
+            
+            _iBoard = DependencyContainer.Get<IBoard>();
+            _nationalTurnProcessor = DependencyContainer.Get<ITurnProcessor>(TurnPhase.NationalTurn);
+            _pieceTurnProcessor = DependencyContainer.Get<ITurnProcessor>(TurnPhase.PieceTurn);
+            _winConditionChecker = DependencyContainer.Get<IWinConditionChecker>();
+            _battleResolver = DependencyContainer.Get<IBattleResolver>();
+            
+            Player player1 = DependencyContainer.Get<Player>(PlayerID.Player1);
+            Player player2 = DependencyContainer.Get<Player>(PlayerID.Player2);
+            _players = new Dictionary<PlayerID, Player>
+            {
+                { PlayerID.Player1, player1 },
+                { PlayerID.Player2, player2 }
+            };
         }
 
         protected override void OnDespawned()
@@ -109,8 +110,8 @@ namespace Code.CoreGameLogic
         }
         
         /// <summary>
-        /// ICommandExecutor 인터페이스의 메서드 구현입니다.
-        /// 주어진 명령(Command)을 실행합니다.
+        /// ICommandExecutor 인터페이스의 메서드 구현
+        /// 주어진 명령(Command)을 실행
         /// </summary>
         /// <param name="command">실행할 ICommand 객체</param>
         public void ExecuteCommand(ICommand command)

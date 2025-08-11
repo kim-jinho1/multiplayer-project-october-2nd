@@ -8,15 +8,10 @@ namespace Code.UI
 {
     public class PlayerInputHandler : MonoBehaviour
     {
-        private GameManager _gameManager;
+        [SerializeField] private GameManager _gameManager;
         private IPiece _selectedPiece;
         private Vector2 _selectedPosition;
-
-        private void Start()
-        {
-            _gameManager = FindObjectOfType<GameManager>();
-        }
-
+        
         public void HandlePieceClick(PieceView pieceView)
         {
             if (_selectedPiece == pieceView.LogicalPiece)
@@ -37,7 +32,7 @@ namespace Code.UI
         {
             if (_selectedPiece != null)
             {
-                ICommand moveCommand = new MoveCommand(_gameManager.Board, _selectedPosition, targetPos);
+                ICommand moveCommand = new MoveCommand(_gameManager.IBoard, _selectedPosition, targetPos);
                 _gameManager.ExecuteCommand(moveCommand);
                 _selectedPiece = null;
             }
