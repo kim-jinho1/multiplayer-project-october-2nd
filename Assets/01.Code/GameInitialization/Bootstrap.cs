@@ -10,13 +10,11 @@ namespace GameInitialization
     public class Bootstrap : MonoBehaviour
     {
         [SerializeField] private GameManager gameManager;
-        [SerializeField] private GameObject mainCamera;
         
         private void Awake()
         {
             DependencyContainer.InitializeGameDependencies();
             Debug.Log("DependencyContainer 초기화 완료.");
-            Destroy(mainCamera);
         }
     }
 }
