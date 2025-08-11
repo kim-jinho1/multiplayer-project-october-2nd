@@ -15,13 +15,6 @@ namespace GameInitialization
         {
             DependencyContainer.InitializeGameDependencies();
             Debug.Log("DependencyContainer 초기화 완료.");
-            
-            if (gameManager != null)
-            {
-                GameObject gameManagerGO = new GameObject("GameManager");
-                gameManagerGO.AddComponent<GameManager>();
-                Debug.Log("GameManager GameObject 생성 및 컴포넌트 추가 완료.");
-            }
         }
     }
 }
