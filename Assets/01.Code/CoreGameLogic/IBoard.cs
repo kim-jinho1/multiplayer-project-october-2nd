@@ -29,7 +29,7 @@ namespace Code.CoreGameLogic
         bool MovePiece(Vector2 from, Vector2 to);
 
         /// <summary>
-        /// 보드의 크기(예: 8)를 나타내는 속성
+        /// 보드의 크기를 나타내는 속성
         /// </summary>
         Vector2 BoardSize { get; }
         /// <summary>

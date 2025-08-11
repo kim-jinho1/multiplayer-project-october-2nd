@@ -38,9 +38,9 @@ namespace Code.CoreGameLogic
         private IWinConditionChecker _winConditionChecker;
         private IBattleResolver _battleResolver;
         
-        private SyncVar<GameState> _currentGameState = new();
-        private SyncVar<TurnPhase> _currentTurnPhase = new();
-        private SyncVar<PlayerID> _currentPlayerId = new();
+        private readonly SyncVar<GameState> _currentGameState = new();
+        private readonly SyncVar<TurnPhase> _currentTurnPhase = new();
+        private readonly SyncVar<PlayerID> _currentPlayerId = new();
 
         private Dictionary<PlayerID, Player> _players;
 
@@ -110,13 +110,20 @@ namespace Code.CoreGameLogic
         }
         
         /// <summary>
-        /// ICommandExecutor 인터페이스의 메서드 구현
-        /// 주어진 명령(Command)을 실행
+        /// 주어진 명령을 실행
         /// </summary>
         /// <param name="command">실행할 ICommand 객체</param>
         public void ExecuteCommand(ICommand command)
         {
-            Debug.Log("ExecuteCommand: 명령을 PurrNet RPC를 통해 서버로 전송해야 합니다.");
+            if (!networkManager.isServer)
+            {
+                Debug.Log("ExecuteCommand: 클라이언트에서 명령을 PurrNet RPC를 통해 서버로 전송해야 합니다.");
+            }
+            else
+            {
+                command.Execute();
+                Debug.Log("ExecuteCommand: 서버에서 명령을 직접 실행하고, 결과 동기화를 위한 ClientRpc를 호출합니다.");
+            }
         }
         
         /// <summary>
@@ -128,49 +135,44 @@ namespace Code.CoreGameLogic
 
             if (_currentTurnPhase.value == TurnPhase.NationalTurn)
                 _nationalTurnProcessor.ProcessTurn();
-            else // PieceTurn
+            else
                 _pieceTurnProcessor.ProcessTurn();
         }
         
-        /// <summary>
-        /// 현재 턴이 종료되면 호출되어 다음 턴으로 전환하는 로직을 수행
-        /// </summary>
-        [ServerRpc]
-        public void EndCurrentTurn()
-        {
-            if (networkManager.isServer)
-            {
-                var currentPlayer = _players[_currentPlayerId];
+        /// <summary> 
+        /// 현재 턴이 종료되면 호출되어 다음 턴으로 전환하는 로직을 수행 
+        /// </summary> 
+        [ServerRpc] 
+        public void EndCurrentTurn() 
+        { 
+            if (networkManager.isServer) 
+            { 
+                Player currentPlayer = _players[_currentPlayerId.value]; 
 
-                if (_winConditionChecker.CheckForWin(currentPlayer))
-                {
-                    EndGame(currentPlayer);
-                    return;
-                }
-                
-                _currentTurnPhase.value = _currentTurnPhase.value == TurnPhase.NationalTurn ? TurnPhase.PieceTurn : TurnPhase.NationalTurn;
-                
-                if (_currentTurnPhase == TurnPhase.NationalTurn)
-                {
-                    _currentPlayerId.value = _currentPlayerId.value == PlayerID.Player1 ? PlayerID.Player2 : PlayerID.Player1;
-                }
-                
-                Debug.Log("다음 턴! 현재 플레이어: " + _currentPlayerId + ", 현재 턴: " + _currentTurnPhase);
-                ProcessCurrentTurn();
-            }
-        }
+                if (_winConditionChecker.CheckForWin(currentPlayer.ID)) 
+                { 
+                    EndGame(currentPlayer.ID); 
+                    return; 
+                } 
+                  
+                _currentTurnPhase.value = _currentTurnPhase.value == TurnPhase.NationalTurn ? TurnPhase.PieceTurn : TurnPhase.NationalTurn; 
+                  
+                if (_currentTurnPhase.value == TurnPhase.NationalTurn)
+                    _currentPlayerId.value = _currentPlayerId.value == PlayerID.Player1 ? PlayerID.Player2 : PlayerID.Player1; 
+                  
+                Debug.Log("다음 턴! 현재 플레이어: " + _currentPlayerId.value + ", 현재 턴: " + _currentTurnPhase.value);
+                ProcessCurrentTurn(); 
+            } 
+        } 
 
         /// <summary>
         /// 게임을 종료하고 승리자를 결정
         /// </summary>
         [ObserversRpc]
-        private void EndGame(Player winner)
+        private void EndGame(PlayerID winnerId)
         {
-            if (networkManager.isServer)
-            {
-                _currentGameState.value = GameState.GameOver;
-                Debug.Log($"{winner.ID}가 승리하여 게임이 종료되었습니다!");
-            }
+            Player winner = _players[winnerId]; 
+            Debug.Log($"게임 종료! {winner.ID}가 승리했습니다!");
         }
         
         /// <summary>

@@ -4,7 +4,7 @@ namespace Code.CoreGameLogic
 {
     public class WinConditionChecker : IWinConditionChecker
     {
-        public bool CheckForWin(Player player)
+        public bool CheckForWin(PlayerID player)
         {
             return false; 
         }

@@ -12,6 +12,6 @@ namespace Code.CoreGameLogic
         /// </summary>
         /// <param name="player">확인할 플레이어 객체</param>
         /// <returns>승리 조건을 만족했으면 true, 아니면 false</returns>
-        bool CheckForWin(Player player);
+        bool CheckForWin(PlayerID player);
     }
 }
