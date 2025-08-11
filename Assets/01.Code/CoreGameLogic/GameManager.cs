@@ -3,6 +3,8 @@ using Code.Global;
 using Code.Players;
 using UnityEngine;
 using System.Collections.Generic;
+using PurrNet;
+using PlayerID = Code.Players.PlayerID;
 
 namespace Code.CoreGameLogic
 {
@@ -23,70 +25,87 @@ namespace Code.CoreGameLogic
     }
 
     /// <summary>
-    /// 게임의 전체적인 흐름과 상태를 관리하는 중앙 컨트롤러입니다.
-    /// 다른 시스템에 작업을 위임하는 지휘자 역할을 수행합니다.
+    /// 게임의 전체적인 흐름과 상태를 관리하는 중앙 컨트롤러
+    /// 다른 시스템에 작업을 위임하는 지휘자 역할을 수행
     /// </summary>
-    public class GameManager : MonoBehaviour, ICommandExecutor // ICommandExecutor를 구현하도록 추가
+    public class GameManager : NetworkBehaviour, ICommandExecutor
     {
+        [SerializeField] private NetworkManager networkManager;
+        
         private IBoard _board;
         private ITurnProcessor _nationalTurnProcessor;
         private ITurnProcessor _pieceTurnProcessor;
         private IWinConditionChecker _winConditionChecker;
-        // 이제 GameManager 자체가 ICommandExecutor이므로 이 필드는 필요 없습니다.
-        // private ICommandExecutor _commandExecutor;
         private IBattleResolver _battleResolver;
-
-
-        private GameState _currentGameState;
-        private TurnPhase _currentTurnPhase;
-        private PlayerID _currentPlayerId;
+        
+        private SyncVar<GameState> _currentGameState;
+        private SyncVar<TurnPhase> _currentTurnPhase;
+        private SyncVar<PlayerID> _currentPlayerId;
 
         private Dictionary<PlayerID, Player> _players;
 
-        // Board 프로퍼티: _board 필드를 외부에서 접근할 수 있도록 합니다.
         public IBoard Board => _board;
 
         private void Awake()
         {
-            // DependencyContainer가 이 GameManager의 Awake()보다 먼저 초기화되었는지 확인해야 합니다.
-            // 보통 별도의 초기화 스크립트에서 DependencyContainer.InitializeGameDependencies()를 호출합니다.
-
             _board = DependencyContainer.Get<IBoard>();
             _nationalTurnProcessor = DependencyContainer.Get<ITurnProcessor>(TurnPhase.NationalTurn);
             _pieceTurnProcessor = DependencyContainer.Get<ITurnProcessor>(TurnPhase.PieceTurn);
             _winConditionChecker = DependencyContainer.Get<IWinConditionChecker>();
-            // GameManager가 ICommandExecutor를 구현하므로, 자기 자신을 사용합니다.
-            // _commandExecutor = this; // 이렇게 명시적으로 할당할 필요는 없지만, 개념적으로 그렇습니다.
             _battleResolver = DependencyContainer.Get<IBattleResolver>();
 
-            // PlayerID를 사용하여 플레이어 인스턴스를 가져옵니다.
-            var player1 = DependencyContainer.Get<Player>(PlayerID.Player1);
-            var player2 = DependencyContainer.Get<Player>(PlayerID.Player2);
+            Player player1 = DependencyContainer.Get<Player>(PlayerID.Player1);
+            Player player2 = DependencyContainer.Get<Player>(PlayerID.Player2);
             _players = new Dictionary<PlayerID, Player>
             {
                 { PlayerID.Player1, player1 },
                 { PlayerID.Player2, player2 }
             };
-
-            _currentGameState = GameState.Paused; // 게임 시작 전 초기 상태
+            _currentGameState.value = GameState.Paused;
+            _currentTurnPhase.value = TurnPhase.NationalTurn;
+            _currentPlayerId.value = PlayerID.Player1;
         }
 
-        private void Start()
+        protected override void OnSpawned()
         {
-            StartGame();
+            base.OnSpawned();
+        }
+
+        protected override void OnDespawned()
+        {
+            base.OnDespawned();
+        }
+        
+        private void OnGameStateChanged(GameState oldState, GameState newState)
+        {
+            Debug.Log($"게임 상태 변경 (네트워크 동기화): {oldState} -> {newState}");
+        }
+        
+        private void OnTurnPhaseChanged(TurnPhase oldPhase, TurnPhase newPhase)
+        {
+            Debug.Log($"턴 단계 변경 (네트워크 동기화): {oldPhase} -> {newPhase}");
+        }
+        
+        private void OnPlayerIdChanged(PlayerID oldId, PlayerID newId)
+        {
+            Debug.Log($"현재 플레이어 변경 (네트워크 동기화): {oldId} -> {newId}");
         }
 
         /// <summary>
-        /// 게임을 시작합니다.
+        /// 게임을 시작합니다
         /// </summary>
+        [ServerRpc]
         public void StartGame()
         {
-            _currentGameState = GameState.Playing;
-            _currentPlayerId = PlayerID.Player1; // 첫 턴은 Player1
-            _currentTurnPhase = TurnPhase.NationalTurn; // 첫 턴 단계는 NationalTurn
-            
-            Debug.Log("게임 시작! 현재 플레이어: " + _currentPlayerId + ", 현재 턴: " + _currentTurnPhase);
-            ProcessCurrentTurn();
+            if (networkManager.isServer)
+            {
+                _currentGameState.value = GameState.Playing;
+                _currentPlayerId.value = PlayerID.Player1;
+                _currentTurnPhase.value = TurnPhase.NationalTurn;
+
+                Debug.Log("게임 시작! 현재 플레이어: " + _currentPlayerId + ", 현재 턴: " + _currentTurnPhase);
+                ProcessCurrentTurn();
+            }
         }
         
         /// <summary>
@@ -96,70 +115,73 @@ namespace Code.CoreGameLogic
         /// <param name="command">실행할 ICommand 객체</param>
         public void ExecuteCommand(ICommand command)
         {
-            command.Execute();
-            // 필요하다면 여기에 명령 스택에 푸시하는 로직 등을 추가하여 Undo/Redo 시스템을 구현할 수 있습니다.
+            Debug.Log("ExecuteCommand: 명령을 PurrNet RPC를 통해 서버로 전송해야 합니다.");
         }
-
+        
         /// <summary>
-        /// 현재 플레이어의 현재 턴 단계를 진행합니다.
+        /// 현재 플레이어의 현재 턴 단계를 진행
         /// </summary>
         public void ProcessCurrentTurn()
         {
-            if (_currentGameState != GameState.Playing) return;
+            if (_currentGameState.value != GameState.Playing) return;
 
-            if (_currentTurnPhase == TurnPhase.NationalTurn)
+            if (_currentTurnPhase.value == TurnPhase.NationalTurn)
                 _nationalTurnProcessor.ProcessTurn();
             else // PieceTurn
                 _pieceTurnProcessor.ProcessTurn();
         }
         
         /// <summary>
-        /// 현재 턴이 종료되면 호출되어 다음 턴으로 전환하는 로직을 수행합니다.
+        /// 현재 턴이 종료되면 호출되어 다음 턴으로 전환하는 로직을 수행
         /// </summary>
+        [ServerRpc]
         public void EndCurrentTurn()
         {
-            // 현재 플레이어 객체를 가져옵니다.
-            var currentPlayer = _players[_currentPlayerId];
+            if (networkManager.isServer)
+            {
+                var currentPlayer = _players[_currentPlayerId];
 
-            // 승리 조건을 확인합니다.
-            if (_winConditionChecker.CheckForWin(currentPlayer))
-            {
-                EndGame(currentPlayer);
-                return;
+                if (_winConditionChecker.CheckForWin(currentPlayer))
+                {
+                    EndGame(currentPlayer);
+                    return;
+                }
+                
+                _currentTurnPhase.value = _currentTurnPhase.value == TurnPhase.NationalTurn ? TurnPhase.PieceTurn : TurnPhase.NationalTurn;
+                
+                if (_currentTurnPhase == TurnPhase.NationalTurn)
+                {
+                    _currentPlayerId.value = _currentPlayerId.value == PlayerID.Player1 ? PlayerID.Player2 : PlayerID.Player1;
+                }
+                
+                Debug.Log("다음 턴! 현재 플레이어: " + _currentPlayerId + ", 현재 턴: " + _currentTurnPhase);
+                ProcessCurrentTurn();
             }
-            
-            // 턴 단계를 전환합니다 (NationalTurn <-> PieceTurn).
-            _currentTurnPhase = (_currentTurnPhase == TurnPhase.NationalTurn) ? TurnPhase.PieceTurn : TurnPhase.NationalTurn;
-            
-            // NationalTurn 단계로 돌아오면 플레이어를 전환합니다.
-            if (_currentTurnPhase == TurnPhase.NationalTurn)
-            {
-                _currentPlayerId = (_currentPlayerId == PlayerID.Player1) ? PlayerID.Player2 : PlayerID.Player1;
-            }
-            
-            Debug.Log("다음 턴! 현재 플레이어: " + _currentPlayerId + ", 현재 턴: " + _currentTurnPhase);
-            ProcessCurrentTurn(); // 다음 턴 처리 시작
         }
 
         /// <summary>
-        /// 게임을 종료하고 승리자를 결정합니다.
+        /// 게임을 종료하고 승리자를 결정
         /// </summary>
-        /// <param name="winner">게임에서 승리한 Player 객체</param>
+        [ObserversRpc]
         private void EndGame(Player winner)
         {
-            _currentGameState = GameState.GameOver;
-            Debug.Log($"{winner.ID}가 승리하여 게임이 종료되었습니다!");
-            // 게임 종료 UI를 띄우는 로직이나 게임 재시작 옵션 등을 추가할 수 있습니다.
+            if (networkManager.isServer)
+            {
+                _currentGameState.value = GameState.GameOver;
+                Debug.Log($"{winner.ID}가 승리하여 게임이 종료되었습니다!");
+            }
         }
         
         /// <summary>
-        /// 두 기물 간의 전투를 처리합니다.
+        /// 두 기물 간의 전투를 처리
         /// </summary>
-        /// <param name="attacker">공격하는 기물</param>
-        /// <param name="defender">방어하는 기물</param>
+        [ServerRpc]
         public void HandleBattle(Piece attacker, Piece defender)
         {
-            _battleResolver.ResolveBattle(attacker, defender);
+            if (networkManager.isServer)
+            {
+                _battleResolver.ResolveBattle(attacker, defender);
+            }
         }
     }
 }
