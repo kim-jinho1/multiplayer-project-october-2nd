@@ -1538,7 +1538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyManager: {fileID: 1097043115}
-  friendEntry: {fileID: 1508615511672977223, guid: 701273401acb61842af8f9ea5bd0871b, type: 3}
+  friendEntry: {fileID: 1508615511672977223, guid: 259a31320fc48c7439db2cdfd1f994ab, type: 3}
   content: {fileID: 477276360}
   filter: 0
 --- !u!1 &846333389
@@ -2246,7 +2246,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2108945444}
   m_HandleRect: {fileID: 2108945443}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2300,7 +2300,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1097043113}
   - component: {fileID: 1097043115}
-  - component: {fileID: 1097043114}
   - component: {fileID: 1097043117}
   - component: {fileID: 1097043116}
   m_Layer: 0
@@ -2325,21 +2324,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1097043114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1097043112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15156e7f57bff964485891eba8344bbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lobbyType: 2
-  maxLobbiesToFind: 10
-  handleSteamInit: 1
 --- !u!114 &1097043115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3447,7 +3431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1241bac039f1d4ba7ec88803cc607d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  memberEntryPrefab: {fileID: 1132880664040779526, guid: 028e89ef3472d6b46b953456b578c5f6, type: 3}
+  memberEntryPrefab: {fileID: 1132880664040779526, guid: 8d341dcfcc2a86c48a9a37ee08bd8cf3, type: 3}
   content: {fileID: 1233912638}
 --- !u!1 &1267779083
 GameObject:
@@ -5777,7 +5761,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55.7
+  m_fontSize: 60
   m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6159,7 +6143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lobbyManager: {fileID: 1097043115}
-  lobbyEntryPrefab: {fileID: 8034784290185517773, guid: e3910e62b256a2a46864060a999dd67e, type: 3}
+  lobbyEntryPrefab: {fileID: 8034784290185517773, guid: 34e1cd77326e27840a6baa1acdd8aba5, type: 3}
   content: {fileID: 1771840637}
 --- !u!1 &2108945442
 GameObject:

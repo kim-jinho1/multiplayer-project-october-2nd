@@ -22,7 +22,6 @@ namespace Code.Players
             ID = id;
             Name = id.ToString(); // 기본 이름은 ID로 설정
             Gold = 1000; // 초기 골드 설정
-            Debug.Log($"플레이어 생성: {ID}, 초기 골드: {Gold}");
         }
 
         // 필요하다면 다른 생성자 오버로드를 추가할 수 있습니다.
@@ -31,14 +30,12 @@ namespace Code.Players
             ID = id;
             Name = name;
             Gold = initialGold;
-            Debug.Log($"플레이어 생성: {ID} ({Name}), 초기 골드: {Gold}");
         }
 
         // 플레이어의 골드를 추가하는 메서드 (예시)
         public void AddGold(int amount)
         {
             Gold += amount;
-            Debug.Log($"{ID}의 골드가 {amount}만큼 변경되어 현재 골드: {Gold}");
         }
     }
 }

@@ -54,7 +54,6 @@ namespace Code.Global
         {
             Singletons.Clear();
             NamedSingletons.Clear();
-            Debug.Log("의존성 컨테이너가 초기화되었습니다.");
         }
 
         public static void InitializeGameDependencies()
