@@ -7,8 +7,15 @@
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/UI/Connected.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/UI/Connected.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/06.Fonts/neodgm SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/06.Fonts/neodgm SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00.Scene/LobbyScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scene/LobbyScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrLobby/LobbyScenes/LobbySample.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrLobby/LobbyScenes/LobbySample.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrLobby/LobbyScenes/NetworkedScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrLobby/LobbyScenes/NetworkedScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrLobby/Prefabs/FriendEntry.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrLobby/Prefabs/FriendEntry.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrLobby/Prefabs/LobbyEntry.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrLobby/Prefabs/LobbyEntry.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrLobby/Prefabs/LobbyMemberEntry.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrLobby/Prefabs/LobbyMemberEntry.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -171,7 +178,7 @@
       <workItem from="1754906024211" duration="3898000" />
       <workItem from="1754917807244" duration="5395000" />
       <workItem from="1754974454357" duration="96000" />
-      <workItem from="1754975042384" duration="1326000" />
+      <workItem from="1754975042384" duration="2780000" />
     </task>
     <servers />
   </component>
