@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using Code.Players;
+using PurrNet;
 using UnityEngine;
+using PlayerID = Code.Players.PlayerID;
 
 namespace Code.CoreGameLogic
 {
@@ -10,13 +11,13 @@ namespace Code.CoreGameLogic
     public interface IPiece
     {
         string PieceName { get; }
-        PlayerID OwnerID { get; }
-        int AttackPower { get; }
-        int DefensePower { get; }
-        int Health { get; }
-        bool IsAlive { get; }
+        SyncVar<PlayerID> OwnerID { get; }
+        SyncVar<int> AttackPower { get; }
+        SyncVar<int> DefensePower { get; }
+        SyncVar<int> Health { get; }
+        SyncVar<bool> IsAlive { get; }
 
-        List<Vector2> GetPossibleMoves(IBoard board, Vector2 currentPos);
+        SyncVar<List<Vector2>> GetPossibleMoves(IBoard board, Vector2 currentPos);
         
         void ModifyAttackPower(int amount);
     }

@@ -1,42 +1,37 @@
 using System.Collections.Generic;
-using Code.Players;
+using PurrNet;
 using UnityEngine;
+using PlayerID = Code.Players.PlayerID;
 
 namespace Code.CoreGameLogic
 {
-    public abstract class Piece : IPiece
+    public abstract class Piece : MonoBehaviour, IPiece
     {
         public abstract string PieceName { get; }
-        public PlayerID OwnerID { get; private set; }
-        public int AttackPower { get; protected internal set; }
-        public int DefensePower { get; protected set; }
-        public int Health { get; protected internal set; }
-        public bool IsAlive => Health > 0;
+        public SyncVar<PlayerID> OwnerID { get; private set; }
+        public SyncVar<int> AttackPower { get; protected internal set; }
+        public SyncVar<int> DefensePower { get; protected set; }
+        public SyncVar<int> Health { get; protected internal set; }
+        public SyncVar<bool> IsAlive => new(Health > 0);
         
-        protected IPieceMoveValidator _validator;
-        
-        protected 
-        private void OnMouseOver()
-        {
-            
-        }
+        protected IPieceMoveValidator Validator;
 
         public Piece(PlayerID ownerId, IPieceMoveValidator validator)
         {
-            OwnerID = ownerId;
-            _validator = validator;
+            OwnerID.value = ownerId;
+            Validator = validator;
         }
 
         public bool IsMovePossible(IBoard board, Vector2 from, Vector2 to)
         {
-            return _validator.IsValidMove(board, this, from, to);
+            return Validator.IsValidMove(board, this, from, to);
         }
 
-        public abstract List<Vector2> GetPossibleMoves(IBoard board, Vector2 currentPos);
+        public abstract SyncVar<List<Vector2>> GetPossibleMoves(IBoard board, Vector2 currentPos);
         
         public void ModifyAttackPower(int amount)
         {
-            AttackPower += amount;
+            AttackPower.value += amount;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Code.CoreGameLogic
             Debug.Log($"{attacker.PieceName} ({attacker.AttackPower})가 {defender.PieceName} ({defender.DefensePower})를 공격!");
             Debug.Log($"적용될 데미지: {damage}");
             
-            defender.Health -= damage;
+            defender.Health.value -= damage;
             Debug.Log($"{defender.PieceName}의 남은 체력: {defender.Health}");
             
             if (!defender.IsAlive)

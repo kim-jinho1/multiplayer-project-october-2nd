@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/PieceController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/PieceController.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/BattleResolver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/BattleResolver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPiece.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPiece.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/King.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/King.cs" afterDir="false" />
@@ -14,14 +18,7 @@
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Queen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Queen.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Rook.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Rook.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Global/DependencyContainer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Global/DependencyContainer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Global/EventData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Global/EventData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Global/EventManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Global/EventManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPolicy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IPolicy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/PlayerNationState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/PlayerNationState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/UI/PieceView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/UI/PieceView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputSystem_Actions.inputactions" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/InputSystem_Actions.inputactions.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhitePawn.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhitePawn.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +29,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/Command/ICommand.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/BattleResolver.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ChessBoard.cs" root0="FORCE_HIGHLIGHTING" />
@@ -207,7 +205,7 @@
       <workItem from="1754980646264" duration="103000" />
       <workItem from="1754980775963" duration="1263000" />
       <workItem from="1754991681116" duration="5292000" />
-      <workItem from="1755004008232" duration="1012000" />
+      <workItem from="1755004008232" duration="2598000" />
     </task>
     <servers />
   </component>
