@@ -1387,6 +1387,7 @@ MonoBehaviour:
   networkManager: {fileID: 104676488}
   connectedText: {fileID: 270819955}
   mainCamera: {fileID: 366303280}
+  bg: {fileID: 1294828575}
 --- !u!1001 &276328070
 PrefabInstance:
   m_ObjectHideFlags: 0
