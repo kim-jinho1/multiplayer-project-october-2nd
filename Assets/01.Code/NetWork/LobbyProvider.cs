@@ -15,10 +15,10 @@ namespace Code.NetWork
         FriendsOnly,
         Public,
     }
-    
+
     public class LobbyProvider : MonoBehaviour, ILobbyProvider
     {
-        public LobbyType lobbyType=LobbyType.Public;
+        public LobbyType lobbyType = LobbyType.Public;
         public int maxLobbiesToFind = 10;
 
         [SerializeField] private bool handleSteamInit;
@@ -67,7 +67,7 @@ namespace Code.NetWork
             var handle = SteamMatchmaking.CreateLobby((ELobbyType)lobbyType, maxPlayers);
             _lobbyCreated.Set(handle, (result, ioError) =>
             {
-                if(!ioError && result.m_eResult == EResult.k_EResultOK)
+                if (!ioError && result.m_eResult == EResult.k_EResultOK)
                 {
                     lobbyId = new CSteamID(result.m_ulSteamIDLobby);
                     tcs.TrySetResult(true);
@@ -114,9 +114,11 @@ namespace Code.NetWork
                 var steamID = SteamFriends.GetFriendByIndex(i, EFriendFlags.k_EFriendFlagImmediate);
                 bool shouldAdd = filter switch
                 {
-                    LobbyManager.FriendFilter.InThisGame => SteamFriends.GetFriendGamePlayed(steamID, out var gameInfo) &&
-                                                            gameInfo.m_gameID.AppID() == SteamUtils.GetAppID(),
-                    LobbyManager.FriendFilter.Online => SteamFriends.GetFriendPersonaState(steamID) == EPersonaState.k_EPersonaStateOnline,
+                    LobbyManager.FriendFilter.InThisGame =>
+                        SteamFriends.GetFriendGamePlayed(steamID, out var gameInfo) &&
+                        gameInfo.m_gameID.AppID() == SteamUtils.GetAppID(),
+                    LobbyManager.FriendFilter.Online => SteamFriends.GetFriendPersonaState(steamID) ==
+                                                        EPersonaState.k_EPersonaStateOnline,
                     LobbyManager.FriendFilter.All => true,
                     _ => false
                 };
@@ -133,7 +135,7 @@ namespace Code.NetWork
             if (!IsSteamClientAvailable)
                 return Task.FromResult(string.Empty);
 
-            return Task.FromResult(Steamworks.SteamMatchmaking.GetLobbyData(_currentLobby, key));
+            return Task.FromResult(SteamMatchmaking.GetLobbyData(_currentLobby, key));
         }
 
         public Task<List<LobbyUser>> GetLobbyMembersAsync()
@@ -141,7 +143,7 @@ namespace Code.NetWork
             if (!IsSteamClientAvailable)
                 return Task.FromResult(new List<LobbyUser>());
 
-            return Task.FromResult(GetLobbyUsers(Steamworks.SteamUser.GetSteamID()));
+            return Task.FromResult(GetLobbyUsers(SteamUser.GetSteamID()));
         }
 
         public Task<string> GetLocalUserIdAsync()
@@ -161,7 +163,7 @@ namespace Code.NetWork
 
             if (handleSteamInit)
                 HandleSteamInit();
-            
+
             return Task.CompletedTask;
         }
 
@@ -181,15 +183,16 @@ namespace Code.NetWork
             if (!IsSteamClientAvailable || string.IsNullOrEmpty(lobbyId))
                 return default;
 
-            _lobbyEnter ??= Steamworks.CallResult<Steamworks.LobbyEnter_t>.Create();
+            _lobbyEnter ??= CallResult<LobbyEnter_t>.Create();
 
             var tcs = new TaskCompletionSource<bool>();
-            var cLobbyId = new Steamworks.CSteamID(ulong.Parse(lobbyId));
-            var handle = Steamworks.SteamMatchmaking.JoinLobby(cLobbyId);
+            var cLobbyId = new CSteamID(ulong.Parse(lobbyId));
+            var handle = SteamMatchmaking.JoinLobby(cLobbyId);
 
             _lobbyEnter.Set(handle, (result, ioError) =>
             {
-                if (result.m_EChatRoomEnterResponse == (uint)Steamworks.EChatRoomEnterResponse.k_EChatRoomEnterResponseSuccess)
+                if (result.m_EChatRoomEnterResponse ==
+                    (uint)EChatRoomEnterResponse.k_EChatRoomEnterResponseSuccess)
                 {
                     _currentLobby = new CSteamID(result.m_ulSteamIDLobby);
                     tcs.TrySetResult(true);
@@ -207,9 +210,9 @@ namespace Code.NetWork
             }
 
             var lobby = LobbyFactory.Create(
-                Steamworks.SteamMatchmaking.GetLobbyData(_currentLobby, "Name"),
+                SteamMatchmaking.GetLobbyData(_currentLobby, "Name"),
                 lobbyId,
-                Steamworks.SteamMatchmaking.GetLobbyMemberLimit(_currentLobby),
+                SteamMatchmaking.GetLobbyMemberLimit(_currentLobby),
                 false,
                 GetLobbyUsers(cLobbyId),
                 GetLobbyProperties(_currentLobby)
@@ -221,10 +224,10 @@ namespace Code.NetWork
 
         public Task LeaveLobbyAsync()
         {
-            if (!IsSteamClientAvailable || _currentLobby == Steamworks.CSteamID.Nil) 
+            if (!IsSteamClientAvailable || _currentLobby == CSteamID.Nil)
                 return Task.CompletedTask;
 
-            Steamworks.SteamMatchmaking.LeaveLobby(_currentLobby);
+            SteamMatchmaking.LeaveLobby(_currentLobby);
             _currentLobby = default;
             OnLobbyLeft?.Invoke();
             return Task.CompletedTask;
@@ -234,14 +237,15 @@ namespace Code.NetWork
         {
             if (IsSteamClientAvailable && !string.IsNullOrEmpty(lobbyId) && ulong.TryParse(lobbyId, out var id))
             {
-                var cLobbyId = new Steamworks.CSteamID(ulong.Parse(lobbyId));
-                Steamworks.SteamMatchmaking.LeaveLobby(cLobbyId);
+                var cLobbyId = new CSteamID(ulong.Parse(lobbyId));
+                SteamMatchmaking.LeaveLobby(cLobbyId);
             }
 
             return Task.CompletedTask;
         }
 
-        public async Task<List<Lobby>> SearchLobbiesAsync(int maxRoomsToFind = 10, Dictionary<string, string> filters = null)
+        public async Task<List<Lobby>> SearchLobbiesAsync(int maxRoomsToFind = 10,
+            Dictionary<string, string> filters = null)
         {
             if (!IsSteamClientAvailable)
                 return new List<Lobby>();
@@ -253,27 +257,29 @@ namespace Code.NetWork
             {
                 foreach (var filter in filters)
                 {
-                    Steamworks.SteamMatchmaking.AddRequestLobbyListStringFilter(filter.Key, filter.Value, Steamworks.ELobbyComparison.k_ELobbyComparisonEqual);
+                    SteamMatchmaking.AddRequestLobbyListStringFilter(filter.Key, filter.Value,
+                        ELobbyComparison.k_ELobbyComparisonEqual);
                 }
             }
 
-            Steamworks.SteamMatchmaking.AddRequestLobbyListStringFilter("Started", "False", Steamworks.ELobbyComparison.k_ELobbyComparisonEqual);
-            Steamworks.SteamMatchmaking.AddRequestLobbyListResultCountFilter(maxLobbiesToFind);
+            SteamMatchmaking.AddRequestLobbyListStringFilter("Started", "False",
+                ELobbyComparison.k_ELobbyComparisonEqual);
+            SteamMatchmaking.AddRequestLobbyListResultCountFilter(maxLobbiesToFind);
 
-            _lobbyMatchList ??= Steamworks.CallResult<Steamworks.LobbyMatchList_t>.Create();
-            _lobbyMatchList.Set(Steamworks.SteamMatchmaking.RequestLobbyList(), (result, ioError) =>
+            _lobbyMatchList ??= CallResult<LobbyMatchList_t>.Create();
+            _lobbyMatchList.Set(SteamMatchmaking.RequestLobbyList(), (result, ioError) =>
             {
                 int totalLobbies = (int)result.m_nLobbiesMatching;
 
                 for (int i = 0; i < totalLobbies; i++)
                 {
-                    var lobbyId = Steamworks.SteamMatchmaking.GetLobbyByIndex(i);
+                    var lobbyId = SteamMatchmaking.GetLobbyByIndex(i);
                     var lobbyProperties = GetLobbyProperties(lobbyId);
-                    int maxPlayers = Steamworks.SteamMatchmaking.GetLobbyMemberLimit(lobbyId);
+                    int maxPlayers = SteamMatchmaking.GetLobbyMemberLimit(lobbyId);
 
                     results.Add(new Lobby
                     {
-                        Name = Steamworks.SteamMatchmaking.GetLobbyData(lobbyId, "Name"),
+                        Name = SteamMatchmaking.GetLobbyData(lobbyId, "Name"),
                         IsValid = true,
                         LobbyId = lobbyId.m_SteamID.ToString(),
                         MaxPlayers = maxPlayers,
@@ -292,10 +298,10 @@ namespace Code.NetWork
         {
             //You can only set the ready state for your own user
             if (IsSteamClientAvailable && !string.IsNullOrEmpty(userId) && ulong.TryParse(userId, out var id)
-                && Steamworks.SteamUser.GetSteamID().m_SteamID == id)
+                && SteamUser.GetSteamID().m_SteamID == id)
             {
-                Steamworks.SteamMatchmaking.SetLobbyMemberData(_currentLobby, "IsReady", isReady.ToString());
-                Steamworks.SteamMatchmaking.SetLobbyData(_currentLobby, "UpdateTrigger", DateTime.UtcNow.Ticks.ToString());
+                SteamMatchmaking.SetLobbyMemberData(_currentLobby, "IsReady", isReady.ToString());
+                SteamMatchmaking.SetLobbyData(_currentLobby, "UpdateTrigger", DateTime.UtcNow.Ticks.ToString());
             }
 
             return Task.FromResult(Task.CompletedTask);
@@ -304,7 +310,7 @@ namespace Code.NetWork
         public Task SetLobbyDataAsync(string key, string value)
         {
             if (IsSteamClientAvailable)
-                Steamworks.SteamMatchmaking.SetLobbyData(_currentLobby, key, value);
+                SteamMatchmaking.SetLobbyData(_currentLobby, key, value);
 
             return Task.FromResult(Task.CompletedTask);
         }
@@ -313,8 +319,8 @@ namespace Code.NetWork
         {
             if (IsSteamClientAvailable)
             {
-                Steamworks.SteamMatchmaking.SetLobbyGameServer(_currentLobby, 0, 0, Steamworks.SteamUser.GetSteamID());
-                Steamworks.SteamMatchmaking.SetLobbyData(_currentLobby, "Started", "True");
+                SteamMatchmaking.SetLobbyGameServer(_currentLobby, 0, 0, SteamUser.GetSteamID());
+                SteamMatchmaking.SetLobbyData(_currentLobby, "Started", "True");
             }
 
             return Task.FromResult(Task.CompletedTask);
@@ -340,6 +346,7 @@ namespace Code.NetWork
                     OnError?.Invoke("SteamAPI initialization failed.");
                     return;
                 }
+
                 RunSteamCallbacks();
             }
         }
@@ -354,12 +361,12 @@ namespace Code.NetWork
             }
         }
 
-        public void SetLobbyStarted(Steamworks.CSteamID serverId)
+        public void SetLobbyStarted(CSteamID serverId)
         {
             if (IsSteamClientAvailable)
             {
-                Steamworks.SteamMatchmaking.SetLobbyGameServer(_currentLobby, 0, 0, serverId);
-                Steamworks.SteamMatchmaking.SetLobbyData(_currentLobby, "Started", "True");
+                SteamMatchmaking.SetLobbyGameServer(_currentLobby, 0, 0, serverId);
+                SteamMatchmaking.SetLobbyData(_currentLobby, "Started", "True");
             }
         }
 
@@ -373,12 +380,12 @@ namespace Code.NetWork
                 ip += (uint)ipBytes[1] << 16;
                 ip += (uint)ipBytes[2] << 8;
                 ip += (uint)ipBytes[3];
-                Steamworks.SteamMatchmaking.SetLobbyGameServer(_currentLobby, ip, (ushort)port, Steamworks.CSteamID.Nil);
-                Steamworks.SteamMatchmaking.SetLobbyData(_currentLobby, "Started", "True");
+                SteamMatchmaking.SetLobbyGameServer(_currentLobby, ip, (ushort)port, CSteamID.Nil);
+                SteamMatchmaking.SetLobbyData(_currentLobby, "Started", "True");
             }
         }
 
-        public void SetLobbyStarted(string address, short port, Steamworks.CSteamID serverId)
+        public void SetLobbyStarted(string address, short port, CSteamID serverId)
         {
             if (IsSteamClientAvailable)
             {
@@ -388,40 +395,41 @@ namespace Code.NetWork
                 ip += (uint)ipBytes[1] << 16;
                 ip += (uint)ipBytes[2] << 8;
                 ip += (uint)ipBytes[3];
-                Steamworks.SteamMatchmaking.SetLobbyGameServer(_currentLobby, ip, (ushort)port, Steamworks.CSteamID.Nil);
-                Steamworks.SteamMatchmaking.SetLobbyData(_currentLobby, "Started", "True");
+                SteamMatchmaking.SetLobbyGameServer(_currentLobby, ip, (ushort)port, CSteamID.Nil);
+                SteamMatchmaking.SetLobbyData(_currentLobby, "Started", "True");
             }
         }
 
-        private List<LobbyUser> GetLobbyUsers(Steamworks.CSteamID lobbyId)
+        private List<LobbyUser> GetLobbyUsers(CSteamID lobbyId)
         {
             var users = new List<LobbyUser>();
-            int memberCount = Steamworks.SteamMatchmaking.GetNumLobbyMembers(lobbyId);
+            int memberCount = SteamMatchmaking.GetNumLobbyMembers(lobbyId);
 
             for (int i = 0; i < memberCount; i++)
             {
-                var steamId = Steamworks.SteamMatchmaking.GetLobbyMemberByIndex(lobbyId, i);
+                var steamId = SteamMatchmaking.GetLobbyMemberByIndex(lobbyId, i);
                 users.Add(CreateLobbyUser(steamId, lobbyId));
             }
 
             return users;
         }
 
-        private LobbyUser CreateLobbyUser(Steamworks.CSteamID steamId, Steamworks.CSteamID lobbyId)
+        private LobbyUser CreateLobbyUser(CSteamID steamId, CSteamID lobbyId)
         {
-            _avatarImageLoadedCallback ??= Steamworks.Callback<Steamworks.AvatarImageLoaded_t>.Create(OnAvatarImageLoaded);
+            _avatarImageLoadedCallback ??=
+                Callback<AvatarImageLoaded_t>.Create(OnAvatarImageLoaded);
 
-            var displayName = Steamworks.SteamFriends.GetFriendPersonaName(steamId);
-            var isReadyString = Steamworks.SteamMatchmaking.GetLobbyMemberData(lobbyId, steamId, "IsReady");
+            var displayName = SteamFriends.GetFriendPersonaName(steamId);
+            var isReadyString = SteamMatchmaking.GetLobbyMemberData(lobbyId, steamId, "IsReady");
             var isReady = !string.IsNullOrEmpty(isReadyString) && isReadyString == "True";
 
-            var avatarHandle = Steamworks.SteamFriends.GetLargeFriendAvatar(steamId);
+            var avatarHandle = SteamFriends.GetLargeFriendAvatar(steamId);
             Texture2D avatar = null;
 
-            if (avatarHandle != -1 && Steamworks.SteamUtils.GetImageSize(avatarHandle, out uint width, out uint height))
+            if (avatarHandle != -1 && SteamUtils.GetImageSize(avatarHandle, out uint width, out uint height))
             {
                 byte[] imageBuffer = new byte[width * height * 4];
-                if (Steamworks.SteamUtils.GetImageRGBA(avatarHandle, imageBuffer, imageBuffer.Length))
+                if (SteamUtils.GetImageRGBA(avatarHandle, imageBuffer, imageBuffer.Length))
                 {
                     avatar = new Texture2D((int)width, (int)height, TextureFormat.RGBA32, false);
                     avatar.LoadRawTextureData(imageBuffer);
@@ -460,17 +468,17 @@ namespace Code.NetWork
             texture.SetPixels(pixels);
         }
 
-        private FriendUser CreateFriendUser(Steamworks.CSteamID steamId)
+        private FriendUser CreateFriendUser(CSteamID steamId)
         {
-            var displayName = Steamworks.SteamFriends.GetFriendPersonaName(steamId);
+            var displayName = SteamFriends.GetFriendPersonaName(steamId);
 
-            var avatarHandle = Steamworks.SteamFriends.GetLargeFriendAvatar(steamId);
+            var avatarHandle = SteamFriends.GetLargeFriendAvatar(steamId);
             Texture2D avatar = null;
 
-            if (avatarHandle != -1 && Steamworks.SteamUtils.GetImageSize(avatarHandle, out uint width, out uint height))
+            if (avatarHandle != -1 && SteamUtils.GetImageSize(avatarHandle, out uint width, out uint height))
             {
                 byte[] imageBuffer = new byte[width * height * 4];
-                if (Steamworks.SteamUtils.GetImageRGBA(avatarHandle, imageBuffer, imageBuffer.Length))
+                if (SteamUtils.GetImageRGBA(avatarHandle, imageBuffer, imageBuffer.Length))
                 {
                     avatar = new Texture2D((int)width, (int)height, TextureFormat.RGBA32, false);
                     avatar.LoadRawTextureData(imageBuffer);
@@ -487,7 +495,7 @@ namespace Code.NetWork
             };
         }
 
-        private void OnAvatarImageLoaded(Steamworks.AvatarImageLoaded_t callback)
+        private void OnAvatarImageLoaded(AvatarImageLoaded_t callback)
         {
             var steamId = callback.m_steamID;
             if (callback.m_iImage == -1)
@@ -496,10 +504,10 @@ namespace Code.NetWork
                 return;
             }
 
-            if (Steamworks.SteamUtils.GetImageSize(callback.m_iImage, out uint width, out uint height))
+            if (SteamUtils.GetImageSize(callback.m_iImage, out uint width, out uint height))
             {
                 byte[] imageBuffer = new byte[width * height * 4];
-                if (Steamworks.SteamUtils.GetImageRGBA(callback.m_iImage, imageBuffer, imageBuffer.Length))
+                if (SteamUtils.GetImageRGBA(callback.m_iImage, imageBuffer, imageBuffer.Length))
                 {
                     Texture2D avatar = new Texture2D((int)width, (int)height, TextureFormat.RGBA32, false);
                     avatar.LoadRawTextureData(imageBuffer);
@@ -511,7 +519,7 @@ namespace Code.NetWork
             }
         }
 
-        private void UpdateUserAvatar(Steamworks.CSteamID steamId, Texture2D avatar)
+        private void UpdateUserAvatar(CSteamID steamId, Texture2D avatar)
         {
             if (!_currentLobby.IsValid())
                 return;
@@ -532,10 +540,10 @@ namespace Code.NetWork
 
             var updatedLobby = new Lobby
             {
-                Name = Steamworks.SteamMatchmaking.GetLobbyData(_currentLobby, "Name"),
+                Name = SteamMatchmaking.GetLobbyData(_currentLobby, "Name"),
                 IsValid = true,
                 LobbyId = _currentLobby.m_SteamID.ToString(),
-                MaxPlayers = Steamworks.SteamMatchmaking.GetLobbyMemberLimit(_currentLobby),
+                MaxPlayers = SteamMatchmaking.GetLobbyMemberLimit(_currentLobby),
                 Properties = new Dictionary<string, string>(), // Use existing properties if needed
                 Members = updatedMembers
             };
@@ -543,20 +551,20 @@ namespace Code.NetWork
             OnLobbyUpdated?.Invoke(updatedLobby);
         }
 
-        private void OnLobbyDataUpdate(Steamworks.LobbyDataUpdate_t callback)
+        private void OnLobbyDataUpdate(LobbyDataUpdate_t callback)
         {
             if (_currentLobby.m_SteamID != callback.m_ulSteamIDLobby)
                 return;
 
-            var ownerId = Steamworks.SteamMatchmaking.GetLobbyOwner(_currentLobby).m_SteamID.ToString();
-            var localId = Steamworks.SteamUser.GetSteamID().m_SteamID.ToString();
+            var ownerId = SteamMatchmaking.GetLobbyOwner(_currentLobby).m_SteamID.ToString();
+            var localId = SteamUser.GetSteamID().m_SteamID.ToString();
             var isOwner = localId == ownerId;
 
             var updatedLobbyUsers = GetLobbyUsers(_currentLobby);
             var updatedLobby = LobbyFactory.Create(
-                Steamworks.SteamMatchmaking.GetLobbyData(_currentLobby, "Name"),
+                SteamMatchmaking.GetLobbyData(_currentLobby, "Name"),
                 _currentLobby.m_SteamID.ToString(),
-                Steamworks.SteamMatchmaking.GetLobbyMemberLimit(_currentLobby),
+                SteamMatchmaking.GetLobbyMemberLimit(_currentLobby),
                 isOwner,
                 updatedLobbyUsers,
                 GetLobbyProperties(_currentLobby)
@@ -565,10 +573,10 @@ namespace Code.NetWork
             OnLobbyUpdated?.Invoke(updatedLobby);
         }
 
-        private Dictionary<string, string> GetLobbyProperties(Steamworks.CSteamID lobbyId)
+        private Dictionary<string, string> GetLobbyProperties(CSteamID lobbyId)
         {
             var properties = new Dictionary<string, string>();
-            int propertyCount = Steamworks.SteamMatchmaking.GetLobbyDataCount(lobbyId);
+            int propertyCount = SteamMatchmaking.GetLobbyDataCount(lobbyId);
 
             for (int i = 0; i < propertyCount; i++)
             {
@@ -577,7 +585,7 @@ namespace Code.NetWork
                 int keySize = 256;
                 int valueSize = 256;
 
-                bool success = Steamworks.SteamMatchmaking.GetLobbyDataByIndex(
+                bool success = SteamMatchmaking.GetLobbyDataByIndex(
                     lobbyId,
                     i,
                     out key,
@@ -597,36 +605,36 @@ namespace Code.NetWork
             return properties;
         }
 
-        private void OnLobbyChatUpdate(Steamworks.LobbyChatUpdate_t callback)
+        private void OnLobbyChatUpdate(LobbyChatUpdate_t callback)
         {
             if (_currentLobby.m_SteamID != callback.m_ulSteamIDLobby)
                 return;
 
-            var stateChange = (Steamworks.EChatMemberStateChange)callback.m_rgfChatMemberStateChange;
+            var stateChange = (EChatMemberStateChange)callback.m_rgfChatMemberStateChange;
 
-            if (stateChange.HasFlag(Steamworks.EChatMemberStateChange.k_EChatMemberStateChangeEntered))
+            if (stateChange.HasFlag(EChatMemberStateChange.k_EChatMemberStateChangeEntered))
             {
                 //PurrLogger.Log($"User {callback.m_ulSteamIDUserChanged} joined the lobby.");
             }
 
-            if (stateChange.HasFlag(Steamworks.EChatMemberStateChange.k_EChatMemberStateChangeLeft) ||
-                stateChange.HasFlag(Steamworks.EChatMemberStateChange.k_EChatMemberStateChangeDisconnected))
+            if (stateChange.HasFlag(EChatMemberStateChange.k_EChatMemberStateChangeLeft) ||
+                stateChange.HasFlag(EChatMemberStateChange.k_EChatMemberStateChangeDisconnected))
             {
                 //PurrLogger.Log($"User {callback.m_ulSteamIDUserChanged} left the lobby.");
             }
 
-            var ownerId = Steamworks.SteamMatchmaking.GetLobbyOwner(_currentLobby).m_SteamID.ToString();
-            var localId = Steamworks.SteamUser.GetSteamID().m_SteamID.ToString();
+            var ownerId = SteamMatchmaking.GetLobbyOwner(_currentLobby).m_SteamID.ToString();
+            var localId = SteamUser.GetSteamID().m_SteamID.ToString();
             var isOwner = localId == ownerId;
 
-            var data = Steamworks.SteamMatchmaking.GetLobbyData(_currentLobby, "Name");
+            var data = SteamMatchmaking.GetLobbyData(_currentLobby, "Name");
             var properties = GetLobbyProperties(_currentLobby);
             var updatedLobbyUsers = GetLobbyUsers(_currentLobby);
 
             var updatedLobby = LobbyFactory.Create(
                 data,
                 _currentLobby.m_SteamID.ToString(),
-                Steamworks.SteamMatchmaking.GetLobbyMemberLimit(_currentLobby),
+                SteamMatchmaking.GetLobbyMemberLimit(_currentLobby),
                 isOwner,
                 updatedLobbyUsers,
                 properties
@@ -635,7 +643,7 @@ namespace Code.NetWork
             OnLobbyUpdated?.Invoke(updatedLobby);
         }
 
-        private void OnGameLobbyJoinRequested(Steamworks.GameLobbyJoinRequested_t callback)
+        private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
         {
             var lobbyId = callback.m_steamIDLobby;
             //PurrLogger.Log($"Invite accepted. Joining lobby {lobbyId.m_SteamID}");
