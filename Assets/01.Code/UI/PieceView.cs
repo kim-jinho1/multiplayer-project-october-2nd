@@ -4,8 +4,8 @@ using Code.CoreGameLogic;
 namespace Code.UI
 {
     /// <summary>
-    /// 기물의 시각적 표현을 담당하는 유니티 컴포넌트입니다.
-    /// 논리적 Piece 객체와 연결됩니다.
+    /// 기물의 시각적 표현을 담당하는 유니티 컴포넌트
+    /// 논리적 Piece 객체와 연결
     /// </summary>
     public class PieceView : MonoBehaviour
     {

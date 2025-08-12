@@ -22,16 +22,10 @@ namespace Code.CoreGameLogic.Pieces
 
         /// <summary>
         /// 퀸이 이동 가능한 모든 직선 및 대각선 위치를 계산하여 반환합니다.
-        /// (룩과 비숍의 이동 로직을 합친 것과 같습니다)
         /// </summary>
         public override List<Vector2> GetPossibleMoves(IBoard board, Vector2 currentPos)
         {
             var possibleMoves = new List<Vector2>();
-
-            // 퀸의 이동 로직 (상하좌우, 대각선)을 여기에 구현합니다.
-            // 룩과 비숍의 GetPossibleMoves 로직을 조합하여 구현할 수 있습니다.
-            
-            // 예시: 수평 이동 (오른쪽)
             for (int x = (int)currentPos.x + 1; x < board.BoardSize.x; x++)
             {
                 Vector2 target = new Vector2(x, currentPos.y);
@@ -41,8 +35,6 @@ namespace Code.CoreGameLogic.Pieces
                 }
                 else break;
             }
-            // ... 다른 7방향 (왼쪽, 위, 아래, 4개 대각선)에 대한 로직 추가
-
             return possibleMoves;
         }
     }

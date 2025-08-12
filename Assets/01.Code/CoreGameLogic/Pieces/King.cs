@@ -15,9 +15,9 @@ namespace Code.CoreGameLogic.Pieces
         public King(PlayerID ownerId, IPieceMoveValidator validator)
             : base(ownerId, validator)
         {
-            Health = 100; // 킹의 체력은 일반적으로 중요하지 않지만, 여기서는 예시로 추가
+            Health = 100;
             AttackPower = 10;
-            DefensePower = 50; // 킹은 방어력이 중요
+            DefensePower = 50;
         }
 
         /// <summary>
@@ -26,14 +26,12 @@ namespace Code.CoreGameLogic.Pieces
         public override List<Vector2> GetPossibleMoves(IBoard board, Vector2 currentPos)
         {
             var possibleMoves = new List<Vector2>();
-
-            // 킹의 한 칸 이동 로직 (상하좌우, 대각선)을 여기에 구현합니다.
-            // 예시: 주변 8방향 확인
+            
             for (int xOffset = -1; xOffset <= 1; xOffset++)
             {
                 for (int yOffset = -1; yOffset <= 1; yOffset++)
                 {
-                    if (xOffset == 0 && yOffset == 0) continue; // 현재 위치 제외
+                    if (xOffset == 0 && yOffset == 0) continue;
 
                     Vector2 target = new Vector2(currentPos.x + xOffset, currentPos.y + yOffset);
                     if (_validator.IsValidMove(board, this, currentPos, target))
@@ -42,8 +40,6 @@ namespace Code.CoreGameLogic.Pieces
                     }
                 }
             }
-            // ... 캐슬링 로직 등 특수 이동 로직 추가
-
             return possibleMoves;
         }
     }

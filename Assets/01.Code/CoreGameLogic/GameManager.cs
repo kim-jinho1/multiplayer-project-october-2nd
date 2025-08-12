@@ -70,6 +70,11 @@ namespace Code.CoreGameLogic
                 { PlayerID.Player1, player1 },
                 { PlayerID.Player2, player2 }
             };
+            
+            if (networkManager && networkManager.isServer)
+            {
+                StartGame();
+            }
         }
 
         protected override void OnDespawned()
@@ -131,7 +136,8 @@ namespace Code.CoreGameLogic
         /// </summary>
         public void ProcessCurrentTurn()
         {
-            if (_currentGameState.value != GameState.Playing) return;
+            if (_currentGameState.value != GameState.Playing) 
+                return;
 
             if (_currentTurnPhase.value == TurnPhase.NationalTurn)
                 _nationalTurnProcessor.ProcessTurn();

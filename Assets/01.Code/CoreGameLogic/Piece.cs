@@ -14,6 +14,12 @@ namespace Code.CoreGameLogic
         public bool IsAlive => Health > 0;
         
         protected IPieceMoveValidator _validator;
+        
+        protected 
+        private void OnMouseOver()
+        {
+            
+        }
 
         public Piece(PlayerID ownerId, IPieceMoveValidator validator)
         {

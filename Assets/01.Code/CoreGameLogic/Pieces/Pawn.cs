@@ -10,13 +10,11 @@ namespace Code.CoreGameLogic.Pieces
     /// </summary>
     public class Pawn : Piece
     {
-        // PieceName 속성을 오버라이드하여 폰의 이름을 반환합니다.
         public override string PieceName => "Pawn";
 
         public Pawn(PlayerID ownerId, IPieceMoveValidator validator)
             : base(ownerId, validator)
         {
-            // Pawn의 기본 스탯을 설정합니다.
             Health = 100;
             AttackPower = 10;
             DefensePower = 5;
@@ -29,17 +27,11 @@ namespace Code.CoreGameLogic.Pieces
         {
             var possibleMoves = new List<Vector2>();
             
-            // 폰의 이동 로직을 구현합니다.
-            // 여기서는 PawnMoveValidator를 사용하여 유효성 검사를 진행합니다.
-
-            // 예시: 앞으로 한 칸 이동
             Vector2 forwardMove = new Vector2(currentPos.x, currentPos.y + 1);
             if (_validator.IsValidMove(board, this, currentPos, forwardMove))
             {
                 possibleMoves.Add(forwardMove);
             }
-            
-            // ... 다른 폰 이동 규칙(첫 턴 두 칸 이동, 대각선 공격) 로직 추가
             
             return possibleMoves;
         }

@@ -26,8 +26,6 @@ namespace Code.CoreGameLogic.Pieces
         public override List<Vector2> GetPossibleMoves(IBoard board, Vector2 currentPos)
         {
             var possibleMoves = new List<Vector2>();
-
-            // 나이트의 8가지 'L'자형 이동 패턴을 정의합니다.
             Vector2[] knightMoves = new Vector2[]
             {
                 new Vector2(currentPos.x + 1, currentPos.y + 2),

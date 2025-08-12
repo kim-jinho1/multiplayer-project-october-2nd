@@ -1,4 +1,4 @@
-namespace Code.StrategicSystem
+ namespace Code.StrategicSystem
 {
     /// <summary>
     /// 게임 내 모든 정책이 가져야 할 공통 기능을 정의하는 인터페이스
