@@ -126,16 +126,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlackKing
       objectReference: {fileID: 0}
+    - target: {fileID: 8411673181242246361, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+      propertyPath: _piece
+      value: 
+      objectReference: {fileID: 8944952663215910310}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4438017917355657837, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 772039988913531581}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6859059250726794116, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8944952663215910310}
   m_SourcePrefab: {fileID: 100100000, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
 --- !u!4 &3105644283929119935 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4438017917355657837, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
   m_PrefabInstance: {fileID: 1625367141196547794}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5313738218455283030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6859059250726794116, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+  m_PrefabInstance: {fileID: 1625367141196547794}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8944952663215910310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5313738218455283030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0a7df613f64b8391f649bc990a69cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <pieceData>k__BackingField: {fileID: 11400000, guid: 24e6a4687228f354485ea7536abce9f1, type: 2}

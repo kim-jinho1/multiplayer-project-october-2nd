@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/PieceController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/PieceController.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/BattleResolver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/BattleResolver.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPiece.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPiece.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/King.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/King.cs" afterDir="false" />
@@ -18,7 +13,19 @@
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Queen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Queen.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Rook.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Rook.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/BlackBishop.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/BlackBishop.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/BlackKing.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/BlackKing.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/BlackKnight.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/BlackKnight.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/BlackPawn.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/BlackPawn.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/BlackQueen.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/BlackQueen.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/BlackRook.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/BlackRook.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhiteBishop.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhiteBishop.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhiteKing.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhiteKing.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhiteKnight.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhiteKnight.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhitePawn.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhitePawn.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhiteQueen.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhiteQueen.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhiteRook.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhiteRook.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/Piece.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/Piece.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,7 +212,7 @@
       <workItem from="1754980646264" duration="103000" />
       <workItem from="1754980775963" duration="1263000" />
       <workItem from="1754991681116" duration="5292000" />
-      <workItem from="1755004008232" duration="2598000" />
+      <workItem from="1755004008232" duration="3251000" />
     </task>
     <servers />
   </component>

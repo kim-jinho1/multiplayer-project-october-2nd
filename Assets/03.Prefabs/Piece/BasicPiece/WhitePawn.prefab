@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WhitePawn
       objectReference: {fileID: 0}
+    - target: {fileID: 8411673181242246361, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+      propertyPath: _piece
+      value: 
+      objectReference: {fileID: 7284462263270370269, guid: 6e5d00b283ec1c746b07d61c5f16485f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -61,14 +65,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6859059250726794116, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3224295684807257998}
+      addedObject: {fileID: 2209757729568178915}
   m_SourcePrefab: {fileID: 100100000, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
 --- !u!1 &3035298111882296169 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6859059250726794116, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
   m_PrefabInstance: {fileID: 8444193780927891693}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3224295684807257998
+--- !u!114 &2209757729568178915
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -77,9 +81,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3035298111882296169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a9000f36d904b2eb3e8ed4e2002b2a2, type: 3}
+  m_Script: {fileID: 11500000, guid: cb912f24eb72444e8778295432755f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <pieceData>k__BackingField: {fileID: 11400000, guid: 8caecd2c42cfdfb4d8890fa9bfb3c2a8, type: 2}
 --- !u!4 &5240162780753461888 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4438017917355657837, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}

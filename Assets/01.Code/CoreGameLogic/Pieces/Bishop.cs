@@ -15,9 +15,9 @@ namespace Code.CoreGameLogic.Pieces
         public Bishop(PlayerID ownerId, IPieceMoveValidator validator)
             : base(ownerId, validator)
         {
-            Health.value = 100;
-            AttackPower.value = 30;
-            DefensePower.value = 10;
+            Health.value = pieceData.Health;
+            AttackPower.value = pieceData.AttackPower;
+            DefensePower.value = pieceData.DefensePower;
         }
 
         /// <summary>

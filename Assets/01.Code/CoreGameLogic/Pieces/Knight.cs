@@ -15,9 +15,9 @@ namespace Code.CoreGameLogic.Pieces
         public Knight(PlayerID ownerId, IPieceMoveValidator validator)
             : base(ownerId, validator)
         {
-            Health.value = 100;
-            AttackPower.value = 25;
-            DefensePower.value = 15;
+            Health.value = pieceData.Health;
+            AttackPower.value = pieceData.AttackPower;
+            DefensePower.value = pieceData.DefensePower;
         }
 
         /// <summary>

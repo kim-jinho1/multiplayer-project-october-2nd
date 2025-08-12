@@ -15,9 +15,9 @@ namespace Code.CoreGameLogic.Pieces
         public Rook(PlayerID ownerId, IPieceMoveValidator validator)
             : base(ownerId, validator)
         {
-            Health.value = 100;
-            AttackPower.value = 50;
-            DefensePower.value = 20;
+            Health.value = pieceData.Health;
+            AttackPower.value = pieceData.AttackPower;
+            DefensePower.value = pieceData.DefensePower;
         }
 
         /// <summary>

@@ -126,16 +126,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlackRook
       objectReference: {fileID: 0}
+    - target: {fileID: 8411673181242246361, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+      propertyPath: _piece
+      value: 
+      objectReference: {fileID: -7559334187347892078}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4438017917355657837, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 358206579021506372}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6859059250726794116, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7559334187347892078}
   m_SourcePrefab: {fileID: 100100000, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
 --- !u!4 &3105644283929119935 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4438017917355657837, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
   m_PrefabInstance: {fileID: 1625367141196547794}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5313738218455283030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6859059250726794116, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+  m_PrefabInstance: {fileID: 1625367141196547794}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-7559334187347892078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5313738218455283030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71be0eb5b2a343f7b72ec37f57f0f207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <pieceData>k__BackingField: {fileID: 11400000, guid: 60fc2ff06fbe104419aefb94345ebc2d, type: 2}

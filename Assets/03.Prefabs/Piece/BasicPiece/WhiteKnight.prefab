@@ -126,14 +126,39 @@ PrefabInstance:
       propertyPath: m_Name
       value: WhiteKnight
       objectReference: {fileID: 0}
+    - target: {fileID: 8411673181242246361, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+      propertyPath: _piece
+      value: 
+      objectReference: {fileID: 6000086437140828315}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4438017917355657837, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1052861410930996618}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6859059250726794116, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6000086437140828315}
   m_SourcePrefab: {fileID: 100100000, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+--- !u!1 &3035298111882296169 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6859059250726794116, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+  m_PrefabInstance: {fileID: 8444193780927891693}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6000086437140828315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3035298111882296169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d737e33f105c4cdda1a940a41a68c4ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <pieceData>k__BackingField: {fileID: 11400000, guid: 05349db166eac294cb253ecfa1449b03, type: 2}
 --- !u!4 &5240162780753461888 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4438017917355657837, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
