@@ -1,15 +1,20 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Code.Global;
 using PurrNet;
+using Unity.VisualScripting;
 using UnityEngine;
 using PlayerID = Code.Players.PlayerID;
 
 namespace Code.CoreGameLogic
 {
-    public abstract class Piece : MonoBehaviour, IPiece
+    public abstract class Piece : MonoBehaviour, IPiece , IMouseOver
     {
-        [field:SerializeField] public PieceData pieceData { get; private set; }
-        public abstract string PieceName { get; }
+        [field:SerializeField] public PieceData PieceData { get; private set; }
+        [field:SerializeField] public Material ChangeMaterial { get; private set; }
+         public Material[] OriginalMaterials { get; set; }
+         public abstract string PieceName { get; }
         public SyncVar<PlayerID> OwnerID { get; }
         public SyncVar<int> AttackPower { get; }
         public SyncVar<int> DefensePower { get; }
@@ -24,6 +29,26 @@ namespace Code.CoreGameLogic
             Validator = validator;
         }
 
+        public virtual void Awake()
+        {
+            OriginalMaterials = GetComponentInChildren<MeshRenderer>().materials;
+        }
+
+        private void OnMouseEnter()
+        {
+            MeshRenderer mr = GetComponentInChildren<MeshRenderer>();
+            Material[] newMaterials = new Material[OriginalMaterials.Length + 1];
+            Array.Copy(OriginalMaterials, newMaterials, OriginalMaterials.Length);
+            newMaterials[^1] = ChangeMaterial;
+            mr.materials = newMaterials;
+        }
+
+        private void OnMouseExit()
+        {
+            MeshRenderer mr = GetComponentInChildren<MeshRenderer>();
+            mr.materials = OriginalMaterials;
+        }
+
         public bool IsMovePossible(IBoard board, Vector2 from, Vector2 to)
         {
             return Validator.IsValidMove(board, this, from, to);
@@ -35,5 +60,7 @@ namespace Code.CoreGameLogic
         {
             AttackPower.value += amount;
         }
+
+        
     }
 }

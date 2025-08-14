@@ -92,7 +92,7 @@ namespace Code.CoreGameLogic
             {
                 for (int y = 0; y < BoardSize.y; y++)
                 {
-                    if (_pieces[x, y] == pieceToRemove)
+                    if ((Piece)_pieces[x, y] == pieceToRemove)
                     {
                         _pieces[x, y] = null; // 기물 제거
                         Debug.Log($"{pieceToRemove.PieceName}가 보드에서 제거되었습니다.");

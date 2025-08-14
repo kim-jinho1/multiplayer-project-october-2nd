@@ -108,8 +108,7 @@ namespace Code.CoreGameLogic
                 _currentGameState.value = GameState.Playing;
                 _currentPlayerId.value = PlayerID.Player1;
                 _currentTurnPhase.value = TurnPhase.NationalTurn;
-
-                Debug.Log("게임 시작! 현재 플레이어: " + _currentPlayerId + ", 현재 턴: " + _currentTurnPhase);
+                
                 ProcessCurrentTurn();
             }
         }

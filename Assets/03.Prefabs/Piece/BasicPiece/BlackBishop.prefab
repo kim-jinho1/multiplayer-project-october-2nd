@@ -8,6 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1140843120709038058, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140843120709038058, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+      propertyPath: m_Size.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140843120709038058, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+      propertyPath: m_Size.z
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140843120709038058, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
+      propertyPath: m_Center.y
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 4438017917355657837, guid: 1f94f0b265683d54f8375b3aae78158e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -89,7 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 816251bc0acc48daadedf1629b1d38ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <pieceData>k__BackingField: {fileID: 11400000, guid: 1e25be5ee29e6e74ebbcb1a652fbf3e0, type: 2}
+  <PieceData>k__BackingField: {fileID: 11400000, guid: 1e25be5ee29e6e74ebbcb1a652fbf3e0, type: 2}
+  <ChangeMaterial>k__BackingField: {fileID: 2100000, guid: eae021b7e711ecf4394280bf71fb96f6, type: 2}
 --- !u!1001 &1833793562795641088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -154,6 +171,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 23000014241094794, guid: 8c44c8a6238ea0148bc07d2371dedc74, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23000014241094794, guid: 8c44c8a6238ea0148bc07d2371dedc74, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 973635ff02379f4429b7df0543346d32, type: 2}
+    - target: {fileID: 23000014241094794, guid: 8c44c8a6238ea0148bc07d2371dedc74, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 973635ff02379f4429b7df0543346d32, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

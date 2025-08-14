@@ -4305,7 +4305,6 @@ GameObject:
   - component: {fileID: 824245173}
   - component: {fileID: 824245176}
   - component: {fileID: 824245175}
-  - component: {fileID: 824245174}
   m_Layer: 0
   m_Name: DeskLegs (3)
   m_TagString: Untagged
@@ -4328,27 +4327,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1692033672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &824245174
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 824245172}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &824245175
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4852,7 +4830,6 @@ GameObject:
   - component: {fileID: 946267783}
   - component: {fileID: 946267786}
   - component: {fileID: 946267785}
-  - component: {fileID: 946267784}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -4875,29 +4852,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1692033672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &946267784
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 946267782}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &946267785
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5706,7 +5660,6 @@ GameObject:
   - component: {fileID: 1125864672}
   - component: {fileID: 1125864675}
   - component: {fileID: 1125864674}
-  - component: {fileID: 1125864673}
   m_Layer: 0
   m_Name: DeskLegs
   m_TagString: Untagged
@@ -5729,27 +5682,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1692033672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1125864673
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1125864671}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1125864674
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6062,7 +5994,6 @@ GameObject:
   - component: {fileID: 1220411671}
   - component: {fileID: 1220411674}
   - component: {fileID: 1220411673}
-  - component: {fileID: 1220411672}
   m_Layer: 0
   m_Name: DeskLegs (1)
   m_TagString: Untagged
@@ -6085,27 +6016,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1692033672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1220411672
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220411670}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1220411673
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7913,7 +7823,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1545737961}
-  - component: {fileID: 1545737962}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -8032,18 +7941,6 @@ Transform:
   - {fileID: 724108912}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1545737962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545737960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2aeacdf5ebf45da91a899d86b93ddeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1623267655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8697,7 +8594,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1808353859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9515,7 +9412,6 @@ GameObject:
   - component: {fileID: 1989708219}
   - component: {fileID: 1989708222}
   - component: {fileID: 1989708221}
-  - component: {fileID: 1989708220}
   m_Layer: 0
   m_Name: DeskLegs (2)
   m_TagString: Untagged
@@ -9538,27 +9434,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1692033672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1989708220
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1989708218}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1989708221
 MeshRenderer:
   m_ObjectHideFlags: 0
