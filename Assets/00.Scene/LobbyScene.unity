@@ -5074,10 +5074,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Join code
+  m_text: "\uCF54\uB4DC \uC785\uB825"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f541e09bfbfc9084b8ebb5ff9727f8b6, type: 2}
-  m_sharedMaterial: {fileID: 2927876130932153980, guid: f541e09bfbfc9084b8ebb5ff9727f8b6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 52e3b038b4ab1cd4c84ca67be181282b, type: 2}
+  m_sharedMaterial: {fileID: 5986989879061891329, guid: 52e3b038b4ab1cd4c84ca67be181282b, type: 2}
   m_fontSharedMaterials:
   - {fileID: 2927876130932153980, guid: f541e09bfbfc9084b8ebb5ff9727f8b6, type: 2}
   m_fontMaterial: {fileID: 0}
