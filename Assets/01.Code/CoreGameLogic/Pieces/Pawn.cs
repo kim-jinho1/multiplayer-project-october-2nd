@@ -12,8 +12,8 @@ namespace Code.CoreGameLogic.Pieces
     {
         public override string PieceName => new("Pawn");
 
-        public Pawn(PlayerID ownerId, IPieceMoveValidator validator)
-            : base(ownerId, validator)
+        public Pawn(PlayerID ownerId, IPieceMoveValidator validator, SyncVar<int> health, SyncVar<int> defensePower, SyncVar<int> attackPower, SyncVar<PlayerID> ownerID)
+            : base(ownerId, validator, health, defensePower, attackPower, ownerID)
         {
             Health.value = PieceData.Health;
             AttackPower.value = PieceData.AttackPower;

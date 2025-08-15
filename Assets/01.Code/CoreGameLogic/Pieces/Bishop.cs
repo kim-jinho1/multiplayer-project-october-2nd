@@ -11,15 +11,15 @@ namespace Code.CoreGameLogic.Pieces
     public class Bishop : Piece
     {
         public override string PieceName => "Bishop";
-
-        public Bishop(PlayerID ownerId, IPieceMoveValidator validator)
-            : base(ownerId, validator)
+        
+        public Bishop(PlayerID ownerId, IPieceMoveValidator validator, SyncVar<int> health, SyncVar<int> defensePower, SyncVar<int> attackPower, SyncVar<PlayerID> ownerID)
+            : base(ownerId, validator, health, defensePower, attackPower, ownerID)
         {
             Health.value = PieceData.Health;
             AttackPower.value = PieceData.AttackPower;
             DefensePower.value = PieceData.DefensePower;
         }
-
+        
         /// <summary>
         /// 비숍이 이동 가능한 모든 대각선 위치를 계산하여 반환합니다.
         /// </summary>

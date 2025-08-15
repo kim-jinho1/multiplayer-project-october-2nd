@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Code.Global;
 using PurrNet;
-using Unity.VisualScripting;
 using UnityEngine;
 using PlayerID = Code.Players.PlayerID;
 
@@ -23,10 +21,14 @@ namespace Code.CoreGameLogic
         
         protected IPieceMoveValidator Validator;
 
-        public Piece(PlayerID ownerId, IPieceMoveValidator validator)
+        public Piece(PlayerID ownerId, IPieceMoveValidator validator, SyncVar<int> health, SyncVar<int> defensePower, SyncVar<int> attackPower, SyncVar<PlayerID> ownerID)
         {
             OwnerID.value = ownerId;
             Validator = validator;
+            Health = health;
+            DefensePower = defensePower;
+            AttackPower = attackPower;
+            OwnerID = ownerID;
         }
 
         public virtual void Awake()
