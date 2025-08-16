@@ -6,13 +6,118 @@
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ITurnProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ITurnProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/NationalTurnProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/NationalTurnProcessor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/King.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/King.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Knight.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Knight.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Queen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Queen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Rook.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Rook.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/PieceTurnProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/PieceTurnProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/GameInitialization/Bootstrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/GameInitialization/Bootstrap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Global/DependencyContainer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Global/DependencyContainer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Players/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Players/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Codegen/GenerateDeltaSerializersProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Codegen/GenerateDeltaSerializersProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Codegen/GenerateSerializersProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Codegen/GenerateSerializersProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Codegen/ModuleExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Codegen/ModuleExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Codegen/PostProcessor.StreamParamOrLoc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Codegen/PostProcessor.StreamParamOrLoc.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Codegen/PostProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Codegen/PostProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Codegen/ScopedTimer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Codegen/ScopedTimer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Codegen/TypeExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Codegen/TypeExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Codegen/UnityPlaymodePatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Codegen/UnityPlaymodePatch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Editor/ColliderRollbackInspector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Editor/ColliderRollbackInspector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Editor/InstallUniTask.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Editor/InstallUniTask.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Editor/PlayModePatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Editor/PlayModePatch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Editor/PurrNetManagerCreator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Editor/PurrNetManagerCreator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Editor/RawNetManagerInspector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Editor/RawNetManagerInspector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Editor/ReferenceDrawer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Editor/ReferenceDrawer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Editor/Settings/PurrNetEditorSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Editor/Settings/PurrNetEditorSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Editor/Settings/PurrNetSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Editor/Settings/PurrNetSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Externals/SimpleWebTransport/Server/SimpleWebServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Externals/SimpleWebTransport/Server/SimpleWebServer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Externals/SimpleWebTransport/Server/WebSocketServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Externals/SimpleWebTransport/Server/WebSocketServer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Externals/Toolbar-Extender/LICENSE.txt.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Externals/Toolbar-Extender/LICENSE.txt.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/BitPackerDeltaUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/BitPackerDeltaUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Delta/DeltaPackVectors.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Delta/DeltaPackVectors.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Delta/NormalizedFloatPacking.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Delta/NormalizedFloatPacking.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/DeltaPacker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/DeltaPacker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/OptimizedTypes/HalfVector2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/OptimizedTypes/HalfVector2.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/OptimizedTypes/HalfVector4.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/OptimizedTypes/HalfVector4.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packers/PackDeltaObj.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packers/PackDeltaObj.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packers/PackDisposableDictionary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packers/PackDisposableDictionary.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packers/PackDisposableLists.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packers/PackDisposableLists.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packers/PackNetworkModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packers/PackNetworkModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packers/PackNullables.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packers/PackNullables.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packers/Strings/StringUTF8.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/Packers/Strings/StringUTF8.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/RegisterNetworkTypeAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/RegisterNetworkTypeAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/RegisterPackersAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/BitPacker/RegisterPackersAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/ColliderRollback/ColliderRollback.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/ColliderRollback/ColliderRollback.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/ColliderRollback/SimpleHistory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/ColliderRollback/SimpleHistory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/InterpolationTiming.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/InterpolationTiming.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/QuaternionWithParent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/QuaternionWithParent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/ScaleWithParent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/ScaleWithParent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/SyncMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/SyncMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/TransformSyncMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/TransformSyncMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/TransformUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/TransformUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/Vector3WithParent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/Vector3WithParent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkIdentity/NetworkIdentity.Broadcasting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkIdentity/NetworkIdentity.Broadcasting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkIdentity/NetworkIdentity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkIdentity/NetworkIdentity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkModule/IOwnerAuth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkModule/IOwnerAuth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkModule/NetworkModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkModule/NetworkModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkModule/SyncList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkModule/SyncList.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkModule/SyncVar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkModule/SyncVar.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkOwnershipToggle/NetworkOwnershipDebug.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkOwnershipToggle/NetworkOwnershipDebug.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/Collider2DState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/Collider2DState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/Collider3DExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/Collider3DExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/Collider3DState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/Collider3DState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/ColliderRollbackFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/ColliderRollbackFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/RollbackModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/RollbackModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/RollbackModule2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/RollbackModule2D.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/RollbackModule3D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/ColliderRollback/RollbackModule3D.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/DeltaModule/ClientDeltaTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/DeltaModule/ClientDeltaTracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/DeltaModule/DeltaModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/DeltaModule/DeltaModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/HierarchyV2/HierarchyV2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/HierarchyV2/HierarchyV2.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/HierarchyV2/SpawnPacketBatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/HierarchyV2/SpawnPacketBatch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/Players/PlayerID.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/Players/PlayerID.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/Players/PlayersBroadcaster.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/Players/PlayersBroadcaster.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/Players/PlayersManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/Players/PlayersManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/RPCs/RPCModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/RPCs/RPCModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/RPCs/RPCSignature.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/RPCs/RPCSignature.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/RPCs/ServerOnlyAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/RPCs/ServerOnlyAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/RPCs/StripCodeMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/RPCs/StripCodeMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/SceneScopedFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/SceneScopedFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Managers/IRegisterModules.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Managers/IRegisterModules.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Managers/NetworkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Managers/NetworkManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Managers/StartFlags.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Managers/StartFlags.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Managers/StatisticsManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Managers/StatisticsManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Pooling/AllocationDetails.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Pooling/AllocationDetails.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Pooling/AllocationTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Pooling/AllocationTracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Pooling/DisposableList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Pooling/DisposableList.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Pooling/StackPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Pooling/StackPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Profiler/Runtime/BandwidthProfilerToFile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Profiler/Runtime/BandwidthProfilerToFile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Profiler/Runtime/BroadcastSample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Profiler/Runtime/BroadcastSample.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Profiler/Runtime/RpcsSample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Profiler/Runtime/RpcsSample.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Profiler/Runtime/TickSample.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Profiler/Runtime/TickSample.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Transports/UDPTransport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Transports/UDPTransport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Transports/WebTransport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Transports/WebTransport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/UnityProxy/UnityProxy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/UnityProxy/UnityProxy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/BypassLoggingException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/BypassLoggingException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/ContributorAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/ContributorAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/GameObjectHasher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/GameObjectHasher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/PurrReadOnlyAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/PurrReadOnlyAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/PurrSceneInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/PurrSceneInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/Reference.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/Reference.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/StackTraceUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/StackTraceUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/UnityLatestUpdate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/Utils/UnityLatestUpdate.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Editor/DeltaProfilerUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Editor/DeltaProfilerUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Editor/DeltasWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Editor/DeltasWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Editor/DeltasWindowCreator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Editor/DeltasWindowCreator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Runtime/DeltaProfiler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Runtime/DeltaProfiler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Runtime/EvaluationMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Runtime/EvaluationMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Runtime/FloatProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Runtime/FloatProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Runtime/NetworkIDProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Runtime/NetworkIDProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Runtime/NormalizedFloatProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Runtime/NormalizedFloatProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Runtime/ScopedRandom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Tools/ProfileDeltas/Runtime/ScopedRandom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,6 +280,9 @@
       <option name="useMixedMode" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="기기에 연결" type="UnityDevicePlayer" factoryName="UnityAttachToDevicePlayer">
+      <method v="2" />
+    </configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="디폴트 작업">
@@ -208,7 +316,8 @@
       <workItem from="1755128418770" duration="5149000" />
       <workItem from="1755142013751" duration="1803000" />
       <workItem from="1755247802502" duration="237000" />
-      <workItem from="1755248579112" duration="534000" />
+      <workItem from="1755248579112" duration="6118000" />
+      <workItem from="1755335918306" duration="1589000" />
     </task>
     <servers />
   </component>
