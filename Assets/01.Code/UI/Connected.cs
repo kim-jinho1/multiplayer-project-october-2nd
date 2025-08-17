@@ -44,6 +44,10 @@ namespace Code.UI
             {
                 bg.gameObject.SetActive(false);
             });
+            connectedText.DOFade(0, 5f).OnComplete(() =>
+            {
+                bg.gameObject.SetActive(false);
+            });
         }
     }
 }
