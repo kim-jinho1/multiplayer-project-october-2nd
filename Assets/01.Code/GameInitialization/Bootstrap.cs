@@ -1,3 +1,4 @@
+using System;
 using Code.CoreGameLogic;
 using UnityEngine;
 using Code.Global;
@@ -11,6 +12,7 @@ namespace GameInitialization
     {
         [SerializeField] private GameManager gameManager;
         
+        [Obsolete("Obsolete")]
         private void Awake()
         {
             DependencyContainer.InitializeGameDependencies();

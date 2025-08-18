@@ -537,7 +537,7 @@ namespace PurrNet.Modules
                 {
                     if (TryGetIdentity(piece.id, out var existing))
                     {
-                        PurrLogger.LogError($"Spawn failed for player `{player}`. Identity with id `{piece.id}` already exists: `{existing.gameObject.name}`", existing);
+                            PurrLogger.LogError($"Spawn failed for player `{player}`. Identity with id `{piece.id}` already exists: `{existing.gameObject.name}`", existing);
                         return;
                     }
                 }

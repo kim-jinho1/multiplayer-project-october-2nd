@@ -9,5 +9,7 @@ namespace Code.CoreGameLogic
         /// 현재 턴 단계를 처리
         /// </summary>
         void ProcessTurn();
+
+        void Initialize(GameManager gameManager);
     }
 }

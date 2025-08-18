@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Players/PlayerData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/Players/PlayerData.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" afterDir="false" />
@@ -15,8 +17,15 @@
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/GameInitialization/Bootstrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/GameInitialization/Bootstrap.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/Global/DependencyContainer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Global/DependencyContainer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/Players/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Players/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/UI/Connected.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/UI/Connected.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PurrLobby/Runtime/Misc/ConnectionStarter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrLobby/Runtime/Misc/ConnectionStarter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Players/Player.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Players/Player.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Player.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Player.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NetworkAssets.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/NetworkAssets.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrLobby/Prefabs/NetworkPrefabs.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrLobby/Prefabs/NetworkPrefabs.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/HierarchyV2/HierarchyV2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PurrNet/Runtime/CoreModules/HierarchyV2/HierarchyV2.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/InputSetting/InputSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/InputSetting/InputSystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +62,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/Global/PolicyData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/NetWork/ConnectionStarterTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/NetWork/LobbyProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Code/Players/Player.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/Players/PlayerCamera.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/StrategicSystem/BoostPolicy/TechBoostPolicy.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/StrategicSystem/IGameEvent.cs" root0="FORCE_HIGHLIGHTING" />
@@ -80,10 +90,11 @@
     <setting file="file://$PROJECT_DIR$/Assets/PurrLobby/Runtime/Providers/SteamLobbyProvider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PurrLobby/Runtime/ViewManagement/ViewManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PurrLobby/Runtime/ViewManagement/Views/BrowseView.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/PurrNet/Externals/SimpleWebTransport/Common/Log.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/PurrNet/Externals/SimpleWebTransport/Common/Log.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PurrNet/Runtime/Components/NetworkBehaviour/PlayerSpawner.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@82fb1398b3b8/Shaders/Lit.shader" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@a9eaa85fb1b8/Runtime/TMP/TextMeshProUGUI.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@a9eaa85fb1b8/Runtime/UGUI/EventSystem/Raycasters/PhysicsRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualscripting@7dcdc439b230/Runtime/VisualScripting.Core/Utilities/LinqUtility.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -220,6 +231,9 @@
       <workItem from="1755343134102" duration="203000" />
       <workItem from="1755412256633" duration="693000" />
       <workItem from="1755413109133" duration="1572000" />
+      <workItem from="1755415600147" duration="10343000" />
+      <workItem from="1755430030643" duration="10463000" />
+      <workItem from="1755524357107" duration="970000" />
     </task>
     <servers />
   </component>

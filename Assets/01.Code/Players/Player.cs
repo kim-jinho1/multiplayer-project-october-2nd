@@ -1,41 +1,29 @@
-using UnityEngine; // Debug.Log를 사용하기 위함 (디버깅용)
+using System;
+using Code.CoreGameLogic;
+using PurrNet;
+using TMPro;
+using UnityEngine;
 
 namespace Code.Players
 {
-    public enum PlayerID
+    public class Player : NetworkBehaviour
     {
-        Player1,
-        Player2,
-        Neutral
-    }
-
-    public class Player
-    {
-        public PlayerID ID { get; private set; }
-        // 예시로 다른 속성을 추가할 수 있습니다.
-        public string Name { get; private set; }
-        public int Gold { get; private set; }
-
-        // DependencyContainer에서 호출하는 방식에 맞게 PlayerID만 인자로 받도록 수정
-        public Player(PlayerID id)
+        [SerializeField] private TMP_Text gameManager;
+        private PlayerData  _playerData;
+        
+        protected override void OnSpawned()
         {
-            ID = id;
-            Name = id.ToString(); // 기본 이름은 ID로 설정
-            Gold = 1000; // 초기 골드 설정
+            base.OnSpawned();
+            RegisterPlayer();
         }
 
-        // 필요하다면 다른 생성자 오버로드를 추가할 수 있습니다.
-        public Player(PlayerID id, string name, int initialGold)
+        [ServerRpc]
+        private void RegisterPlayer()
         {
-            ID = id;
-            Name = name;
-            Gold = initialGold;
+            GameManager gm = FindObjectOfType<GameManager>();
+            _playerData = gm.RegisterPlayer();
+            Debug.Log(_playerData.ID);
         }
-
-        // 플레이어의 골드를 추가하는 메서드 (예시)
-        public void AddGold(int amount)
-        {
-            Gold += amount;
-        }
+        
     }
 }

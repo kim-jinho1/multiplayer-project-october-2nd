@@ -11,7 +11,7 @@
             private static readonly Dictionary<Type, object> Singletons = new();
             private static readonly Dictionary<string, object> NamedSingletons = new();
 
-            private static void RegisterSingleton<TInterface, TConcrete>(TConcrete instance) where TConcrete : TInterface
+            public static void RegisterSingleton<TInterface, TConcrete>(TConcrete instance) where TConcrete : TInterface
             {
                 if (Singletons.ContainsKey(typeof(TInterface)))
                 {
@@ -20,7 +20,7 @@
                 Singletons[typeof(TInterface)] = instance;
             }
 
-            private static void RegisterNamedSingleton<TInterface, TConcrete>(Enum nameEnum, TConcrete instance) where TConcrete : TInterface
+            public static void RegisterNamedSingleton<TInterface, TConcrete>(Enum nameEnum, TConcrete instance) where TConcrete : TInterface
             {
                 string name = nameEnum.ToString();
                 if (NamedSingletons.ContainsKey(name))
@@ -56,6 +56,7 @@
                 NamedSingletons.Clear();
             }
 
+            [Obsolete("Obsolete")]
             public static void InitializeGameDependencies()
             {
                 Clear();
@@ -69,16 +70,11 @@
                 WinConditionChecker winConditionChecker = new WinConditionChecker();
                 RegisterSingleton<IWinConditionChecker, WinConditionChecker>(winConditionChecker);
 
-                NationalTurnProcessor nationalTurnProcessor = new NationalTurnProcessor();
+                NationalTurnProcessor nationalTurnProcessor = UnityEngine.Object.FindObjectOfType<NationalTurnProcessor>();
                 RegisterNamedSingleton<ITurnProcessor, NationalTurnProcessor>(TurnPhase.NationalTurn, nationalTurnProcessor);
 
-                PieceTurnProcessor pieceTurnProcessor = new PieceTurnProcessor();
+                PieceTurnProcessor pieceTurnProcessor = UnityEngine.Object.FindObjectOfType<PieceTurnProcessor>();
                 RegisterNamedSingleton<ITurnProcessor, PieceTurnProcessor>(TurnPhase.PieceTurn, pieceTurnProcessor);
-                
-                Player player1 = new Player(PlayerID.Player1);
-                RegisterNamedSingleton<Player, Player>(PlayerID.Player1, player1);
-                Player player2 = new Player(PlayerID.Player2);
-                RegisterNamedSingleton<Player, Player>(PlayerID.Player2, player2);
             }
         }
     }

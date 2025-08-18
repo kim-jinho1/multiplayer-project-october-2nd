@@ -11,8 +11,8 @@ namespace Code.CoreGameLogic
     {
         [field:SerializeField] public PieceData PieceData { get; private set; }
         [field:SerializeField] public Material ChangeMaterial { get; private set; }
-         public Material[] OriginalMaterials { get; set; }
-         public abstract string PieceName { get; }
+        public Material[] OriginalMaterials { get; private set; }
+        public abstract string PieceName { get; }
         public SyncVar<PlayerID> OwnerID { get; }
         public SyncVar<int> AttackPower { get; }
         public SyncVar<int> DefensePower { get; }
