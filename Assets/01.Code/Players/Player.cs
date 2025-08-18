@@ -9,7 +9,7 @@ namespace Code.Players
     public class Player : NetworkBehaviour
     {
         [SerializeField] private TMP_Text gameManager;
-        private PlayerData  _playerData;
+        public PlayerData  _playerData {get ; private set;}
         
         protected override void OnSpawned()
         {
@@ -22,7 +22,7 @@ namespace Code.Players
         {
             GameManager gm = FindObjectOfType<GameManager>();
             _playerData = gm.RegisterPlayer();
-            Debug.Log(_playerData.ID);
+            GetComponent<PlayerCamera>().PlayerSetting(_playerData.ID);
         }
         
     }

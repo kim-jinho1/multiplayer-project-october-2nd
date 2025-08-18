@@ -368,6 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe8cf0225684d78aa20915bb7e3331c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPos: {fileID: 4035348858434778983}
   mainCamera: {fileID: 703801707015825114}
 --- !u!114 &1928290607341154429
 MonoBehaviour:
@@ -388,10 +389,9 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _invertedPathToNearestParent: 
   _directChildren: []
-  _networkRules: {fileID: 0}
-  _visitiblityRules: {fileID: 0}
+  _networkRules: {fileID: 11400000, guid: d8799083b96579a42b8b2d03e4ceae98, type: 2}
+  _visitiblityRules: {fileID: 11400000, guid: 8f014a5bd8dc68646a2a3c0b18c5bbd8, type: 2}
   gameManager: {fileID: 2306635388472107173}
-  _playerId: 0
 --- !u!1 &7224170702735950478
 GameObject:
   m_ObjectHideFlags: 0
