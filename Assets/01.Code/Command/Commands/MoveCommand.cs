@@ -11,6 +11,9 @@ namespace Code.Command.Commands
         private bool _isCompleted = false;
 
         public bool IsComplete => _isCompleted;
+        
+        private readonly Piece _piece;
+        private readonly Vector3 _destination;
 
         // PlayerInputHandler에서 전달하는 3개의 인자를 받는 생성자
         public MoveCommand(IBoard board, Vector2 from, Vector2 to)
@@ -18,6 +21,12 @@ namespace Code.Command.Commands
             _board = board;
             _from = from;
             _to = to;
+        }
+        
+        public MoveCommand(Piece piece, Vector3 destination)
+        {
+            _piece = piece;
+            _destination = destination;
         }
 
         public void Execute()

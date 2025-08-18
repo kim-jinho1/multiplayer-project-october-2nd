@@ -21,6 +21,12 @@ namespace Code.Command.Commands
             _defender = defender;
         }
 
+        public AttackCommand(Piece attacker, Piece defender)
+        {
+            _attacker = attacker;
+            _defender = defender;
+        }
+
         public void Execute()
         {
             // 전투를 처리하고 결과를 반환합니다.
