@@ -1,8 +1,7 @@
 using UnityEngine;
-using Code.Global;
 using Code.Players;
 using PurrNet;
-using PlayerID = PurrNet.PlayerID;
+using PlayerID = Code.Players.PlayerID;
 
 namespace Code.CoreGameLogic
 {
@@ -18,30 +17,70 @@ namespace Code.CoreGameLogic
         }
 
         [ServerRpc]
-        private void AddResources(PlayerData playerData)
+        private void AddResourcesServerRpc(PlayerID playerID)
         {
-            playerData.AddGold(100);
-            playerData.AddAP(10);
+            if (_gameManager.players.value.ContainsKey(playerID))
+            {
+                PlayerData playerData = _gameManager.players.value[playerID];
+
+                playerData.AddGold(100);
+                playerData.AddAP(10);
+                
+                if (_gameManager.currentPlayerId.value == PlayerID.Player2)
+                {
+                    playerData.AddGold(30);
+                    playerData.AddAP(3);
+                }
+
+                Debug.Log($"{playerID}가 리소스(골드, AP)를 획득했습니다. 현재 골드: {playerData.Gold}");
+
+                UpdatePlayerDataClientRpc(playerID, playerData.Gold, playerData.AP);
+            }
         }
         
+        
         [ObserversRpc]
-        public void EndTurn(PlayerID playerID)
+        private void UpdatePlayerDataClientRpc(PlayerID playerID, int gold, int ap)
+        {
+            if (_gameManager.players.value.ContainsKey(playerID))
+            {
+                _gameManager.players.value[playerID].AddGold(gold);
+                _gameManager.players.value[playerID].AddAP(ap);
+            }
+        }
+
+        public void ProcessTurn()
+        {
+            if (_gameManager.currentPlayerId.value == PlayerID.Player1 && networkManager.isHost)
+            {
+                OpenUI();
+                AddResourcesServerRpc(_gameManager.currentPlayerId.value);
+            }
+            else if (_gameManager.currentPlayerId.value == PlayerID.Player2 && networkManager.isClient)
+            {
+                OpenUI();
+                AddResourcesServerRpc(_gameManager.currentPlayerId.value);
+            }
+            else
+            {
+                _nationalUI.SetActive(false);
+            }
+        }
+        
+        public void OnEndTurnButtonClicked()
+        {
+            EndTurnServerRpc();
+        }
+        
+        [ServerRpc]
+        public void EndTurnServerRpc()
         {
             _gameManager.EndCurrentTurn();
-            _nationalUI.SetActive(false);
         }
 
         public void OpenUI()
         {
             _nationalUI.SetActive(true);
-        }
-
-        public void ProcessTurn()
-        {
-            _gameManager = DependencyContainer.Get<GameManager>();
-            PlayerData currentPlayerData = _gameManager.players.value[_gameManager.currentPlayerId.value];
-            
-            AddResources(currentPlayerData);
         }
     }
 }

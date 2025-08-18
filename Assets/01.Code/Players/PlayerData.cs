@@ -12,8 +12,8 @@ namespace Code.Players
     {
         public PlayerID ID { get; private set; }
         public string Name { get; private set; }
-        private int Gold { get; set; }
-        private int AP { get; set; }
+        public int Gold { get; set; }
+        public int AP { get; set; }
         
         private PurrNet.PlayerID PlayerID { get; set; }
         
