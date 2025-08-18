@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/MoveCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/MoveCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/PieceTurnProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/PieceTurnProcessor.cs" afterDir="false" />
-    </list>
+    <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -214,7 +211,7 @@
       <workItem from="1755413109133" duration="1572000" />
       <workItem from="1755415600147" duration="10343000" />
       <workItem from="1755430030643" duration="10463000" />
-      <workItem from="1755524357107" duration="2175000" />
+      <workItem from="1755524357107" duration="2445000" />
     </task>
     <servers />
   </component>
