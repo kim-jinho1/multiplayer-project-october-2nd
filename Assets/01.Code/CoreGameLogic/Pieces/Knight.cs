@@ -18,6 +18,7 @@ namespace Code.CoreGameLogic.Pieces
             Health.value = PieceData.Health;
             AttackPower.value = PieceData.AttackPower;
             DefensePower.value = PieceData.DefensePower;
+            OwnerID.value = PieceData.OwnerID;
         }
 
         /// <summary>
