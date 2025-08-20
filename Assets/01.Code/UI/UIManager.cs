@@ -5,8 +5,21 @@ namespace Code.UI
 {
     public class UIManager : MonoBehaviour
     {
+        [Header("UI Code")]
         public BoardUI BoardUI;
         public NationalPanelUI NationalPanelUI;
+        
+        [Header("UI GameObject")]
+        [SerializeField] private GameObject gameEndPanel;
+        [SerializeField] private GameObject nationalPanel;
+        [SerializeField] private GameObject technologyPanel;
+        [SerializeField] private GameObject selectButtonPanel;
+        [SerializeField] private GameObject battleResultPanel;
+        [SerializeField] private GameObject unitInformationPanel;
+        [SerializeField] private GameObject alarmPanel;
+        [SerializeField] private GameObject unitPanel;
+        [SerializeField] private GameObject nationalPanelOpenButton;
+        [SerializeField] private GameObject eventPanel;
 
         private void Start()
         {

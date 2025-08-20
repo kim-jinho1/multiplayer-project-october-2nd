@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/UI/Policy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/UI/Policy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/UI/Technology.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/UI/Technology.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/06.Fonts/neodgm SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/06.Fonts/neodgm SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Players/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Players/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/UI/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/UI/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Player/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Player/Player.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,6 +222,8 @@
       <workItem from="1755526908267" duration="1082000" />
       <workItem from="1755590790483" duration="519000" />
       <workItem from="1755610420930" duration="1315000" />
+      <workItem from="1755653993473" duration="1115000" />
+      <workItem from="1755675013637" duration="1008000" />
     </task>
     <servers />
   </component>

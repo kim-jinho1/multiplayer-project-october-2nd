@@ -75,7 +75,6 @@
                 _pieceTurnProcessor = DependencyContainer.Get<ITurnProcessor>(TurnPhase.NationalTurn);
                 _pieceTurnProcessor.Initialize(this);
                 isGameStarted = true;
-                Debug.Log("생성됨!");
             }
 
             private void Update()
@@ -95,13 +94,14 @@
                 }
 
                 PlayerData newPlayerData = null;
-
-                if (networkManager.isHost)
+                //if (networkManager.isHost)
+                if (players.value.Count == 0 )
                 {
                     newPlayerData = new PlayerData(PlayerID.Player1, nameof(PlayerID.Player1), 100);
                     players.value.Add(PlayerID.Player1, newPlayerData);
                 }
-                else if (networkManager.isClient)
+                //else if (networkManager.isClient)
+                else if (players.value.Count == 1)
                 {
                     newPlayerData = new PlayerData(PlayerID.Player2, nameof(PlayerID.Player2), 100);
                     players.value.Add(PlayerID.Player2, newPlayerData);
