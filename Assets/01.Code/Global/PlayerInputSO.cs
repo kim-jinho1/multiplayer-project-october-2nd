@@ -7,6 +7,7 @@ namespace Code.Global
     [CreateAssetMenu(fileName = "PlayerInput", menuName = "SO/PlayerInput", order = 0)]
     public class PlayerInputSO : ScriptableObject,InputSystem.IPlayerActions
     {
+        public Vector2 MousePosition { get; private set; }
         public Action OnMouseLeftClick;
         
         private InputSystem _inputSystem;
@@ -30,6 +31,11 @@ namespace Code.Global
         {
             if(context.performed)
                 OnMouseLeftClick?.Invoke();
+        }
+
+        public void OnAim(InputAction.CallbackContext context)
+        {
+            MousePosition  = context.ReadValue<Vector2>();
         }
     }
 }

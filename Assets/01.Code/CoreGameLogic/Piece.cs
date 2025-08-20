@@ -18,6 +18,8 @@ namespace Code.CoreGameLogic
         public SyncVar<int> DefensePower { get; private set;}
         public SyncVar<int> Health { get; private set;}
         public SyncVar<int> Loyalty { get; private set;}
+        public SyncVar<int> ConsumptionAP { get; private set;}
+        public SyncVar<int> ConsumptionGold { get; private set;}
         public SyncVar<bool> IsAlive => new(Health > 0);
         
         protected readonly IPieceMoveValidator Validator;
@@ -43,12 +45,16 @@ namespace Code.CoreGameLogic
             AttackPower = new SyncVar<int>();
             DefensePower = new SyncVar<int>();
             Loyalty = new SyncVar<int>();
+            ConsumptionAP = new SyncVar<int>();
+            ConsumptionGold = new SyncVar<int>();
             OwnerID = new SyncVar<PlayerID>();
 
             Health.value = PieceData.Health;
             AttackPower.value = PieceData.AttackPower;
             DefensePower.value = PieceData.DefensePower;
             Loyalty.value = PieceData.Loyalty;
+            ConsumptionAP.value = PieceData.ConsumptionAP;
+            ConsumptionGold.value = PieceData.ConsumptionGold;
             OwnerID.value = PieceData.OwnerID;
         }
 

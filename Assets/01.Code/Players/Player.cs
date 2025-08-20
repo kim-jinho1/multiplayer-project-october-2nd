@@ -1,14 +1,11 @@
-using System;
 using Code.CoreGameLogic;
 using PurrNet;
-using TMPro;
-using UnityEngine;
 
 namespace Code.Players
 {
     public class Player : NetworkBehaviour
     {
-        public PlayerData  _playerData {get ; private set;}
+        public PlayerData PlayerData {get ; private set;}
         
         protected override void OnSpawned()
         {
@@ -20,8 +17,8 @@ namespace Code.Players
         private void RegisterPlayer()
         {
             GameManager gm = FindObjectOfType<GameManager>();
-            _playerData = gm.RegisterPlayer();
-            GetComponent<PlayerCamera>().PlayerSetting(_playerData.ID);
+            PlayerData = gm.RegisterPlayer();
+            GetComponent<PlayerCamera>().PlayerSetting(PlayerData.ID);
         }
     }
 }

@@ -11,5 +11,8 @@ namespace Code.Global
         public int AttackPower;
         public int DefensePower;
         public int Health;
+        public int Loyalty;
+        public int ConsumptionAP;
+        public int ConsumptionGold;
     }
 }

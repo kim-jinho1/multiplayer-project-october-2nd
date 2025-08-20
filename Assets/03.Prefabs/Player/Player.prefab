@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 4728113066292001344}
   - component: {fileID: 32968091906356757}
   - component: {fileID: 1928290607341154429}
+  - component: {fileID: 8977752739523410739}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -289,3 +290,17 @@ MonoBehaviour:
   _directChildren: []
   _networkRules: {fileID: 11400000, guid: d8799083b96579a42b8b2d03e4ceae98, type: 2}
   _visitiblityRules: {fileID: 11400000, guid: 8f014a5bd8dc68646a2a3c0b18c5bbd8, type: 2}
+--- !u!114 &8977752739523410739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4035348858434778983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216553ee04da484b89368bb3badcfa0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 11400000, guid: c185ba6c7c157274e9c4d00a80e65ee8, type: 2}
+  mainCamera: {fileID: 1448075610861495927}
