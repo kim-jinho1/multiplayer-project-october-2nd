@@ -12,13 +12,9 @@ namespace Code.CoreGameLogic.Pieces
     {
         public override string PieceName => "Knight";
 
-        public Knight(PlayerID ownerId, IPieceMoveValidator validator, SyncVar<int> health, SyncVar<int> defensePower, SyncVar<int> attackPower, SyncVar<PlayerID> ownerID)
-            : base(ownerId, validator, health, defensePower, attackPower, ownerID)
+        public Knight(IPieceMoveValidator validator) : base(validator)
         {
-            Health.value = PieceData.Health;
-            AttackPower.value = PieceData.AttackPower;
-            DefensePower.value = PieceData.DefensePower;
-            OwnerID.value = PieceData.OwnerID;
+            
         }
 
         /// <summary>

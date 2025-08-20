@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e2a5156d174063b161395f1615d58d, type: 3}
   m_Name: Knight
   m_EditorClassIdentifier: 
+  OwnerID: 1
   PieceName: Knight
   AttackPower: 0
   DefensePower: 0

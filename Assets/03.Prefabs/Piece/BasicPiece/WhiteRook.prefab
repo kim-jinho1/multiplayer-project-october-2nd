@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71be0eb5b2a343f7b72ec37f57f0f207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PieceData>k__BackingField: {fileID: 11400000, guid: 60fc2ff06fbe104419aefb94345ebc2d, type: 2}
+  <PieceData>k__BackingField: {fileID: 11400000, guid: a3e53d1210edf8144aef22a7342b3c9b, type: 2}
   <ChangeMaterial>k__BackingField: {fileID: 2100000, guid: eae021b7e711ecf4394280bf71fb96f6, type: 2}
 --- !u!4 &5240162780753461888 stripped
 Transform:

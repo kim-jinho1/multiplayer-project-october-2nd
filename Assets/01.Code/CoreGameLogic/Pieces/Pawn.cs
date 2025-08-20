@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using PurrNet;
 using UnityEngine;
-using PlayerID = Code.Players.PlayerID;
 
 namespace Code.CoreGameLogic.Pieces
 {
@@ -12,13 +11,9 @@ namespace Code.CoreGameLogic.Pieces
     {
         public override string PieceName => new("Pawn");
 
-        public Pawn(PlayerID ownerId, IPieceMoveValidator validator, SyncVar<int> health, SyncVar<int> defensePower, SyncVar<int> attackPower, SyncVar<PlayerID> ownerID)
-            : base(ownerId, validator, health, defensePower, attackPower, ownerID)
+        public Pawn(IPieceMoveValidator validator) : base(validator)
         {
-            Health.value = PieceData.Health;
-            AttackPower.value = PieceData.AttackPower;
-            DefensePower.value = PieceData.DefensePower;
-            OwnerID.value = PieceData.OwnerID;
+            
         }
         
         /// <summary>

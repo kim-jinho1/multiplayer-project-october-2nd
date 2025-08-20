@@ -13,27 +13,43 @@ namespace Code.CoreGameLogic
         [field:SerializeField] public Material ChangeMaterial { get; private set; }
         public Material[] OriginalMaterials { get; private set; }
         public abstract string PieceName { get; }
-        public SyncVar<PlayerID> OwnerID { get; }
-        public SyncVar<int> AttackPower { get; }
-        public SyncVar<int> DefensePower { get; }
-        public SyncVar<int> Health { get; }
+        public SyncVar<PlayerID> OwnerID { get; private set;}
+        public SyncVar<int> AttackPower { get; private set;}
+        public SyncVar<int> DefensePower { get; private set;}
+        public SyncVar<int> Health { get; private set;}
+        public SyncVar<int> Loyalty { get; private set;}
         public SyncVar<bool> IsAlive => new(Health > 0);
         
-        protected IPieceMoveValidator Validator;
+        protected readonly IPieceMoveValidator Validator;
 
-        public Piece(PlayerID ownerId, IPieceMoveValidator validator, SyncVar<int> health, SyncVar<int> defensePower, SyncVar<int> attackPower, SyncVar<PlayerID> ownerID)
+        public Piece(IPieceMoveValidator validator)
         {
-            OwnerID.value = ownerId;
             Validator = validator;
-            Health = health;
-            DefensePower = defensePower;
-            AttackPower = attackPower;
-            OwnerID = ownerID;
         }
 
         public virtual void Awake()
         {
+            // SyncVar 객체들을 Awake()에서 초기화합니다.
+            
             OriginalMaterials = GetComponentInChildren<MeshRenderer>().materials;
+        }
+
+        private void OnEnable()
+        {
+            if(PieceData == null)
+                return;
+            
+            Health = new SyncVar<int>();
+            AttackPower = new SyncVar<int>();
+            DefensePower = new SyncVar<int>();
+            Loyalty = new SyncVar<int>();
+            OwnerID = new SyncVar<PlayerID>();
+
+            Health.value = PieceData.Health;
+            AttackPower.value = PieceData.AttackPower;
+            DefensePower.value = PieceData.DefensePower;
+            Loyalty.value = PieceData.Loyalty;
+            OwnerID.value = PieceData.OwnerID;
         }
 
         private void OnMouseEnter()
