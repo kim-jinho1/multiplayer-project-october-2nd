@@ -5,29 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/King.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/King.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Knight.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Knight.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Queen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Queen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Rook.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Rook.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Global/PieceData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Global/PieceData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhiteBishop.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/BasicPiece/WhiteBishop.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/UI/Policy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/UI/Policy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/UI/Technology.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/UI/Technology.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/06.Fonts/neodgm SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/06.Fonts/neodgm SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/08.SO/Piece/Bishop.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/08.SO/Piece/Bishop.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/08.SO/Piece/King.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/08.SO/Piece/King.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/08.SO/Piece/Knight.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/08.SO/Piece/Knight.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/08.SO/Piece/Pawn.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/08.SO/Piece/Pawn.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/08.SO/Piece/Queen.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/08.SO/Piece/Queen.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/08.SO/Piece/Rook.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/08.SO/Piece/Rook.asset.meta" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -238,7 +219,7 @@
       <workItem from="1755524357107" duration="2445000" />
       <workItem from="1755526908267" duration="1082000" />
       <workItem from="1755590790483" duration="519000" />
-      <workItem from="1755610420930" duration="716000" />
+      <workItem from="1755610420930" duration="1315000" />
     </task>
     <servers />
   </component>
