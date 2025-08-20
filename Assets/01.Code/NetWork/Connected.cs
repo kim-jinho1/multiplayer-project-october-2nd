@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.UI
+namespace Code.NetWork
 {
     public class Connected : MonoBehaviour
     {
