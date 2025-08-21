@@ -16,7 +16,7 @@ namespace Code.StrategicSystem
 
                 if (_instance == null)
                 {
-                    _instance = FindObjectOfType<T>();
+                    _instance = FindAnyObjectByType<T>();
 
                     if (_instance == null)
                         Debug.LogError($"{typeof(T).Name} singleton is not exist");

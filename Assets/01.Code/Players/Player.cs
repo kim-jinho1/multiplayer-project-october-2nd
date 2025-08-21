@@ -16,7 +16,7 @@ namespace Code.Players
         [ServerRpc]
         private void RegisterPlayer()
         {
-            GameManager gm = FindObjectOfType<GameManager>();
+            GameManager gm = FindAnyObjectByType<GameManager>();
             PlayerData = gm.RegisterPlayer();
             GetComponent<PlayerCamera>().PlayerSetting(PlayerData.ID);
         }
