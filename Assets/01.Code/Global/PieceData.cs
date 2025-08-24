@@ -14,5 +14,6 @@ namespace Code.Global
         public int Loyalty;
         public int ConsumptionAP;
         public int ConsumptionGold;
+        public bool isForward;
     }
 }

@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace Code.StrategicSystem
 {
-    public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
+    public class MonoSingleton <T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T _instance = null;
-        private static bool IsDestroyed = false;
+        private static bool IsDestroyed;
 
         public static T Instance
         {
@@ -16,15 +16,15 @@ namespace Code.StrategicSystem
 
                 if (_instance == null)
                 {
-                    _instance = FindAnyObjectByType<T>();
+                    _instance = FindFirstObjectByType<T>();
 
                     if (_instance == null)
-                        Debug.LogError($"{typeof(T).Name} singleton is not exist");
+                        Debug.LogError($"{typeof(T).Name} 싱글톤이 존재하지 않습니다.");
                     else
                         IsDestroyed = false;
                 }
 
-                return _instance;
+                return _instance; 
             }
         }
 

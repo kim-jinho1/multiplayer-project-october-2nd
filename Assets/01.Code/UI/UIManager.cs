@@ -5,10 +5,6 @@ namespace Code.UI
 {
     public class UIManager : MonoBehaviour
     {
-        [Header("UI Code")]
-        public BoardUI BoardUI;
-        public NationalPanelUI NationalPanelUI;
-        
         [Header("UI GameObject")]
         [SerializeField] private GameObject gameEndPanel;
         [SerializeField] private GameObject nationalPanel;

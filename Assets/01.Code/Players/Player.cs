@@ -1,11 +1,13 @@
 using Code.CoreGameLogic;
 using PurrNet;
+using UnityEngine;
 
 namespace Code.Players
 {
-    public class Player : NetworkBehaviour
+    public class Player : NetworkIdentity
     {
         public PlayerData PlayerData {get ; private set;}
+        public PurrNet.PlayerID PlayerId {get ; private set;}
         
         protected override void OnSpawned()
         {
