@@ -29,7 +29,6 @@ namespace Code.Players
         
         private void HandlePieceMove()
         { 
-            //UnitActionUI.Instance.ActionPanel.SetActive(true);
             List<Vector3> moves = _selectedPiece.GetMoveRange(_selectedPiece.transform.position);
 
             foreach (Vector3 move in moves)

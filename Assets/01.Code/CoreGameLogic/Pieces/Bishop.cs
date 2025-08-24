@@ -20,8 +20,8 @@ namespace Code.CoreGameLogic.Pieces
         {
             List<Vector3> moveRange = new List<Vector3>();
             Vector3[] directions = {
-                new Vector3(1,0,1), new Vector3(-1,0,1),
-                new Vector3(1,0,-1), new Vector3(-1,0,-1)
+                new(1,0,1), new(-1,0,1),
+                new(1,0,-1), new(-1,0,-1)
             };
 
             int zMultiplier = IsForward ? -1 : 1;

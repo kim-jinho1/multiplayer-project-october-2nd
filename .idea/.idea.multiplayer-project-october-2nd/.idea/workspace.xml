@@ -5,16 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d80fd706-65b7-422a-9123-0ecbb432c0ac" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Indicator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Indicator.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.multiplayer-project-october-2nd/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scene/InGameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/AttackCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/AttackCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/MoveCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Command/Commands/MoveCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IBoard.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IBoard.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/IPieceMoveValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/IPieceMoveValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Knight.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Knight.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Pawn.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Queen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Queen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Rook.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Rook.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Code/GameInitialization/Bootstrap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/GameInitialization/Bootstrap.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Code/Players/UnitController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/Players/UnitController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/LoyaltyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Code/StrategicSystem/LoyaltyManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Borad/Board.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Borad/Board.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/Piece.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Piece/Piece.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Player/GameObject 1.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Player/GameObject 1.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Player/GameObject.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Player/GameObject.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,10 +39,10 @@
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/CommandProcessor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IBattleResolver.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IBoard.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IPiece.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/ITurnProcessor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/IWinConditionChecker.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Indicator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/MoveValidators/PawnMoveValidator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Piece.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/CoreGameLogic/Pieces/Bishop.cs" root0="FORCE_HIGHLIGHTING" />
@@ -67,7 +75,6 @@
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/UI/BoardUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/UI/NationalPanelUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Code/UI/UIManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/01.Code/UI/UnitActionUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PurrLobby/Runtime/Lobby/LobbyManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PurrLobby/Runtime/Misc/ConnectionStarter.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/PurrLobby/Runtime/Misc/UI/ConnectedText.cs" root0="FORCE_HIGHLIGHTING" />
@@ -226,7 +233,7 @@
       <workItem from="1755653993473" duration="1115000" />
       <workItem from="1755675013637" duration="3245000" />
       <workItem from="1755696808561" duration="37000" />
-      <workItem from="1756043102803" duration="1262000" />
+      <workItem from="1756043102803" duration="2204000" />
     </task>
     <servers />
   </component>

@@ -21,14 +21,14 @@ namespace Code.CoreGameLogic.Pieces
             float zMultiplier = IsForward ? -1 : 1;
 
             Vector3[] knightMoves = {
-                new Vector3(currentPos.x + 1, currentPos.y, currentPos.z + 2 * zMultiplier),
-                new Vector3(currentPos.x + 1, currentPos.y, currentPos.z - 2 * zMultiplier),
-                new Vector3(currentPos.x - 1, currentPos.y, currentPos.z + 2 * zMultiplier),
-                new Vector3(currentPos.x - 1, currentPos.y, currentPos.z - 2 * zMultiplier),
-                new Vector3(currentPos.x + 2, currentPos.y, currentPos.z + 1 * zMultiplier),
-                new Vector3(currentPos.x + 2, currentPos.y, currentPos.z - 1 * zMultiplier),
-                new Vector3(currentPos.x - 2, currentPos.y, currentPos.z + 1 * zMultiplier),
-                new Vector3(currentPos.x - 2, currentPos.y, currentPos.z - 1 * zMultiplier)
+                new(currentPos.x + 1, currentPos.y, currentPos.z + 2 * zMultiplier),
+                new(currentPos.x + 1, currentPos.y, currentPos.z - 2 * zMultiplier),
+                new(currentPos.x - 1, currentPos.y, currentPos.z + 2 * zMultiplier),
+                new(currentPos.x - 1, currentPos.y, currentPos.z - 2 * zMultiplier),
+                new(currentPos.x + 2, currentPos.y, currentPos.z + 1 * zMultiplier),
+                new(currentPos.x + 2, currentPos.y, currentPos.z - 1 * zMultiplier),
+                new(currentPos.x - 2, currentPos.y, currentPos.z + 1 * zMultiplier),
+                new(currentPos.x - 2, currentPos.y, currentPos.z - 1 * zMultiplier)
             };
 
             return new List<Vector3>(knightMoves);

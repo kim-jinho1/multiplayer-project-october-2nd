@@ -21,8 +21,8 @@ namespace Code.CoreGameLogic.Pieces
             List<Vector3> moveRange = new List<Vector3>();
     
             Vector3[] directions = {
-                new Vector3(0,0,1), new Vector3(0,0,-1), new Vector3(1,0,0), new Vector3(-1,0,0),
-                new Vector3(1,0,1), new Vector3(-1,0,1), new Vector3(1,0,-1), new Vector3(-1,0,-1)
+                new(0,0,1), new(0,0,-1), new(1,0,0), new(-1,0,0),
+                new(1,0,1), new(-1,0,1), new(1,0,-1), new(-1,0,-1)
             };
 
             foreach (Vector3 direction in directions)

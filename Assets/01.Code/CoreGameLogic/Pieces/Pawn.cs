@@ -22,7 +22,7 @@ namespace Code.CoreGameLogic.Pieces
         public override List<Vector3> GetMoveRange(Vector3 currentPos)
         {
             float zOffset = IsForward ? -1 : 1;
-            return new List<Vector3> { new Vector3(currentPos.x, currentPos.y, currentPos.z + zOffset) };
+            return new List<Vector3> { new(currentPos.x, currentPos.y, currentPos.z + zOffset) };
         }
 
     }

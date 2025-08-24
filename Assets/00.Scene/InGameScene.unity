@@ -1602,7 +1602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79850464e41d03f47b5e8e2a6174181f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomName: MyTestRoom4
+  roomName: MyTestRoom6
   isHost: 1
 --- !u!1 &105085384
 GameObject:
