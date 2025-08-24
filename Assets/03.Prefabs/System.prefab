@@ -335,10 +335,51 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 822224887119841424, guid: 3d303acabf929df499a6370f93ea50c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4880144496146907165}
+    - targetCorrespondingSourceObject: {fileID: 822224887119841424, guid: 3d303acabf929df499a6370f93ea50c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1081536174224552131}
   m_SourcePrefab: {fileID: 100100000, guid: 3d303acabf929df499a6370f93ea50c7, type: 3}
 --- !u!4 &7593087197105569448 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1473964572975475961, guid: 3d303acabf929df499a6370f93ea50c7, type: 3}
   m_PrefabInstance: {fileID: 9012972151753249361}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8538159993398893249 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 822224887119841424, guid: 3d303acabf929df499a6370f93ea50c7, type: 3}
+  m_PrefabInstance: {fileID: 9012972151753249361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4880144496146907165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8538159993398893249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20d5e6a1dd24b94943186f2f9822393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitPanel: {fileID: 0}
+  unitInformationTitleText: {fileID: 0}
+--- !u!114 &1081536174224552131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8538159993398893249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a494775208b4dc1a93a87c4923af289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitInformationTitleText: {fileID: 0}
+  attackPowerText: {fileID: 0}
+  defenseText: {fileID: 0}
+  loyaltyText: {fileID: 0}

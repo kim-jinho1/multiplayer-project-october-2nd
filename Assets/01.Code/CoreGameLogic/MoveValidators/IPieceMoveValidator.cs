@@ -17,6 +17,6 @@ namespace Code.CoreGameLogic
         /// <param name="from">기물의 현재 위치 (Vector2)</param>
         /// <param name="to">기물이 이동할 목표 위치 (Vector2)</param>
         /// <returns>이동이 유효하면 true, 아니면 false를 반환</returns>
-        bool IsValidMove(IBoard board, Piece piece, Vector2 from, Vector2 to);
+        bool IsValidMove(Piece piece, Vector3 from, Vector3 to);
     }
 }

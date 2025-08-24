@@ -20,6 +20,7 @@ namespace Code.CoreGameLogic
         public SyncVar<int> Loyalty { get; private set;}
         public SyncVar<int> ConsumptionAP { get; private set;}
         public SyncVar<int> ConsumptionGold { get; private set;}
+        public SyncVar<bool> IsForward { get; private set;}
         public SyncVar<bool> IsAlive => new(Health > 0);
         
         protected readonly IPieceMoveValidator Validator;
@@ -47,6 +48,7 @@ namespace Code.CoreGameLogic
             Loyalty = new SyncVar<int>();
             ConsumptionAP = new SyncVar<int>();
             ConsumptionGold = new SyncVar<int>();
+            IsForward = new SyncVar<bool>();
             OwnerID = new SyncVar<PlayerID>();
 
             Health.value = PieceData.Health;
@@ -55,6 +57,7 @@ namespace Code.CoreGameLogic
             Loyalty.value = PieceData.Loyalty;
             ConsumptionAP.value = PieceData.ConsumptionAP;
             ConsumptionGold.value = PieceData.ConsumptionGold;
+            IsForward.value = PieceData.isForward;
             OwnerID.value = PieceData.OwnerID;
         }
 
@@ -72,19 +75,15 @@ namespace Code.CoreGameLogic
             MeshRenderer mr = GetComponentInChildren<MeshRenderer>();
             mr.materials = OriginalMaterials;
         }
-
-        public bool IsMovePossible(IBoard board, Vector2 from, Vector2 to)
-        {
-            return Validator.IsValidMove(board, this, from, to);
-        }
-
-        public abstract SyncVar<List<Vector2>> GetPossibleMoves(IBoard board, Vector2 currentPos);
         
         public void ModifyAttackPower(int amount)
         {
             AttackPower.value += amount;
         }
 
-        
+        /// <summary>
+        /// 기물이 움직일 수 있는 범위를 반환합니다.
+        /// </summary>
+        public abstract List<Vector3> GetMoveRange(Vector3 currentPos);
     }
 }

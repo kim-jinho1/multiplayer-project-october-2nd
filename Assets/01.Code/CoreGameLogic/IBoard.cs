@@ -37,5 +37,7 @@ namespace Code.CoreGameLogic
         /// </summary>
         /// <param name="piece">제거할 기물</param>
         void RemovePiece(Piece piece);
+
+        bool IsValidPosition(Vector2 position);
     }
 }

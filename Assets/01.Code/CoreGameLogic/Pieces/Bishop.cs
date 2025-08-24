@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace Code.CoreGameLogic.Pieces
 {
-    /// <summary>
-    /// 비숍 기물을 나타내는 클래스
-    /// </summary>
     public class Bishop : Piece
     {
         public override string PieceName => "Bishop";
@@ -17,24 +14,27 @@ namespace Code.CoreGameLogic.Pieces
         }
         
         /// <summary>
-        /// 비숍이 이동 가능한 모든 대각선 위치를 계산하여 반환합니다.
+        /// 비숍의 대각선 이동 범위
         /// </summary>
-        public override SyncVar<List<Vector2>> GetPossibleMoves(IBoard board, Vector2 currentPos)
+        public override List<Vector3> GetMoveRange(Vector3 currentPos)
         {
-            var possibleMoves = new SyncVar<List<Vector2>>();
-            for (int i = 1; i < board.BoardSize.x; i++)
+            List<Vector3> moveRange = new List<Vector3>();
+            Vector3[] directions = {
+                new Vector3(1,0,1), new Vector3(-1,0,1),
+                new Vector3(1,0,-1), new Vector3(-1,0,-1)
+            };
+
+            int zMultiplier = IsForward ? -1 : 1;
+
+            foreach (Vector3 direction in directions)
             {
-                Vector2 target = new Vector2(currentPos.x + i, currentPos.y + i);
-                if (Validator.IsValidMove(board, this, currentPos, target))
-                {
-                    possibleMoves.value.Add(target);
-                }
-                else 
-                {
-                    break;
-                }
+                Vector3 dir = new Vector3(direction.x, direction.y, direction.z * zMultiplier);
+                for (int i = 1; i <= 7; i++)
+                    moveRange.Add(currentPos + dir * i);
             }
-            return possibleMoves;
+
+            return moveRange;
         }
+
     }
 }

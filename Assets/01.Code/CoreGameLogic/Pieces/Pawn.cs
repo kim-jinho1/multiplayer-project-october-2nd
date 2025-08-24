@@ -5,11 +5,11 @@ using UnityEngine;
 namespace Code.CoreGameLogic.Pieces
 {
     /// <summary>
-    /// 폰 기물을 나타내는 클래스입니다.
+    /// 폰 기물
     /// </summary>
     public class Pawn : Piece
     {
-        public override string PieceName => new("Pawn");
+        public override string PieceName => "Pawn";
 
         public Pawn(IPieceMoveValidator validator) : base(validator)
         {
@@ -17,19 +17,13 @@ namespace Code.CoreGameLogic.Pieces
         }
         
         /// <summary>
-        /// 폰이 이동 가능한 모든 위치를 계산하여 반환합니다.
+        /// 폰의 기본 이동 범위 (앞으로 1칸)
         /// </summary>
-        public override SyncVar<List<Vector2>> GetPossibleMoves(IBoard board, Vector2 currentPos)
+        public override List<Vector3> GetMoveRange(Vector3 currentPos)
         {
-            var possibleMoves = new SyncVar<List<Vector2>>();
-            
-            Vector2 forwardMove = new Vector2(currentPos.x, currentPos.y + 1);
-            if (Validator.IsValidMove(board, this, currentPos, forwardMove))
-            {
-                possibleMoves.value.Add(forwardMove);
-            }
-            
-            return possibleMoves;
+            float zOffset = IsForward ? -1 : 1;
+            return new List<Vector3> { new Vector3(currentPos.x, currentPos.y, currentPos.z + zOffset) };
         }
+
     }
 }

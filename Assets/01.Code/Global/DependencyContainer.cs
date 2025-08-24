@@ -55,25 +55,21 @@
                 Singletons.Clear();
                 NamedSingletons.Clear();
             }
-
-            [Obsolete("Obsolete")]
+            
             public static void InitializeGameDependencies()
             {
                 Clear();
-
-                ChessBoard board = new ChessBoard();
-                RegisterSingleton<IBoard, ChessBoard>(board);
-
+                
                 BattleResolver battleResolver = new BattleResolver();
                 RegisterSingleton<IBattleResolver, BattleResolver>(battleResolver);
 
                 WinConditionChecker winConditionChecker = new WinConditionChecker();
                 RegisterSingleton<IWinConditionChecker, WinConditionChecker>(winConditionChecker);
 
-                NationalTurnProcessor nationalTurnProcessor = UnityEngine.Object.FindObjectOfType<NationalTurnProcessor>();
+                NationalTurnProcessor nationalTurnProcessor = UnityEngine.Object.FindAnyObjectByType<NationalTurnProcessor>();
                 RegisterNamedSingleton<ITurnProcessor, NationalTurnProcessor>(TurnPhase.NationalTurn, nationalTurnProcessor);
 
-                PieceTurnProcessor pieceTurnProcessor = UnityEngine.Object.FindObjectOfType<PieceTurnProcessor>();
+                PieceTurnProcessor pieceTurnProcessor = UnityEngine.Object.FindAnyObjectByType<PieceTurnProcessor>();
                 RegisterNamedSingleton<ITurnProcessor, PieceTurnProcessor>(TurnPhase.PieceTurn, pieceTurnProcessor);
             }
         }

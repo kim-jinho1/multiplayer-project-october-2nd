@@ -4,37 +4,38 @@ using UnityEngine;
 
 namespace Code.CoreGameLogic.Pieces
 {
-    /// <summary>
-    /// 룩 기물을 나타내는 클래스입니다.
-    /// </summary>
     public class Rook : Piece
     {
-        public override string PieceName => new("Rook");
+        public override string PieceName => "Rook";
 
         public Rook(IPieceMoveValidator validator) : base(validator)
         {
             
         }
-
+        
         /// <summary>
-        /// 룩이 이동 가능한 모든 수평 및 수직 위치를 계산하여 반환합니다.
+        /// 룩의 직선 이동 범위 (상하좌우)
         /// </summary>
-        public override SyncVar<List<Vector2>> GetPossibleMoves(IBoard board, Vector2 currentPos)
+        public override List<Vector3> GetMoveRange(Vector3 currentPos)
         {
-            var possibleMoves = new SyncVar<List<Vector2>>();
-            for (int x = (int)currentPos.x + 1; x < board.BoardSize.x; x++)
+            List<Vector3> moveRange = new List<Vector3>();
+    
+            Vector3[] directions = {
+                new Vector3(0, 0, 1),
+                new Vector3(0, 0, -1),
+                new Vector3(1, 0, 0),
+                new Vector3(-1, 0, 0)
+            };
+
+            foreach (Vector3 direction in directions)
             {
-                Vector2 target = new Vector2(x, currentPos.y);
-                if (Validator.IsValidMove(board, this, currentPos, target))
-                {
-                    possibleMoves.value.Add(target);
-                }
-                else
-                {
-                    break;
-                }
+                Vector3 dir = IsForward ? new Vector3(direction.x, direction.y, -direction.z) : direction;
+
+                for (int i = 1; i <= 7; i++)
+                    moveRange.Add(currentPos + dir * i);
             }
-            return possibleMoves;
+
+            return moveRange;
         }
     }
 }

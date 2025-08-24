@@ -16,8 +16,6 @@ namespace Code.CoreGameLogic
         SyncVar<int> DefensePower { get; }
         SyncVar<int> Health { get; }
         SyncVar<bool> IsAlive { get; }
-
-        SyncVar<List<Vector2>> GetPossibleMoves(IBoard board, Vector2 currentPos);
         
         void ModifyAttackPower(int amount);
     }

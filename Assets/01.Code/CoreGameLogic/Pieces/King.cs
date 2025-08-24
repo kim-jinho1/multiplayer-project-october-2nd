@@ -4,39 +4,33 @@ using UnityEngine;
 
 namespace Code.CoreGameLogic.Pieces
 {
-    /// <summary>
-    /// 킹 기물을 나타내는 클래스입니다.
-    /// </summary>
     public class King : Piece
     {
         public override string PieceName => "King";
 
         public King(IPieceMoveValidator validator) : base(validator)
         {
-            
-        }
 
+        }
+        
         /// <summary>
-        /// 킹이 이동 가능한 모든 한 칸짜리 위치를 계산하여 반환합니다.
+        /// 킹의 이동 범위 (8방향 1칸)
         /// </summary>
-        public override SyncVar<List<Vector2>> GetPossibleMoves(IBoard board, Vector2 currentPos)
+        public override List<Vector3> GetMoveRange(Vector3 currentPos)
         {
-            var possibleMoves = new SyncVar<List<Vector2>>();
-            
+            List<Vector3> moveRange = new List<Vector3>();
+            int zMultiplier = IsForward ? -1 : 1;
+
             for (int xOffset = -1; xOffset <= 1; xOffset++)
             {
-                for (int yOffset = -1; yOffset <= 1; yOffset++)
+                for (int zOffset = -1; zOffset <= 1; zOffset++)
                 {
-                    if (xOffset == 0 && yOffset == 0) continue;
-
-                    Vector2 target = new Vector2(currentPos.x + xOffset, currentPos.y + yOffset);
-                    if (Validator.IsValidMove(board, this, currentPos, target))
-                    {
-                        possibleMoves.value.Add(target);
-                    }
+                    if (xOffset == 0 && zOffset == 0) continue;
+                    moveRange.Add(new Vector3(currentPos.x + xOffset, currentPos.y, currentPos.z + zOffset * zMultiplier));
                 }
             }
-            return possibleMoves;
+
+            return moveRange;
         }
     }
 }

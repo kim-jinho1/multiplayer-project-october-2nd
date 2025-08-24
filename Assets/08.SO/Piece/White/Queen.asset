@@ -17,3 +17,7 @@ MonoBehaviour:
   AttackPower: 0
   DefensePower: 0
   Health: 0
+  Loyalty: 0
+  ConsumptionAP: 0
+  ConsumptionGold: 0
+  isForward: 0
