@@ -7,14 +7,8 @@ namespace _01.Code.StrategicSystem
 {
     public class LoyaltyManager : ILoyaltyManager
     {
-        private readonly IBoard _board;
         private readonly Dictionary<Piece, int> _loyaltyScores = new Dictionary<Piece, int>();
-
-        public LoyaltyManager(IBoard board)
-        {
-            _board = board;
-        }
-
+        
         // 특정 기물의 충성도를 반환합니다.
         public int GetLoyalty(Piece piece)
         {
@@ -47,7 +41,7 @@ namespace _01.Code.StrategicSystem
                     
                     // 반란 로직: 기물을 보드에서 제거합니다.
                     // (실제 게임에서는 기물 소유주를 바꾸거나, 중립으로 만드는 등의 로직을 구현할 수 있습니다)
-                    _board.RemovePiece(piece);
+                    //_board.RemovePiece(piece);
                 }
             }
         }

@@ -6762,50 +6762,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4160274397291275438, guid: b22137dd8ae8a844bbd1bbcd38181a0f, type: 3}
   m_PrefabInstance: {fileID: 664752887}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &666889739
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 666889740}
-  - component: {fileID: 666889741}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &666889740
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 666889739}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 755355738}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &666889741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 666889739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2aeacdf5ebf45da91a899d86b93ddeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &713952076
 GameObject:
   m_ObjectHideFlags: 0
@@ -7718,11 +7674,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8146805970230794497, guid: b59823fecb8b8524982c92de588b69b5, type: 3}
   m_PrefabInstance: {fileID: 754726396}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &755355738 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5556671066258759705, guid: 9846c41c888b9b24eb087ed260fce499, type: 3}
-  m_PrefabInstance: {fileID: 3398572824024550992}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &756120180
 GameObject:
@@ -19934,6 +19885,10 @@ PrefabInstance:
       propertyPath: nationalPanelOpenButton
       value: 
       objectReference: {fileID: 1120326454}
+    - target: {fileID: 8446428839932546850, guid: 9846c41c888b9b24eb087ed260fce499, type: 3}
+      propertyPath: _nationalUI
+      value: 
+      objectReference: {fileID: 1694342911}
     - target: {fileID: 8538159993398893249, guid: 9846c41c888b9b24eb087ed260fce499, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -19944,10 +19899,7 @@ PrefabInstance:
       objectReference: {fileID: 104676488}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5556671066258759705, guid: 9846c41c888b9b24eb087ed260fce499, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 666889740}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9846c41c888b9b24eb087ed260fce499, type: 3}
 --- !u!114 &3398572824024550993 stripped

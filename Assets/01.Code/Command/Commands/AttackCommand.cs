@@ -5,22 +5,13 @@ namespace Code.Command.Commands
 {
     public class AttackCommand : ICommand
     {
-        private readonly IBoard _board;
         private readonly IBattleResolver _battleResolver;
         private readonly Piece _attacker;
         private readonly Piece _defender;
         private bool _isCompleted = false;
         
         public bool IsComplete => _isCompleted;
-
-        public AttackCommand(IBoard board, IBattleResolver battleResolver, Piece attacker, Piece defender)
-        {
-            _board = board;
-            _battleResolver = battleResolver;
-            _attacker = attacker;
-            _defender = defender;
-        }
-
+        
         public AttackCommand(Piece attacker, Piece defender)
         {
             _attacker = attacker;

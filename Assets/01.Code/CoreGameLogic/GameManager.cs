@@ -36,7 +36,6 @@
 
             public string aaa;
             private bool isGameStarted = false;
-            private IBoard _iBoard;
             private ITurnProcessor _nationalTurnProcessor;
             private ITurnProcessor _pieceTurnProcessor;
             private IWinConditionChecker _winConditionChecker;
@@ -47,9 +46,7 @@
             public SyncVar<PlayerID> currentPlayerId = new();
 
             public SyncVar<Dictionary<PlayerID, PlayerData>> players;
-
-            public IBoard IBoard => _iBoard;
-
+            
             private void Awake()
             {
                 _currentGameState.value = GameState.Paused;
@@ -63,7 +60,6 @@
 
                 DependencyContainer.RegisterSingleton<GameManager, GameManager>(this);
                 
-                _iBoard = DependencyContainer.Get<IBoard>();
                 _nationalTurnProcessor = DependencyContainer.Get<ITurnProcessor>(TurnPhase.NationalTurn);
                 _pieceTurnProcessor = DependencyContainer.Get<ITurnProcessor>(TurnPhase.PieceTurn);
                 _winConditionChecker = DependencyContainer.Get<IWinConditionChecker>();

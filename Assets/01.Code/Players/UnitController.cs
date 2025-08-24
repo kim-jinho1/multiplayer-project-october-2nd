@@ -13,7 +13,6 @@ namespace Code.Players
         [SerializeField] private Camera mainCamera;
         [SerializeField] private GameObject obj;
         private Piece _selectedPiece;
-        private IBoard _board;
 
         private void Start()
         {
