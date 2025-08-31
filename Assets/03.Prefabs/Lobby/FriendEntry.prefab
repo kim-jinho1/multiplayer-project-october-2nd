@@ -216,8 +216,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PurrNet
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 52e3b038b4ab1cd4c84ca67be181282b, type: 2}
-  m_sharedMaterial: {fileID: 5986989879061891329, guid: 52e3b038b4ab1cd4c84ca67be181282b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fdd45acb6774399419416f7ae8e34f6b, type: 2}
+  m_sharedMaterial: {fileID: -4253310636821356543, guid: fdd45acb6774399419416f7ae8e34f6b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
